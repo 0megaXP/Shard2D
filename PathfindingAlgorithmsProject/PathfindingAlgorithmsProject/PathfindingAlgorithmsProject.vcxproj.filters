@@ -13,10 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="File di origine\GameObjects">
+      <UniqueIdentifier>{722411b6-7976-4639-a66f-6ef6ee6e8e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di intestazione\GameObjects">
+      <UniqueIdentifier>{d1a24dc0-42fb-407d-b423-c69883335380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di intestazione\Managers">
+      <UniqueIdentifier>{0005574a-2ff5-4642-a4b9-bf691b349faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di origine\Managers">
+      <UniqueIdentifier>{b415ed2d-da3b-4c63-b737-2fb9983fab08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PathfindingAlgorithmsProject.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>File di origine\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>File di origine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicManager.cpp">
+      <Filter>File di origine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ClockManager.cpp">
+      <Filter>File di origine\Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameObject.h">
+      <Filter>File di intestazione\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>File di intestazione\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicManager.h">
+      <Filter>File di intestazione\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ClockManager.h">
+      <Filter>File di intestazione\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
