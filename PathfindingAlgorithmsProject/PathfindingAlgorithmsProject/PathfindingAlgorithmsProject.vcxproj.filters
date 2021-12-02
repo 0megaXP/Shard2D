@@ -13,17 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="File di origine\GameObjects">
-      <UniqueIdentifier>{722411b6-7976-4639-a66f-6ef6ee6e8e8b}</UniqueIdentifier>
+    <Filter Include="File di intestazione\Framework">
+      <UniqueIdentifier>{859f9961-8ea2-4cba-88e1-6f10d9d149ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="File di intestazione\GameObjects">
-      <UniqueIdentifier>{d1a24dc0-42fb-407d-b423-c69883335380}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="File di intestazione\Managers">
+    <Filter Include="File di intestazione\Framework\Managers">
       <UniqueIdentifier>{0005574a-2ff5-4642-a4b9-bf691b349faf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="File di origine\Managers">
+    <Filter Include="File di intestazione\Framework\GameObjects">
+      <UniqueIdentifier>{d1a24dc0-42fb-407d-b423-c69883335380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di origine\Framework">
+      <UniqueIdentifier>{3af4f767-90b3-4308-89e0-e9a04f702fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di origine\Framework\Managers">
       <UniqueIdentifier>{b415ed2d-da3b-4c63-b737-2fb9983fab08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di origine\Framework\GameObjects">
+      <UniqueIdentifier>{722411b6-7976-4639-a66f-6ef6ee6e8e8b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,30 +37,30 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>File di origine\GameObjects</Filter>
+      <Filter>File di origine\Framework\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
-      <Filter>File di origine\Managers</Filter>
+      <Filter>File di origine\Framework\Managers</Filter>
     </ClCompile>
     <ClCompile Include="GraphicManager.cpp">
-      <Filter>File di origine\Managers</Filter>
+      <Filter>File di origine\Framework\Managers</Filter>
     </ClCompile>
     <ClCompile Include="ClockManager.cpp">
-      <Filter>File di origine\Managers</Filter>
+      <Filter>File di origine\Framework\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
-      <Filter>File di intestazione\GameObjects</Filter>
+      <Filter>File di intestazione\Framework\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>File di intestazione\Managers</Filter>
+      <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
     <ClInclude Include="GraphicManager.h">
-      <Filter>File di intestazione\Managers</Filter>
+      <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
     <ClInclude Include="ClockManager.h">
-      <Filter>File di intestazione\Managers</Filter>
+      <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

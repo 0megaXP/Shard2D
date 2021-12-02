@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 class GraphicManager;
 
@@ -17,6 +18,7 @@ private:
 protected:
 	std::string _name = "";
 	GameObject* _parent = nullptr;
+	std::vector<GameObject*> _children;
 
 	bool _visible = true;
 
@@ -35,5 +37,9 @@ public:
 
 	bool IsVisible() const;
 	void SetVisibility(bool isVisible);
+
+	void AddChild(GameObject* child);
+	void RemoveChild(GameObject* child);
+	void RemoveChildren();
 };
 

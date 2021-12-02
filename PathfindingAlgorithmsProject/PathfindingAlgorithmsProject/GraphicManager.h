@@ -2,6 +2,10 @@
 
 class GraphicManager
 {
+public:
+	GraphicManager();
 
+private:
+	~GraphicManager();
 };
 

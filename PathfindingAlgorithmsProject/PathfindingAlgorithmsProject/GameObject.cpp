@@ -3,6 +3,8 @@
 
 GameObject::GameObject()
 {
+	_parent = nullptr;
+	_children = std::vector<GameObject*>();
 }
 
 GameObject::~GameObject()
@@ -37,10 +39,49 @@ short GameObject::GlobalY() const
 
 bool GameObject::IsVisible() const
 {
-	return _visible;
+	if (_parent != nullptr)
+		return _parent->IsVisible();
+	else
+		return _visible;
+
 }
 
 void GameObject::SetVisibility(bool isVisible)
 {
 	_visible = isVisible;
+}
+
+void GameObject::AddChild(GameObject* child)
+{
+	if (child != nullptr)
+	{
+		_children.push_back(child);
+		child->_parent = this;
+
+		// GraphicManager functions
+	}
+}
+
+void GameObject::RemoveChild(GameObject* child)
+{
+	if (child != nullptr)
+	{
+		int count = 0;
+		for (GameObject* tempChild : _children)
+		{
+			if (tempChild == child)
+			{
+				_children.erase(_children.begin() + count);
+				child->_parent = nullptr;
+				break;
+			}
+			count++;
+		}
+
+		// GraphicManager functions
+	}
+}
+
+void GameObject::RemoveChildren()
+{
 }
