@@ -11,7 +11,7 @@ public:
 	GameObject();
 
 private:
-	~GameObject();
+	virtual ~GameObject();
 
 	friend class GraphicManager;
 

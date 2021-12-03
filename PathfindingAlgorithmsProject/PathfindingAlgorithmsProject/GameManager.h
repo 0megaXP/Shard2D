@@ -1,6 +1,7 @@
 #pragma once
 
 class ClockManager;
+class GraphicManager;
 
 class GameManager
 {
@@ -10,6 +11,10 @@ public:
 
 private:
 	ClockManager* _clockManager;
+	GraphicManager* _graphicManager;
+
+public:
+	bool SetupGame();
 
 };
 
