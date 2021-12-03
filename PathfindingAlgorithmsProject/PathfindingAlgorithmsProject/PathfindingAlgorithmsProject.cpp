@@ -7,15 +7,16 @@
 
 int main(int argc, char** args)
 {
-    std::cout << "Hello World!\n";
-
     GameManager* gameManager = new GameManager();
     if (!gameManager->SetupGame())
     {
+        std::cout << "Failed to load the game!\n";
         return 0;
     }
 
     system("pause");
+
+    // Destroy GraphicManager
 
     return 0;
 }

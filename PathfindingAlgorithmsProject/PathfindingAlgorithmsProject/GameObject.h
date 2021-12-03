@@ -29,11 +29,19 @@ public:
 	short x = 0;
 	short y = 0;
 
-	short GlobalX() const;
-	short GlobalY() const;
+	short a = 1;
 
 	short scaleX = 1;
 	short scaleY = 1;
+
+public:
+	short GlobalX() const;
+	short GlobalY() const;
+
+	short GlobalA() const;
+
+	short GlobalScaleX() const;
+	short GlobalScaleY() const;
 
 	bool IsVisible() const;
 	void SetVisibility(bool isVisible);
@@ -41,5 +49,8 @@ public:
 	void AddChild(GameObject* child);
 	void RemoveChild(GameObject* child);
 	void RemoveChildren();
+
+private:
+	virtual void RenderObject();
 };
 
