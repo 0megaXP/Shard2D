@@ -2,6 +2,7 @@
 
 #include "GraphicManager.h"
 #include "ClockManager.h"
+#include "Managers.h"
 
 GameManager::GameManager()
 {
@@ -11,8 +12,8 @@ GameManager::~GameManager()
 {
 }
 
-bool GameManager::SetupGame()
+void GameManager::SetupGame()
 {
-	_graphicManager = new GraphicManager();
-	return _graphicManager->Init();
+    Managers::graphicManager = new GraphicManager();
+    Managers::clockManager = new ClockManager();
 }

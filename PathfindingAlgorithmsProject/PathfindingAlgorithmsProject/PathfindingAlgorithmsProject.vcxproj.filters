@@ -48,6 +48,9 @@
     <ClCompile Include="ClockManager.cpp">
       <Filter>File di origine\Framework\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Managers.cpp">
+      <Filter>File di origine\Framework\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -60,6 +63,9 @@
       <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
     <ClInclude Include="ClockManager.h">
+      <Filter>File di intestazione\Framework\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers.h">
       <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
   </ItemGroup>

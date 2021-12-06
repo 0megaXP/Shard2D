@@ -4,15 +4,15 @@
 #include <SDL.h>
 
 #include "GameManager.h"
+#include "ClockManager.h"
+#include "GraphicManager.h"
+#include "Managers.h"
 
 int main(int argc, char** args)
 {
-    GameManager* gameManager = new GameManager();
-    if (!gameManager->SetupGame())
-    {
-        std::cout << "Failed to load the game!\n";
-        return 0;
-    }
+    Managers::gameManager = new GameManager();
+
+    Managers::gameManager->SetupGame();
 
     system("pause");
 

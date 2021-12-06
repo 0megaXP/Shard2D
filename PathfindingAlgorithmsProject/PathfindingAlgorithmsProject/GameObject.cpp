@@ -1,11 +1,15 @@
 #include "GameObject.h"
 #include "ClockManager.h"
 #include "GraphicManager.h"
+#include "Managers.h"
 
 GameObject::GameObject()
 {
+	_name = "New Object";
 	_parent = nullptr;
 	_children = std::vector<GameObject*>();
+
+	Managers::graphicManager->ChildRemoved(this);
 }
 
 GameObject::~GameObject()
@@ -22,6 +26,9 @@ GameObject* GameObject::Parent() const
 	return _parent;
 }
 
+/**
+Return the GambeObject's x position on the screen (counting all the parents' x)
+*/
 short GameObject::GlobalX() const
 {
 	if (_parent != nullptr)
@@ -30,6 +37,9 @@ short GameObject::GlobalX() const
 		return x;
 }
 
+/**
+Return the GambeObject's y position on the screen (counting all the parents' y)
+*/
 short GameObject::GlobalY() const
 {
 	if (_parent != nullptr)
@@ -38,6 +48,9 @@ short GameObject::GlobalY() const
 		return y;
 }
 
+/**
+Return the GambeObject's alpha (counting all the parents' alphas)
+*/
 short GameObject::GlobalA() const
 {
 	if (a <= 0 || _parent == nullptr)
@@ -46,6 +59,10 @@ short GameObject::GlobalA() const
 		return a * _parent->GlobalA();
 }
 
+
+/**
+Return the GambeObject's x scale on the screen (counting all the parents' x)
+*/
 short GameObject::GlobalScaleX() const
 {
 	if (_parent != nullptr)
@@ -54,6 +71,9 @@ short GameObject::GlobalScaleX() const
 		return scaleX;
 }
 
+/**
+Return the GambeObject's y scale on the screen (counting all the parents' y)
+*/
 short GameObject::GlobalScaleY() const
 {
 	if (_parent != nullptr)
@@ -62,6 +82,9 @@ short GameObject::GlobalScaleY() const
 		return scaleY;
 }
 
+/**
+Return true if the GameObject has to be rendered (also takes count of scale and alpha)
+*/
 bool GameObject::IsVisible() const
 {
 	if (_parent != nullptr)
@@ -77,17 +100,26 @@ void GameObject::SetVisibility(bool isVisible)
 	_visible = isVisible;
 }
 
+/**
+Set the param GameObject as child of the actual GameObject.
+*/
 void GameObject::AddChild(GameObject* child)
 {
 	if (child != nullptr)
 	{
+		if (child->Parent() != nullptr)
+		{
+			child->Parent()->RemoveChild(child);
+		}
 		_children.push_back(child);
 		child->_parent = this;
-		
-		// GraphicManager functions
+		Managers::graphicManager->ChildAdded(child);
 	}
 }
 
+/**
+Remove the selected child from the GameObject
+*/
 void GameObject::RemoveChild(GameObject* child)
 {
 	if (child != nullptr && _children.capacity() > 0)
@@ -97,28 +129,31 @@ void GameObject::RemoveChild(GameObject* child)
 		{
 			if (tempChild == child)
 			{
-				_children.erase(_children.begin() + count);
 				child->_parent = nullptr;
+				Managers::graphicManager->ChildRemoved(child);
+				_children.erase(_children.begin() + count);
 				break;
 			}
 			count++;
 		}
-
-		// GraphicManager functions
 	}
 }
-
+/**
+Remove all the children from the GameObject
+*/
 void GameObject::RemoveChildren()
 {
 	for (int i = 0; i < _children.capacity(); i++)
 	{
-		_children.erase(_children.begin() + i);
 		_children[i]->_parent = nullptr;
-
-		// GraphicManager functions
+		Managers::graphicManager->ChildRemoved(_children[i]);
+		_children.erase(_children.begin() + i);
 	}
 }
 
+/**
+Function called from the GraphicManager. Run all the function needed to render the GameObject
+*/
 void GameObject::RenderObject()
 {
 	// Overridable function

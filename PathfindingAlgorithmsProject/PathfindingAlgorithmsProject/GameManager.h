@@ -9,12 +9,10 @@ public:
 	GameManager();
 	~GameManager();
 
-private:
-	ClockManager* _clockManager;
-	GraphicManager* _graphicManager;
+//private:
 
 public:
-	bool SetupGame();
+	void SetupGame();
 
 };
 

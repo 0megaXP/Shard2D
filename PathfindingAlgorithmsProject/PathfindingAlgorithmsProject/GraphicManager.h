@@ -13,20 +13,23 @@ public:
 private:
 	~GraphicManager();
 
-	SDL_Window* window;
-	SDL_Surface* winSurface;
+	SDL_Window* _window;
+	SDL_Surface* _winSurface;
 
 	std::vector<GameObject*> _stagedObjects;
 
 	std::vector<GameObject*> _unusedObjects;
 
 public:
-	bool Init();
+	void AddObjectToStage(GameObject* object);
+	void RemoveObjectFromStage(GameObject* object);
 
-	static void AddObjectToStage(GameObject* object);
-	static void RemoveObjectFromStage(GameObject* object);
+	void ChildAdded(GameObject* child);
+	void ChildRemoved(GameObject* child);
 
 private:
+	void Init();
+
 	void SetObjectUnused(GameObject* object);
 	void UnsetObjectUnused(GameObject* object);
 };
