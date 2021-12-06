@@ -9,10 +9,16 @@ public:
 	GameManager();
 	~GameManager();
 
-//private:
+private:
+	bool _updating = false;
+	bool _exitGame = false;
 
 public:
 	void SetupGame();
 
+	void ExitGame();
+	bool GetExitGame();
+
+	void GameUpdate();
 };
 

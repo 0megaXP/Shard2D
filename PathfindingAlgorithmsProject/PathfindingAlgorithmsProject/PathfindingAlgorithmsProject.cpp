@@ -14,7 +14,12 @@ int main(int argc, char** args)
 
     Managers::gameManager->SetupGame();
 
-    system("pause");
+    while (!Managers::gameManager->GetExitGame())
+    {
+        Managers::gameManager->GameUpdate();
+    }
+
+    //system("pause");
 
     // Destroy GraphicManager
 
