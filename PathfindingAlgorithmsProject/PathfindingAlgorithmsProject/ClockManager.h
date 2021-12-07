@@ -6,12 +6,13 @@ public:
 	~ClockManager();
 
 private:
-	static float _deltaTime;
+	float _deltaTime = 0;
 	float _currentTick = 0;
 	float _previousTick = 0;
 
 public:
-	static float GetDeltaTime();
+	float GetDeltaTime();
+	float GetDeltaTimeMS();
 	void UpdateDeltaTime();
 };
 

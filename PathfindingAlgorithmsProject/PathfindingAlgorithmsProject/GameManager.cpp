@@ -1,5 +1,7 @@
 #include "GameManager.h"
 
+#include <iostream>
+
 #include "GraphicManager.h"
 #include "ClockManager.h"
 #include "Managers.h"
@@ -45,8 +47,8 @@ void GameManager::GameUpdate()
         // Logic update
 
         // Graphic update
-    }
-    _updating = false;
 
-    SDL_Delay(Managers::clockManager->GetDeltaTime());
+        _updating = false;
+    }
+
 }
