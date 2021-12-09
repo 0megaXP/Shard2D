@@ -5,8 +5,7 @@
 
 ClockManager::ClockManager()
 {
-    _currentTick = 0;
-    _previousTick = SDL_GetTicks();
+    NewFrame();
     _deltaTime = 0;
 }
 
@@ -32,19 +31,23 @@ float ClockManager::GetDeltaTimeMS()
  */
 void ClockManager::UpdateDeltaTime()
 {
-    if (SDL_GetTicks() != _previousTick)
-    {
-        _previousTick = _currentTick;
-        _currentTick = SDL_GetTicks();
-        _deltaTime = _currentTick - _previousTick;
+    _deltaTime = SDL_GetTicks() - _startTick;
 
-        //std::cout << "FPS: " << ((1 / _deltaTime) * 1000) << "\n";
-        //std::cout << "Previous time: " << _previousTick << "\n";
-        //std::cout << "Current time: " << _currentTick << "\n";
-        //std::cout << "Delta time: " << GetDeltaTimeMS() << "\n";
-    }
-    else
-    {
-        std::cout << "Wrong delta update! \n";
-    }
+    std::cout << "FPS: " << ((1 / _deltaTime) * 1000) << "\n";
+    //std::cout << "Previous time: " << _previousTick << "\n";
+    //std::cout << "Current time: " << _currentTick << "\n";
+    //std::cout << "Delta time: " << GetDeltaTimeMS() << "\n";
+}
+
+void ClockManager::NewFrame()
+{
+    _startTick = SDL_GetTicks();
+    _startFrameCounter = SDL_GetPerformanceCounter();
+}
+
+void ClockManager::ManageFramesCap()
+{
+    float elapsedMS = (SDL_GetPerformanceCounter() - _startFrameCounter) / (float)SDL_GetPerformanceFrequency() * 1000.0f;
+
+    SDL_Delay(floor((1000 / _frameRateCap) - elapsedMS));
 }

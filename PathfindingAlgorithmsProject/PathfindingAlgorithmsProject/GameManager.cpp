@@ -40,7 +40,7 @@ void GameManager::GameUpdate()
         _updating = true;
 
         // Clock update
-        Managers::clockManager->UpdateDeltaTime();
+        Managers::clockManager->NewFrame();
 
         // Events update
 
@@ -48,6 +48,8 @@ void GameManager::GameUpdate()
 
         // Graphic update
 
+        Managers::clockManager->ManageFramesCap();
+        Managers::clockManager->UpdateDeltaTime();
         _updating = false;
     }
 
