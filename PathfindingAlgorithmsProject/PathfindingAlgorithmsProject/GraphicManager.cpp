@@ -17,6 +17,9 @@ GraphicManager::GraphicManager()
 
 GraphicManager::~GraphicManager()
 {
+	// Destroy the app window and call the SDL destructor
+	SDL_DestroyWindow(_window);
+	SDL_Quit();
 }
 
 void GraphicManager::Init()
@@ -42,6 +45,11 @@ void GraphicManager::Init()
 		std::cout << "Error getting surface: " << SDL_GetError() << std::endl;
 		system("pause");
 		return;
+	}
+
+	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
+	{
+		std::cout << "Error initializing SDL_image with png: " << IMG_GetError << std::endl;
 	}
 
 	// Set the background color
@@ -124,4 +132,7 @@ void GraphicManager::UnsetObjectUnused(GameObject* object)
 
 void GraphicManager::RenderScene()
 {
+
+	// Refresh the window for all the new objects to render
+	SDL_UpdateWindowSurface(_window);
 }

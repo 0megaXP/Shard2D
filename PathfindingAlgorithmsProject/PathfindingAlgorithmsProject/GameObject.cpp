@@ -3,6 +3,8 @@
 #include "GraphicManager.h"
 #include "Managers.h"
 
+#include <iostream>
+
 GameObject::GameObject()
 {
 	_name = "New Object";
@@ -152,14 +154,10 @@ void GameObject::RemoveChildren()
 }
 
 /**
-Function called from the GraphicManager. Run all the function needed to render the GameObject
+Function called from the GraphicManager. Return the image to render
 */
-void GameObject::RenderObject()
+Image* GameObject::GetRenderingImage()
 {
-	// Overridable function
-
-	for (GameObject* child : _children)
-	{
-		child->RenderObject();
-	}
+	std::cout << "GameObject Image null" << std::endl;
+	return nullptr;
 }

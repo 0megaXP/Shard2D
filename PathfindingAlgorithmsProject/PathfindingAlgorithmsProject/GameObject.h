@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "Image.h"
 
 class GraphicManager;
 
@@ -10,12 +11,11 @@ class GameObject
 public:
 	GameObject();
 
-private:
+protected:
 	virtual ~GameObject();
 
 	friend class GraphicManager;
 
-protected:
 	std::string _name = "";
 	GameObject* _parent = nullptr;
 	std::vector<GameObject*> _children;
@@ -50,7 +50,7 @@ public:
 	void RemoveChild(GameObject* child);
 	void RemoveChildren();
 
-private:
-	virtual void RenderObject();
+protected:
+	virtual Image* GetRenderingImage();
 };
 

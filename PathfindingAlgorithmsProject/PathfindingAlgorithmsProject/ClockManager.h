@@ -16,7 +16,7 @@ private:
 	float _deltaTime = 0;
 	float _startTick = 0;
 
-	int _frameRateCap = 240;
+	int _frameRateCap = 60;
 	uint64_t _startFrameCounter;
 
 public:

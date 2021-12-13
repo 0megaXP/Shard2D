@@ -31,6 +31,12 @@
     <Filter Include="File di origine\Framework\GameObjects">
       <UniqueIdentifier>{722411b6-7976-4639-a66f-6ef6ee6e8e8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="File di intestazione\Framework\GameObjects\ObjectUtils">
+      <UniqueIdentifier>{44fc1b20-5d23-4b18-9fff-df77b1a2d10c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di origine\Framework\GameObjects\ObjectUtils">
+      <UniqueIdentifier>{de4be354-bc25-4b9b-8ee0-132a781b0720}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PathfindingAlgorithmsProject.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="Managers.cpp">
       <Filter>File di origine\Framework\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>File di origine\Framework\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetsManager.cpp">
+      <Filter>File di origine\Framework\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -66,6 +78,15 @@
       <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Managers.h">
+      <Filter>File di intestazione\Framework\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>File di intestazione\Framework\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetsManager.h">
       <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
   </ItemGroup>
