@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <SDL_image.h>
 #include <vector>
 
 class GameObject;
@@ -20,6 +21,8 @@ private:
 
 	std::vector<GameObject*> _unusedObjects;
 
+	friend class GameManager;
+
 public:
 	void AddObjectToStage(GameObject* object);
 	void RemoveObjectFromStage(GameObject* object);
@@ -32,5 +35,7 @@ private:
 
 	void SetObjectUnused(GameObject* object);
 	void UnsetObjectUnused(GameObject* object);
+
+	void RenderScene();
 };
 

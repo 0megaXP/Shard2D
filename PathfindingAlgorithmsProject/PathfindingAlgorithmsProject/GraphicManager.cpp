@@ -121,3 +121,7 @@ void GraphicManager::UnsetObjectUnused(GameObject* object)
 		count++;
 	}
 }
+
+void GraphicManager::RenderScene()
+{
+}

@@ -47,6 +47,7 @@ void GameManager::GameUpdate()
         // Logic update
 
         // Graphic update
+        Managers::graphicManager->RenderScene();
 
         Managers::clockManager->ManageFramesCap();
         Managers::clockManager->UpdateDeltaTime();

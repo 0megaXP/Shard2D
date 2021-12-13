@@ -157,4 +157,9 @@ Function called from the GraphicManager. Run all the function needed to render t
 void GameObject::RenderObject()
 {
 	// Overridable function
+
+	for (GameObject* child : _children)
+	{
+		child->RenderObject();
+	}
 }
