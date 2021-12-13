@@ -33,7 +33,7 @@ void ClockManager::UpdateDeltaTime()
 {
     _deltaTime = SDL_GetTicks() - _startTick;
 
-    std::cout << "FPS: " << ((1 / _deltaTime) * 1000) << "\n";
+    //std::cout << "FPS: " << ((1 / _deltaTime) * 1000) << "\n";
     //std::cout << "Previous time: " << _previousTick << "\n";
     //std::cout << "Current time: " << _currentTick << "\n";
     //std::cout << "Delta time: " << GetDeltaTimeMS() << "\n";

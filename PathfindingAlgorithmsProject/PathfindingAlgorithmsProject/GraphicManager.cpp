@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "Managers.h"
+#include "AssetsManager.h"
 #include "GameObject.h"
 
 GraphicManager::GraphicManager()
@@ -132,7 +134,7 @@ void GraphicManager::UnsetObjectUnused(GameObject* object)
 
 void GraphicManager::RenderScene()
 {
-
+	
 	// Refresh the window for all the new objects to render
 	SDL_UpdateWindowSurface(_window);
 }

@@ -4,6 +4,7 @@
 
 #include "GraphicManager.h"
 #include "ClockManager.h"
+#include "AssetsManager.h"
 #include "Managers.h"
 #include "GameObject.h"
 
@@ -19,6 +20,7 @@ void GameManager::SetupGame()
 {
     Managers::graphicManager = new GraphicManager();
     Managers::clockManager = new ClockManager();
+    Managers::assetsManager = new AssetsManager();
 
     Managers::graphicManager->AddObjectToStage(new GameObject());
 }

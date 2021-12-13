@@ -1,17 +1,18 @@
 #pragma once
 
 #include <string>
+#include <SDL_surface.h>
 
 struct Image
 {
 public:
-	Image(std::string path) { _path = path; };
+	Image(SDL_Surface* newSurface) { _surface = newSurface; };
+
+	~Image() { SDL_FreeSurface(_surface); };
 
 private:
-	std::string _path;
+	SDL_Surface* _surface;
 
 	friend class GraphicManager;
-
-	Image* _image;
 };
 
