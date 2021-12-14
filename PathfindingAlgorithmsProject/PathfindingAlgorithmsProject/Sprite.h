@@ -2,7 +2,7 @@
 
 #include "GameObject.h"
 
-class Sprite : GameObject
+class Sprite : public GameObject
 {
 public:
 	Sprite();

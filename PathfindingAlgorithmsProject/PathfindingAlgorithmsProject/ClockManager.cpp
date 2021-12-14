@@ -47,7 +47,7 @@ void ClockManager::NewFrame()
 
 void ClockManager::ManageFramesCap()
 {
-    float elapsedMS = (SDL_GetPerformanceCounter() - _startFrameCounter) / (float)SDL_GetPerformanceFrequency() * 1000.0f;
+    float elapsedMS = (SDL_GetPerformanceCounter() - _startFrameCounter) / SDL_GetPerformanceFrequency() * 1000.0f;
 
     SDL_Delay(floor((1000 / _frameRateCap) - elapsedMS));
 }

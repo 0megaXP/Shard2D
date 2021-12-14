@@ -37,6 +37,12 @@
     <Filter Include="File di origine\Framework\GameObjects\ObjectUtils">
       <UniqueIdentifier>{de4be354-bc25-4b9b-8ee0-132a781b0720}</UniqueIdentifier>
     </Filter>
+    <Filter Include="File di origine\Applicaation">
+      <UniqueIdentifier>{04142f6a-3dd4-4efe-9758-f6f0d54d001f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di intestazione\Application">
+      <UniqueIdentifier>{1f6d9a12-c83e-40e1-91d9-b1dd12f5b6a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PathfindingAlgorithmsProject.cpp">
@@ -63,6 +69,12 @@
     <ClCompile Include="AssetsManager.cpp">
       <Filter>File di origine\Framework\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjectsManager.cpp">
+      <Filter>File di origine\Framework\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplicationMain.cpp">
+      <Filter>File di origine\Applicaation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -88,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="AssetsManager.h">
       <Filter>File di intestazione\Framework\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectsManager.h">
+      <Filter>File di intestazione\Framework\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationMain.h">
+      <Filter>File di intestazione\Application</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

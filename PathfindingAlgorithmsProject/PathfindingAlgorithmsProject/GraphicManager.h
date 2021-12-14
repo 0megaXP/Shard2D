@@ -17,24 +17,12 @@ private:
 	SDL_Window* _window;
 	SDL_Surface* _winSurface;
 
-	std::vector<GameObject*> _stagedObjects;
-
-	std::vector<GameObject*> _unusedObjects;
-
 	friend class GameManager;
-
-public:
-	void AddObjectToStage(GameObject* object);
-	void RemoveObjectFromStage(GameObject* object);
-
-	void ChildAdded(GameObject* child);
-	void ChildRemoved(GameObject* child);
 
 private:
 	void Init();
 
-	void SetObjectUnused(GameObject* object);
-	void UnsetObjectUnused(GameObject* object);
+	void RenderObject(GameObject* object);
 
 	void RenderScene();
 };

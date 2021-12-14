@@ -2,6 +2,7 @@
 
 class ClockManager;
 class GraphicManager;
+class ApplicationMain;
 
 class GameManager
 {
@@ -12,6 +13,8 @@ public:
 private:
 	bool _updating = false;
 	bool _exitGame = false;
+
+	ApplicationMain* appMain;
 
 public:
 	void SetupGame();

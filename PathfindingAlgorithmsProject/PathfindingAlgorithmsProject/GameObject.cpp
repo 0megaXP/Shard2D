@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "ClockManager.h"
 #include "GraphicManager.h"
+#include "GameObjectsManager.h"
 #include "Managers.h"
 
 #include <iostream>
@@ -11,7 +12,7 @@ GameObject::GameObject()
 	_parent = nullptr;
 	_children = std::vector<GameObject*>();
 
-	Managers::graphicManager->ChildRemoved(this);
+	Managers::gameObjectsManager->ChildRemoved(this);
 }
 
 GameObject::~GameObject()
@@ -53,7 +54,7 @@ short GameObject::GlobalY() const
 /**
 Return the GambeObject's alpha (counting all the parents' alphas)
 */
-short GameObject::GlobalA() const
+float GameObject::GlobalA() const
 {
 	if (a <= 0 || _parent == nullptr)
 		return a;
@@ -65,7 +66,7 @@ short GameObject::GlobalA() const
 /**
 Return the GambeObject's x scale on the screen (counting all the parents' x)
 */
-short GameObject::GlobalScaleX() const
+float GameObject::GlobalScaleX() const
 {
 	if (_parent != nullptr)
 		return scaleX * _parent->GlobalScaleX();
@@ -76,7 +77,7 @@ short GameObject::GlobalScaleX() const
 /**
 Return the GambeObject's y scale on the screen (counting all the parents' y)
 */
-short GameObject::GlobalScaleY() const
+float GameObject::GlobalScaleY() const
 {
 	if (_parent != nullptr)
 		return scaleY * _parent->GlobalScaleY();
@@ -115,7 +116,7 @@ void GameObject::AddChild(GameObject* child)
 		}
 		_children.push_back(child);
 		child->_parent = this;
-		Managers::graphicManager->ChildAdded(child);
+		Managers::gameObjectsManager->ChildAdded(child);
 	}
 }
 
@@ -132,7 +133,7 @@ void GameObject::RemoveChild(GameObject* child)
 			if (tempChild == child)
 			{
 				child->_parent = nullptr;
-				Managers::graphicManager->ChildRemoved(child);
+				Managers::gameObjectsManager->ChildRemoved(child);
 				_children.erase(_children.begin() + count);
 				break;
 			}
@@ -148,7 +149,7 @@ void GameObject::RemoveChildren()
 	for (int i = 0; i < _children.capacity(); i++)
 	{
 		_children[i]->_parent = nullptr;
-		Managers::graphicManager->ChildRemoved(_children[i]);
+		Managers::gameObjectsManager->ChildRemoved(_children[i]);
 		_children.erase(_children.begin() + i);
 	}
 }
@@ -160,4 +161,16 @@ Image* GameObject::GetRenderingImage()
 {
 	std::cout << "GameObject Image null" << std::endl;
 	return nullptr;
+}
+
+void GameObject::Init()
+{
+}
+
+void GameObject::Start()
+{
+}
+
+void GameObject::Update()
+{
 }

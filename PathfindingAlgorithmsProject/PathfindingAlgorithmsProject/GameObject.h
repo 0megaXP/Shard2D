@@ -15,6 +15,8 @@ protected:
 	virtual ~GameObject();
 
 	friend class GraphicManager;
+	friend class GameObjectsManager;
+	friend class GameManager;
 
 	std::string _name = "";
 	GameObject* _parent = nullptr;
@@ -29,19 +31,19 @@ public:
 	short x = 0;
 	short y = 0;
 
-	short a = 1;
+	float a = 1;
 
-	short scaleX = 1;
-	short scaleY = 1;
+	float scaleX = 1;
+	float scaleY = 1;
 
 public:
 	short GlobalX() const;
 	short GlobalY() const;
 
-	short GlobalA() const;
+	float GlobalA() const;
 
-	short GlobalScaleX() const;
-	short GlobalScaleY() const;
+	float GlobalScaleX() const;
+	float GlobalScaleY() const;
 
 	bool IsVisible() const;
 	void SetVisibility(bool isVisible);
@@ -52,5 +54,11 @@ public:
 
 protected:
 	virtual Image* GetRenderingImage();
+
+	virtual void Init();
+
+	virtual void Start();
+
+	virtual void Update();
 };
 

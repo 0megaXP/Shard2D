@@ -5,8 +5,11 @@
 #include "GraphicManager.h"
 #include "ClockManager.h"
 #include "AssetsManager.h"
+#include "GameObjectsManager.h"
 #include "Managers.h"
 #include "GameObject.h"
+#include "ApplicationMain.h"
+#include <SDL_events.h>
 
 GameManager::GameManager()
 {
@@ -21,8 +24,9 @@ void GameManager::SetupGame()
     Managers::graphicManager = new GraphicManager();
     Managers::clockManager = new ClockManager();
     Managers::assetsManager = new AssetsManager();
+    Managers::gameObjectsManager = new GameObjectsManager();
 
-    Managers::graphicManager->AddObjectToStage(new GameObject());
+    appMain = new ApplicationMain();
 }
 
 void GameManager::ExitGame()
@@ -37,23 +41,18 @@ bool GameManager::GetExitGame()
 
 void GameManager::GameUpdate()
 {
-    if (!_updating)
-    {
-        _updating = true;
 
-        // Clock update
-        Managers::clockManager->NewFrame();
+    // Clock update
+    Managers::clockManager->NewFrame();
 
-        // Events update
+    // Events update
 
-        // Logic update
+    // Logic update
+    appMain->Update();
 
-        // Graphic update
-        Managers::graphicManager->RenderScene();
+    // Graphic update
+    Managers::graphicManager->RenderScene();
 
-        Managers::clockManager->ManageFramesCap();
-        Managers::clockManager->UpdateDeltaTime();
-        _updating = false;
-    }
-
+    Managers::clockManager->ManageFramesCap();
+    Managers::clockManager->UpdateDeltaTime();
 }

@@ -4,15 +4,14 @@
 
 #include "Managers.h"
 #include "AssetsManager.h"
+#include "GameObjectsManager.h"
 #include "GameObject.h"
+#include "Image.h"
 
 GraphicManager::GraphicManager()
 {
 	_window = nullptr;
 	_winSurface = nullptr;
-
-	_stagedObjects = std::vector<GameObject*>();
-	_unusedObjects = std::vector<GameObject*>();
 
 	Init();
 }
@@ -60,81 +59,40 @@ void GraphicManager::Init()
 	return;
 }
 
-void GraphicManager::AddObjectToStage(GameObject* object)
+void GraphicManager::RenderObject(GameObject* object)
 {
-	_stagedObjects.push_back(object);
-	UnsetObjectUnused(object);
-	if (object->Parent() != nullptr)
+	if (object->IsVisible())
 	{
-		object->_parent->RemoveChild(object);
-	}
+		Image* objectSurface = object->GetRenderingImage();
 
-	for (GameObject* child : object->_children)
-	{
-		UnsetObjectUnused(child);
-	}
+		SDL_Rect tempRect = SDL_Rect();
+		tempRect.x = object->GlobalX();
+		tempRect.y = object->GlobalY();
 
-}
+		tempRect.w = object->GlobalScaleX() * objectSurface->_surface->w;
+		tempRect.h = object->GlobalScaleY() * objectSurface->_surface->h;
+		
+		// TODO alpha management
 
-void GraphicManager::RemoveObjectFromStage(GameObject* object)
-{
-	int count = 0;
-	for (GameObject* stagedObject : _stagedObjects)
-	{
-		if (object == stagedObject)
+		SDL_BlitScaled(objectSurface->_surface, NULL, _winSurface, &tempRect);
+
+		for (GameObject* child : object->_children)
 		{
-			_stagedObjects.erase(_stagedObjects.begin() + count);
-			SetObjectUnused(object);
-			for (GameObject* child : object->_children)
-			{
-				SetObjectUnused(child);
-			}
-			return;
+			RenderObject(object);
 		}
-		count++;
-	}
-}
-
-void GraphicManager::ChildAdded(GameObject* child)
-{
-	UnsetObjectUnused(child);
-}
-
-void GraphicManager::ChildRemoved(GameObject* child)
-{
-	SetObjectUnused(child);
-}
-
-void GraphicManager::SetObjectUnused(GameObject* object)
-{
-	// Check if the object to add is already unused
-	for (GameObject* unusedObject : _unusedObjects)
-	{
-		if (unusedObject == object)
-			return;
-	}
-
-	_unusedObjects.push_back(object);
-}
-
-void GraphicManager::UnsetObjectUnused(GameObject* object)
-{
-	int count = 0;
-	for (GameObject* unusedObject : _unusedObjects)
-	{
-		if (unusedObject == object)
-		{
-			_unusedObjects.erase(_unusedObjects.begin() + count);
-			return;
-		}
-
-		count++;
 	}
 }
 
 void GraphicManager::RenderScene()
 {
-	
+	// Refresh the screen
+	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
+
+	for (GameObject* object : Managers::gameObjectsManager->_stagedObjects)
+	{
+		RenderObject(object);
+	}
+
 	// Refresh the window for all the new objects to render
 	SDL_UpdateWindowSurface(_window);
 }

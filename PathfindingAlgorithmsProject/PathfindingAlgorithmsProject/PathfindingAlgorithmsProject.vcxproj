@@ -151,20 +151,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ApplicationMain.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="ClockManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectsManager.cpp" />
     <ClCompile Include="GraphicManager.cpp" />
     <ClCompile Include="Managers.cpp" />
     <ClCompile Include="PathfindingAlgorithmsProject.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ApplicationMain.h" />
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="ClockManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectsManager.h" />
     <ClInclude Include="GraphicManager.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Managers.h" />
