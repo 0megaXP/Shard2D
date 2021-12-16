@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+import MathUtils;
 GameObject::GameObject()
 {
 	_name = "New Object";
@@ -57,9 +58,9 @@ Return the GambeObject's alpha (counting all the parents' alphas)
 float GameObject::GlobalA() const
 {
 	if (a <= 0 || _parent == nullptr)
-		return a;
+		return Clamp01(a);
 	else
-		return a * _parent->GlobalA();
+		return Clamp01(a * _parent->GlobalA());
 }
 
 

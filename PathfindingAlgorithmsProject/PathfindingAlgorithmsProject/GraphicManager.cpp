@@ -1,6 +1,8 @@
 #include "GraphicManager.h"
 
 #include <iostream>
+#include <SDL_image.h>
+#include <SDL.h>
 
 #include "Managers.h"
 #include "AssetsManager.h"
@@ -73,12 +75,13 @@ void GraphicManager::RenderObject(GameObject* object)
 		tempRect.h = object->GlobalScaleY() * objectSurface->_surface->h;
 		
 		// TODO alpha management
+		SDL_SetSurfaceAlphaMod(objectSurface->_surface, (object->GlobalA() * 255));
 
 		SDL_BlitScaled(objectSurface->_surface, NULL, _winSurface, &tempRect);
 
 		for (GameObject* child : object->_children)
 		{
-			RenderObject(object);
+			RenderObject(child);
 		}
 	}
 }

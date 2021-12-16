@@ -21,6 +21,5 @@ Sprite::~Sprite()
 
 Image* Sprite::GetRenderingImage()
 {
-	std::cout << "Sprite Image returned" << std::endl;
 	return _image;
 }

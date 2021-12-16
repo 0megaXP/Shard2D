@@ -14,8 +14,15 @@ void ApplicationMain::Start()
 	sprite->scaleY = 0.5;
     sprite->x = 200;
     sprite->y = 200;
-    sprite->a = 0.5;
-	
+    sprite->a = 1;
+
+    childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Doge.png"));
+
+
+    childSprite->scaleX = 0.25;
+    childSprite->scaleY = 0.25;
+    sprite->AddChild(childSprite);
+    childSprite->a = 0.25;
 }
 
 void ApplicationMain::Update()

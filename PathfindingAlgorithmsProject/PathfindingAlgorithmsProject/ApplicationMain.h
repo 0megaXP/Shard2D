@@ -20,5 +20,6 @@ private:
 	void Update();
 
 	Sprite* sprite;
+	Sprite* childSprite;
 };
 
