@@ -17,11 +17,11 @@ int main(int argc, char** args)
     while (!Managers::gameManager->GetExitGame())
     {
         Managers::gameManager->GameUpdate();
-        SDL_Delay(10);
+        //SDL_Delay(10);
     }
 
     //system("pause");
-
+    // 
     // Destroy GraphicManager
 
     return 0;

@@ -74,7 +74,6 @@ void GraphicManager::RenderObject(GameObject* object)
 		tempRect.w = object->GlobalScaleX() * objectSurface->_surface->w;
 		tempRect.h = object->GlobalScaleY() * objectSurface->_surface->h;
 		
-		// TODO alpha management
 		SDL_SetSurfaceAlphaMod(objectSurface->_surface, (object->GlobalA() * 255));
 
 		SDL_BlitScaled(objectSurface->_surface, NULL, _winSurface, &tempRect);

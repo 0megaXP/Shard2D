@@ -10,9 +10,11 @@ AssetsManager::~AssetsManager()
 {
 }
 
+/**
+Create an Image containing the .png found through the path given.
+*/
 Image* AssetsManager::GetImagePNG(const char path[])
 {
-	std::cout << path << std::endl;
 	SDL_Surface* newSurface = IMG_Load(path);
 	Image* newImage = new Image(newSurface);
 	return newImage;

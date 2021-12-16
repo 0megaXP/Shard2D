@@ -13,6 +13,9 @@ GameObjectsManager::~GameObjectsManager()
 {
 }
 
+/**
+Add the GameObject to the stage (the first rendered layer).
+*/
 void GameObjectsManager::AddObjectToStage(GameObject* object)
 {
 	_stagedObjects.push_back(object);
@@ -29,6 +32,9 @@ void GameObjectsManager::AddObjectToStage(GameObject* object)
 
 }
 
+/**
+Remove the GameObject from the stage.
+*/
 void GameObjectsManager::RemoveObjectFromStage(GameObject* object)
 {
 	int count = 0;
