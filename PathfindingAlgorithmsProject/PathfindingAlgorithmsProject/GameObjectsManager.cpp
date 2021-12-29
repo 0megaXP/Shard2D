@@ -3,10 +3,9 @@
 #include "GameObject.h"
 
 GameObjectsManager::GameObjectsManager()
+	: _stagedObjects(std::vector<GameObject*>()), _unusedObjects(std::vector<GameObject*>())
 {
 
-	_stagedObjects = std::vector<GameObject*>();
-	_unusedObjects = std::vector<GameObject*>();
 }
 
 GameObjectsManager::~GameObjectsManager()

@@ -4,9 +4,9 @@
 #include <iostream>
 
 ClockManager::ClockManager()
+    : _deltaTime(0)
 {
     NewFrame();
-    _deltaTime = 0;
 }
 
 ClockManager::~ClockManager()

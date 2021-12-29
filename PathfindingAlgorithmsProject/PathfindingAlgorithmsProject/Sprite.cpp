@@ -4,13 +4,15 @@
 
 
 Sprite::Sprite()
+	: _image(nullptr)
 {
-	_image = nullptr;
+
 }
 
 Sprite::Sprite(Image* newImage)
+	: _image(newImage)
 {
-	_image = newImage;
+
 }
 
 Sprite::~Sprite()

@@ -11,10 +11,8 @@
 #include "Image.h"
 
 GraphicManager::GraphicManager()
+	: _window(nullptr), _winSurface(nullptr)
 {
-	_window = nullptr;
-	_winSurface = nullptr;
-
 	Init();
 }
 

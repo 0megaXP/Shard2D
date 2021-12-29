@@ -8,11 +8,8 @@
 
 import MathUtils;
 GameObject::GameObject()
+	: _name("New Object"), _parent(nullptr), _children(std::vector<GameObject*>())
 {
-	_name = "New Object";
-	_parent = nullptr;
-	_children = std::vector<GameObject*>();
-
 	Managers::gameObjectsManager->ChildRemoved(this);
 }
 

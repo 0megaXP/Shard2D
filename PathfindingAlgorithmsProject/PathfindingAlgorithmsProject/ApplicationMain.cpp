@@ -16,13 +16,13 @@ void ApplicationMain::Start()
     sprite->y = 200;
     sprite->a = 1;
 
-    childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Doge.png"));
+    childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));
 
 
-    childSprite->scaleX = 0.25;
-    childSprite->scaleY = 0.25;
+    childSprite->scaleX = 0.5;
+    childSprite->scaleY = 0.5;
     sprite->AddChild(childSprite);
-    childSprite->a = 0.25;
+    childSprite->a = 1;
 }
 
 void ApplicationMain::Update()
