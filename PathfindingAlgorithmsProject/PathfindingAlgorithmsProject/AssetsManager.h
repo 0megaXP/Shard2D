@@ -8,8 +8,6 @@ class AssetsManager
 {
 public: 
 	AssetsManager();
-
-protected:
 	~AssetsManager();
 
 public:

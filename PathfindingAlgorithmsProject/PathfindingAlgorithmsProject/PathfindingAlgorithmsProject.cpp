@@ -10,19 +10,18 @@
 
 int main(int argc, char** args)
 {
-    Managers::gameManager = new GameManager();
-
     Managers::gameManager->SetupGame();
 
     while (!Managers::gameManager->GetExitGame())
     {
         Managers::gameManager->GameUpdate();
-        //SDL_Delay(10);
     }
 
-    //system("pause");
-    // 
-    // Destroy GraphicManager
+    delete Managers::gameManager;
+    delete Managers::assetsManager;
+    delete Managers::gameObjectsManager;
+    delete Managers::clockManager;
+    delete Managers::graphicManager;
 
     return 0;
 }

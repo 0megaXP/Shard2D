@@ -1,7 +1,13 @@
 #include "Managers.h"
 
-GameManager *Managers::gameManager = nullptr;
-ClockManager *Managers::clockManager = nullptr;
-GraphicManager *Managers::graphicManager = nullptr;
-AssetsManager *Managers::assetsManager = nullptr;
-GameObjectsManager *Managers::gameObjectsManager = nullptr;
+#include "GameManager.h"
+#include "GraphicManager.h"
+#include "ClockManager.h"
+#include "AssetsManager.h"
+#include "GameObjectsManager.h"
+
+GameManager* const Managers::gameManager = new GameManager();
+ClockManager* const Managers::clockManager = new ClockManager();
+GraphicManager* const Managers::graphicManager = new GraphicManager();
+AssetsManager* const Managers::assetsManager = new AssetsManager();
+GameObjectsManager* const Managers::gameObjectsManager = new GameObjectsManager();

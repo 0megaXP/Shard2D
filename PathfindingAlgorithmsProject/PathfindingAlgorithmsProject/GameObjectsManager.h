@@ -8,8 +8,6 @@ class GameObjectsManager
 {
 public:
 	GameObjectsManager();
-
-protected:
 	~GameObjectsManager();
 
 	friend class GraphicManager;

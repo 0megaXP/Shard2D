@@ -10,8 +10,6 @@ class GraphicManager
 {
 public:
 	GraphicManager();
-
-private:
 	~GraphicManager();
 
 	SDL_Window* _window;

@@ -123,7 +123,7 @@ Remove the selected child from the GameObject
 */
 void GameObject::RemoveChild(GameObject* child)
 {
-	if (child != nullptr && _children.capacity() > 0)
+	if (child != nullptr && _children.size() > 0)
 	{
 		int count = 0;
 		for (GameObject* tempChild : _children)
@@ -144,7 +144,7 @@ Remove all the children from the GameObject
 */
 void GameObject::RemoveChildren()
 {
-	for (int i = 0; i < _children.capacity(); i++)
+	for (int i = 0; i < _children.size(); i++)
 	{
 		_children[i]->_parent = nullptr;
 		Managers::gameObjectsManager->ChildRemoved(_children[i]);

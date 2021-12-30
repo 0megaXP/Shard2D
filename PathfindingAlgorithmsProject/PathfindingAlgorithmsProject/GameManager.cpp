@@ -1,6 +1,7 @@
 #include "GameManager.h"
 
 #include <iostream>
+#include <memory>
 
 #include "GraphicManager.h"
 #include "ClockManager.h"
@@ -13,19 +14,16 @@
 
 GameManager::GameManager()
 {
+    std::cout << "GameManager created!" << std::endl;
 }
 
 GameManager::~GameManager()
 {
+    std::cout << "GameManager destroyed!" << std::endl;
 }
 
 void GameManager::SetupGame()
 {
-    Managers::graphicManager = new GraphicManager();
-    Managers::clockManager = new ClockManager();
-    Managers::assetsManager = new AssetsManager();
-    Managers::gameObjectsManager = new GameObjectsManager();
-
     appMain = new ApplicationMain();
 }
 
