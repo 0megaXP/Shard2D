@@ -1,6 +1,5 @@
 #include "GraphicManager.h"
 
-#include <iostream>
 #include <SDL_image.h>
 #include <SDL.h>
 
@@ -9,6 +8,7 @@
 #include "GameObjectsManager.h"
 #include "GameObject.h"
 #include "Image.h"
+#include "CustomIOStream.h"
 
 GraphicManager::GraphicManager()
 	: _window(nullptr), _winSurface(nullptr)
@@ -21,13 +21,16 @@ GraphicManager::~GraphicManager()
 	// Destroy the app window and call the SDL destructor
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
+
+	Log("SDL exit correctly!", TextColor::Green);
 }
 
 void GraphicManager::Init()
 {
+
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) 
 	{
-		std::cout << "Error initializing SDL: " << SDL_GetError() << std::endl;
+		Log("Error initializing SDL: " + *SDL_GetError(), TextColor::Red);
 		system("pause");
 		return;
 	}
@@ -35,7 +38,7 @@ void GraphicManager::Init()
 	_window = SDL_CreateWindow("MainWIndow", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
 	if (!_window)
 	{
-		std::cout << "Error creating window: " << SDL_GetError() << std::endl;
+		Log("Error creating window: " + *SDL_GetError(), TextColor::Red);
 		system("pause");
 		return;
 	}
@@ -43,7 +46,7 @@ void GraphicManager::Init()
 	_winSurface = SDL_GetWindowSurface(_window);
 	if (!_winSurface)
 	{
-		std::cout << "Error getting surface: " << SDL_GetError() << std::endl;
+		Log("Error getting surface: " + *SDL_GetError(), TextColor::Red);
 		system("pause");
 		return;
 	}
@@ -52,6 +55,8 @@ void GraphicManager::Init()
 	{
 		std::cout << "Error initializing SDL_image with png: " << IMG_GetError << std::endl;
 	}
+
+	Log("SDL initialized correctly!", TextColor::Green);
 
 	// Set the background color
 	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
@@ -86,7 +91,7 @@ void GraphicManager::RenderObject(GameObject* object)
 void GraphicManager::RenderScene()
 {
 	// Refresh the screen
-	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
+	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));   
 
 	for (GameObject* object : Managers::gameObjectsManager->_stagedObjects)
 	{

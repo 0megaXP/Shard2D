@@ -1,9 +1,11 @@
 #include "GameObjectsManager.h"
-
 #include "GameObject.h"
+#include "Managers.h"
+
+#include <iostream>
 
 GameObjectsManager::GameObjectsManager()
-	: _stagedObjects(std::vector<GameObject*>()), _unusedObjects(std::vector<GameObject*>())
+	//: _stagedObjects(std::vector<GameObject*>()), _unusedObjects(std::vector<GameObject*>())
 {
 
 }
@@ -12,23 +14,36 @@ GameObjectsManager::~GameObjectsManager()
 {
 }
 
+void GameObjectsManager::ObjectCreated(GameObject* object)
+{
+	for (std::shared_ptr<GameObject> createdObject : _createdObjects)
+	{
+		if (createdObject.get() == object)
+		{
+			std::cout << "Object already created!" << std::endl;
+			return;
+		}
+	}
+
+	std::cout << "Object created!" << std::endl;
+	_createdObjects.push_back(std::shared_ptr<GameObject>(object));
+}
+
 /**
 Add the GameObject to the stage (the first rendered layer).
 */
 void GameObjectsManager::AddObjectToStage(GameObject* object)
 {
+	for (GameObject* stagedObject : _stagedObjects)
+	{
+		if (stagedObject == object)
+		{
+			std::cout << "Object already added to stage!" << std::endl;
+			return;
+		}
+	}
+
 	_stagedObjects.push_back(object);
-	UnsetObjectUnused(object);
-	if (object->Parent() != nullptr)
-	{
-		object->_parent->RemoveChild(object);
-	}
-
-	for (GameObject* child : object->_children)
-	{
-		UnsetObjectUnused(child);
-	}
-
 }
 
 /**
@@ -39,53 +54,11 @@ void GameObjectsManager::RemoveObjectFromStage(GameObject* object)
 	int count = 0;
 	for (GameObject* stagedObject : _stagedObjects)
 	{
-		if (object == stagedObject)
+		if (stagedObject == object)
 		{
 			_stagedObjects.erase(_stagedObjects.begin() + count);
-			SetObjectUnused(object);
-			for (GameObject* child : object->_children)
-			{
-				SetObjectUnused(child);
-			}
 			return;
 		}
-		count++;
-	}
-}
-
-void GameObjectsManager::ChildAdded(GameObject* child)
-{
-	UnsetObjectUnused(child);
-}
-
-void GameObjectsManager::ChildRemoved(GameObject* child)
-{
-	SetObjectUnused(child);
-}
-
-void GameObjectsManager::SetObjectUnused(GameObject* object)
-{
-	// Check if the object to add is already unused
-	for (GameObject* unusedObject : _unusedObjects)
-	{
-		if (unusedObject == object)
-			return;
-	}
-
-	_unusedObjects.push_back(object);
-}
-
-void GameObjectsManager::UnsetObjectUnused(GameObject* object)
-{
-	int count = 0;
-	for (GameObject* unusedObject : _unusedObjects)
-	{
-		if (unusedObject == object)
-		{
-			_unusedObjects.erase(_unusedObjects.begin() + count);
-			return;
-		}
-
 		count++;
 	}
 }

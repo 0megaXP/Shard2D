@@ -8,13 +8,17 @@
 
 import MathUtils;
 GameObject::GameObject()
-	: _name("New Object"), _parent(nullptr), _children(std::vector<GameObject*>())
+	: _name("New Object")//, _parent(nullptr), _children(std::vector<GameObject*>())
 {
-	Managers::gameObjectsManager->ChildRemoved(this);
+	Managers::gameObjectsManager->ObjectCreated(this);
+
+
+	std::cout << "GameObject created!" << std::endl;
 }
 
 GameObject::~GameObject()
 {
+	std::cout << "GameObject destroyed!" << std::endl;
 }
 
 std::string GameObject::Name() const
@@ -27,7 +31,7 @@ GameObject* GameObject::Parent() const
 	return _parent;
 }
 
-/**
+/*
 Return the GambeObject's x position on the screen (counting all the parents' x)
 */
 short GameObject::GlobalX() const
@@ -38,7 +42,7 @@ short GameObject::GlobalX() const
 		return x;
 }
 
-/**
+/*
 Return the GambeObject's y position on the screen (counting all the parents' y)
 */
 short GameObject::GlobalY() const
@@ -49,7 +53,7 @@ short GameObject::GlobalY() const
 		return y;
 }
 
-/**
+/*
 Return the GambeObject's alpha (counting all the parents' alphas)
 */
 float GameObject::GlobalA() const
@@ -61,7 +65,7 @@ float GameObject::GlobalA() const
 }
 
 
-/**
+/*
 Return the GambeObject's x scale on the screen (counting all the parents' x)
 */
 float GameObject::GlobalScaleX() const
@@ -72,7 +76,7 @@ float GameObject::GlobalScaleX() const
 		return scaleX;
 }
 
-/**
+/*
 Return the GambeObject's y scale on the screen (counting all the parents' y)
 */
 float GameObject::GlobalScaleY() const
@@ -83,25 +87,47 @@ float GameObject::GlobalScaleY() const
 		return scaleY;
 }
 
-/**
+/*
 Return true if the GameObject has to be rendered (also takes count of scale and alpha)
 */
 bool GameObject::IsVisible() const
 {
-	if (_parent != nullptr)
+	if (_parent != nullptr && a > 0 && scaleX != 0 && scaleY != 0)
 		return _parent->IsVisible();
-	else if (a > 0)
+	else if (a > 0 && scaleX != 0 && scaleY != 0)
 		return _visible;
 	else
 		return false;
 }
 
+/*
+Set if the GameObject has to be rendered (also takes count of scale and alpha)
+*/
 void GameObject::SetVisibility(bool isVisible)
 {
 	_visible = isVisible;
 }
 
-/**
+/*
+Return true if the GameObject has run events and updates
+*/
+bool GameObject::IsActive() const
+{
+	if (_parent != nullptr)
+		return _parent->IsActive();
+	else
+		return _active;
+}
+
+/*
+Set if the GameObject has to run events and updates
+*/
+void GameObject::SetActive(bool isActive)
+{
+	_active = isActive;
+}
+
+/*
 Set the param GameObject as child of the actual GameObject.
 */
 void GameObject::AddChild(GameObject* child)
@@ -114,11 +140,10 @@ void GameObject::AddChild(GameObject* child)
 		}
 		_children.push_back(child);
 		child->_parent = this;
-		Managers::gameObjectsManager->ChildAdded(child);
 	}
 }
 
-/**
+/*
 Remove the selected child from the GameObject
 */
 void GameObject::RemoveChild(GameObject* child)
@@ -131,7 +156,6 @@ void GameObject::RemoveChild(GameObject* child)
 			if (tempChild == child)
 			{
 				child->_parent = nullptr;
-				Managers::gameObjectsManager->ChildRemoved(child);
 				_children.erase(_children.begin() + count);
 				break;
 			}
@@ -139,7 +163,8 @@ void GameObject::RemoveChild(GameObject* child)
 		}
 	}
 }
-/**
+
+/*
 Remove all the children from the GameObject
 */
 void GameObject::RemoveChildren()
@@ -147,12 +172,11 @@ void GameObject::RemoveChildren()
 	for (int i = 0; i < _children.size(); i++)
 	{
 		_children[i]->_parent = nullptr;
-		Managers::gameObjectsManager->ChildRemoved(_children[i]);
 		_children.erase(_children.begin() + i);
 	}
 }
 
-/**
+/*
 Function called from the GraphicManager. Return the image to render
 */
 Image* GameObject::GetRenderingImage()

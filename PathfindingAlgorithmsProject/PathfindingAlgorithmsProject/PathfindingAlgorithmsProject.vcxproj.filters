@@ -43,14 +43,14 @@
     <Filter Include="File di intestazione\Application">
       <UniqueIdentifier>{1f6d9a12-c83e-40e1-91d9-b1dd12f5b6a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="File di origine\Framework\Utils">
+    <Filter Include="File di origine\Utils">
       <UniqueIdentifier>{80d1f1e6-1f3e-4589-b2be-6bf77b89655c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di intestazione\Utils">
+      <UniqueIdentifier>{36d0af08-617e-4d9b-9bf9-0180032c6325}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PathfindingAlgorithmsProject.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>File di origine\Framework\GameObjects</Filter>
     </ClCompile>
@@ -79,7 +79,10 @@
       <Filter>File di origine\Applicaation</Filter>
     </ClCompile>
     <ClCompile Include="MathUtils.ixx">
-      <Filter>File di origine\Framework\Utils</Filter>
+      <Filter>File di origine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="PathfindingAlgorithmsProject.cpp">
+      <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="ApplicationMain.h">
       <Filter>File di intestazione\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomIOStream.h">
+      <Filter>File di intestazione\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -171,6 +171,7 @@
     <ClInclude Include="ApplicationMain.h" />
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="ClockManager.h" />
+    <ClInclude Include="CustomIOStream.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectsManager.h" />

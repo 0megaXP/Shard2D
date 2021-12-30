@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "GameObject.h"
 
 class Sprite : public GameObject
@@ -11,7 +13,7 @@ public:
 protected:
 	~Sprite();
 
-	Image* _image;
+	std::shared_ptr<Image> _image;
 
 public:
 

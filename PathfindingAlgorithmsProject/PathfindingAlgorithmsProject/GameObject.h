@@ -10,8 +10,6 @@ class GameObject
 {
 public:
 	GameObject();
-
-protected:
 	virtual ~GameObject();
 
 	friend class GraphicManager;
@@ -23,6 +21,7 @@ protected:
 	std::vector<GameObject*> _children;
 
 	bool _visible = true;
+	bool _active = true;
 
 public:
 	std::string Name() const;
@@ -47,6 +46,9 @@ public:
 
 	bool IsVisible() const;
 	void SetVisibility(bool isVisible);
+
+	bool IsActive() const;
+	void SetActive(bool isActive);
 
 	void AddChild(GameObject* child);
 	void RemoveChild(GameObject* child);

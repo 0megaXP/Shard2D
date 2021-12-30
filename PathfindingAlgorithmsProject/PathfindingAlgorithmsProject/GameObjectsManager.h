@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 class GameObject;
 
@@ -14,17 +15,12 @@ public:
 
 private:
 	std::vector<GameObject*> _stagedObjects;
-	std::vector<GameObject*> _unusedObjects;
+	std::vector<std::shared_ptr<GameObject>> _createdObjects;
 
 public:
+	void ObjectCreated(GameObject* object);
+
 	void AddObjectToStage(GameObject* object);
 	void RemoveObjectFromStage(GameObject* object);
-
-	void ChildAdded(GameObject* child);
-	void ChildRemoved(GameObject* child);
-
-private:
-	void SetObjectUnused(GameObject* object);
-	void UnsetObjectUnused(GameObject* object);
 };
 

@@ -1,6 +1,5 @@
 #include "GameManager.h"
 
-#include <iostream>
 #include <memory>
 
 #include "GraphicManager.h"
@@ -11,6 +10,7 @@
 #include "GameObject.h"
 #include "ApplicationMain.h"
 #include <SDL_events.h>
+#include "CustomIOStream.h"
 
 GameManager::GameManager()
 {
@@ -53,4 +53,5 @@ void GameManager::GameUpdate()
 
     Managers::clockManager->ManageFramesCap();
     Managers::clockManager->UpdateDeltaTime();
+    //DebugFPS(((1 / Managers::clockManager->_deltaTime) * 1000));
 }
