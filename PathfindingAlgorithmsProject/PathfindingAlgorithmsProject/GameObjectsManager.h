@@ -9,11 +9,12 @@ class GameObjectsManager
 {
 public:
 	GameObjectsManager();
-	~GameObjectsManager();
+	virtual ~GameObjectsManager();
 
 	friend class GraphicManager;
 
 private:
+
 	std::vector<GameObject*> _stagedObjects;
 	std::vector<std::shared_ptr<GameObject>> _createdObjects;
 

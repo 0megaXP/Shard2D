@@ -1,17 +1,19 @@
 #include "GameObjectsManager.h"
+
 #include "GameObject.h"
 #include "Managers.h"
 
-#include <iostream>
+#include "CustomIOStream.h"
 
 GameObjectsManager::GameObjectsManager()
-	//: _stagedObjects(std::vector<GameObject*>()), _unusedObjects(std::vector<GameObject*>())
+	: _createdObjects(std::vector<std::shared_ptr<GameObject>>()) ,_stagedObjects(std::vector<GameObject*>())
 {
-
+	Log("GameObjectsManager created!", TextColor::Blue);
 }
 
 GameObjectsManager::~GameObjectsManager()
 {
+	Log("GameObjectsManager destroyed!", TextColor::Blue);
 }
 
 void GameObjectsManager::ObjectCreated(GameObject* object)
@@ -42,6 +44,8 @@ void GameObjectsManager::AddObjectToStage(GameObject* object)
 			return;
 		}
 	}
+
+	std::cout << "Ptrs count: " << _createdObjects[0].use_count() << std::endl;
 
 	_stagedObjects.push_back(object);
 }

@@ -1,6 +1,6 @@
 #include "AssetsManager.h"
 
-#include <iostream>
+#include "CustomIOStream.h"
 
 AssetsManager::AssetsManager()
 {
@@ -8,6 +8,7 @@ AssetsManager::AssetsManager()
 
 AssetsManager::~AssetsManager()
 {
+	Log("AssetsManager destroyed!", TextColor::Purple);
 }
 
 /**

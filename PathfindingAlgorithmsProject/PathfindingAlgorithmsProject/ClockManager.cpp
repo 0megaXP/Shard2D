@@ -1,7 +1,7 @@
 #include "ClockManager.h"
 
 #include <SDL.h>
-#include <iostream>
+#include "CustomIOStream.h"
 
 ClockManager::ClockManager()
     : _deltaTime(0)
@@ -11,6 +11,7 @@ ClockManager::ClockManager()
 
 ClockManager::~ClockManager()
 {
+    Log("ClockManager destroyed!", TextColor::Yellow);
 }
 
 /**
