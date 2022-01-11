@@ -53,5 +53,5 @@ void GameManager::GameUpdate()
 
     Managers::clockManager->ManageFramesCap();
     Managers::clockManager->UpdateDeltaTime();
-    //DebugFPS(((1 / Managers::clockManager->_deltaTime) * 1000));
+    //DebugFPS(Managers::clockManager->GetFPS());
 }

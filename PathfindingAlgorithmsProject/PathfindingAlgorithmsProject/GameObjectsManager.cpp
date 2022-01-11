@@ -27,7 +27,6 @@ void GameObjectsManager::ObjectCreated(GameObject* object)
 		}
 	}
 
-	std::cout << "Object created!" << std::endl;
 	_createdObjects.push_back(std::shared_ptr<GameObject>(object));
 }
 
@@ -44,8 +43,6 @@ void GameObjectsManager::AddObjectToStage(GameObject* object)
 			return;
 		}
 	}
-
-	std::cout << "Ptrs count: " << _createdObjects[0].use_count() << std::endl;
 
 	_stagedObjects.push_back(object);
 }

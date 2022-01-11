@@ -158,6 +158,7 @@
     <ClCompile Include="ApplicationMain.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="ClockManager.cpp" />
+    <ClCompile Include="CustomTweener.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectsManager.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="ClockManager.h" />
     <ClInclude Include="CustomIOStream.h" />
+    <ClInclude Include="CustomTweener.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectsManager.h" />

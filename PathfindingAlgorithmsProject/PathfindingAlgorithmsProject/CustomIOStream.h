@@ -16,7 +16,7 @@ public:
 	static inline const int Gray =		8;
 };
 
-void inline Log(const char text[], int textColor = 7)
+static void inline Log(const char text[], int textColor = 7)
 {
 	HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -26,7 +26,7 @@ void inline Log(const char text[], int textColor = 7)
 	SetConsoleTextAttribute(hConsole, TextColor::White);
 }
 
-void inline DebugFPS(float FPS, int textColor = 7)
+static void DebugFPS(float FPS, int textColor = 7)
 {
 	HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 

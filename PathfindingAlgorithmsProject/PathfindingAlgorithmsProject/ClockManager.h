@@ -22,6 +22,7 @@ private:
 public:
 	float GetDeltaTime();
 	float GetDeltaTimeMS();
+	float GetFPS();
 
 private:
 	void UpdateDeltaTime();

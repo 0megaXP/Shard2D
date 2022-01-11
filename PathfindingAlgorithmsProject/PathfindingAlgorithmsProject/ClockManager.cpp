@@ -6,6 +6,7 @@
 ClockManager::ClockManager()
     : _deltaTime(0)
 {
+    Log("ClockManager created!", TextColor::Yellow);
     NewFrame();
 }
 
@@ -25,6 +26,11 @@ float ClockManager::GetDeltaTime()
 float ClockManager::GetDeltaTimeMS()
 {
     return _deltaTime;
+}
+
+float ClockManager::GetFPS()
+{
+    return (1 / _deltaTime) * 1000;
 }
 
 /**

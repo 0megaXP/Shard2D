@@ -4,7 +4,6 @@
 
 
 Sprite::Sprite()
-	//: _image(nullptr)
 {
 	std::cout << "Sprite object created!" << std::endl;
 }
