@@ -54,6 +54,17 @@ short GameObject::GlobalY() const
 }
 
 /*
+Return the GambeObject's rotation (counting all the parents' rotations)
+*/
+short GameObject::GlobalRotation() const
+{
+	if (_parent == nullptr)
+		return rotation % 360;
+	else
+		return (_parent->GlobalRotation() + rotation) % 360;
+}
+
+/*
 Return the GambeObject's alpha (counting all the parents' alphas)
 */
 float GameObject::GlobalA() const

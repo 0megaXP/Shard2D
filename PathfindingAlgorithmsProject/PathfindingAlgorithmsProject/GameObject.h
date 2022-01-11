@@ -30,6 +30,8 @@ public:
 	short x = 0;
 	short y = 0;
 
+	short rotation = 0;
+
 	float a = 1;
 
 	float scaleX = 1;
@@ -39,6 +41,7 @@ public:
 	short GlobalX() const;
 	short GlobalY() const;
 
+	short GlobalRotation() const;
 	float GlobalA() const;
 
 	float GlobalScaleX() const;

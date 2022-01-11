@@ -15,6 +15,7 @@ void ApplicationMain::Start()
     sprite->x = 200;
     sprite->y = 200;
     sprite->a = 1;
+    sprite->rotation = 90;
 
     childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));
 
@@ -42,6 +43,8 @@ void ApplicationMain::Update()
 
             break;
         case SDL_MOUSEMOTION:
+
+            sprite->rotation += 1;
 
             break;
         }

@@ -2,6 +2,7 @@
 
 #include <SDL_image.h>
 #include <SDL.h>
+#include <SDL2_rotozoom.h>
 
 #include "Managers.h"
 #include "AssetsManager.h"
@@ -79,7 +80,10 @@ void GraphicManager::RenderObject(GameObject* object)
 		
 		SDL_SetSurfaceAlphaMod(objectSurface->_surface, (object->GlobalA() * 255));
 
-		SDL_BlitScaled(objectSurface->_surface, NULL, _winSurface, &tempRect);
+		SDL_Surface* rotatedSurface = rotozoomSurface(objectSurface->_surface, object->GlobalRotation(), 1, 0);
+		// TODO Fix the rotation zoom in and the centre position for the child
+
+		SDL_BlitScaled(rotatedSurface, NULL, _winSurface, &tempRect);
 
 		for (GameObject* child : object->_children)
 		{
