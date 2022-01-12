@@ -93,6 +93,12 @@
     <ClCompile Include="CustomTweener.cpp">
       <Filter>File di origine\Utils\CustomTweens</Filter>
     </ClCompile>
+    <ClCompile Include="MathVectors.cpp">
+      <Filter>File di origine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="BooleanUtils.ixx">
+      <Filter>File di origine\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -130,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="CustomTweener.h">
       <Filter>File di intestazione\Utils\CustomTweens</Filter>
+    </ClInclude>
+    <ClInclude Include="MathVectors.h">
+      <Filter>File di intestazione\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <SDL.h>
 #include <SDL2_rotozoom.h>
+#include <math.h>
 
 #include "Managers.h"
 #include "AssetsManager.h"
@@ -10,6 +11,9 @@
 #include "GameObject.h"
 #include "Image.h"
 #include "CustomIOStream.h"
+#include "MathVectors.h"
+
+import MathUtils;
 
 GraphicManager::GraphicManager()
 	: _window(nullptr), _winSurface(nullptr)
@@ -69,21 +73,42 @@ void GraphicManager::RenderObject(GameObject* object)
 {
 	if (object->IsVisible())
 	{
-		Image* objectSurface = object->GetRenderingImage();
+		Image* objectImage = object->GetRenderingImage();
 
 		SDL_Rect tempRect = SDL_Rect();
 		tempRect.x = object->GlobalX();
 		tempRect.y = object->GlobalY();
 
-		tempRect.w = object->GlobalScaleX() * objectSurface->_surface->w;
-		tempRect.h = object->GlobalScaleY() * objectSurface->_surface->h;
-		
-		SDL_SetSurfaceAlphaMod(objectSurface->_surface, (object->GlobalA() * 255));
+		//float scaleAdjustment = 1 - abs((float)(object->GlobalRotation() % 90) / 90 - 0.5) * 2;
+		//std::cout << "Scale Adjustment: " << scaleAdjustment << std::endl;
 
-		SDL_Surface* rotatedSurface = rotozoomSurface(objectSurface->_surface, object->GlobalRotation(), 1, 0);
+		//tempRect.w = object->GlobalScaleX() * objectImage->_surface->w * (0.414 * scaleAdjustment + 1);
+		//tempRect.h = object->GlobalScaleY() * objectImage->_surface->h * (0.414 * scaleAdjustment + 1);
+
+		tempRect.w = object->GlobalScaleX() * objectImage->_surface->w;
+		tempRect.h = object->GlobalScaleY() * objectImage->_surface->h;
+		
+		SDL_SetSurfaceAlphaMod(objectImage->_surface, (object->GlobalA() * 255));
+
+		SDL_FreeSurface(objectImage->_rotatedSurface);
+		objectImage->_rotatedSurface = rotozoomSurface(objectImage->_surface, -object->GlobalRotation(), 1, 0);
 		// TODO Fix the rotation zoom in and the centre position for the child
 
-		SDL_BlitScaled(rotatedSurface, NULL, _winSurface, &tempRect);
+		if (object->centerPivot)
+		{
+			tempRect.x -= tempRect.w / 2;
+			tempRect.y -= tempRect.h / 2;
+		}
+		else
+		{
+			Vector2 squarePosition = SquarePositionFromAngle(object->rotation);
+
+			tempRect.x += tempRect.w * ((squarePosition.x - 1) / 2);
+			tempRect.y += tempRect.h * ((squarePosition.y - 1) / 2);
+		}
+
+		SDL_BlitScaled(objectImage->_rotatedSurface, NULL, _winSurface, &tempRect);
+		//SDL_BlitSurface(objectSurface->_rotatedSurface, NULL, _winSurface, &tempRect);
 
 		for (GameObject* child : object->_children)
 		{

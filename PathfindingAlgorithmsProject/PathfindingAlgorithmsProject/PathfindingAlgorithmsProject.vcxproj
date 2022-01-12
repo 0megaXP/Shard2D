@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="ApplicationMain.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
+    <ClCompile Include="BooleanUtils.ixx" />
     <ClCompile Include="ClockManager.cpp" />
     <ClCompile Include="CustomTweener.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="GraphicManager.cpp" />
     <ClCompile Include="Managers.cpp" />
     <ClCompile Include="MathUtils.ixx" />
+    <ClCompile Include="MathVectors.cpp" />
     <ClCompile Include="PathfindingAlgorithmsProject.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
@@ -180,6 +182,7 @@
     <ClInclude Include="GraphicManager.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Managers.h" />
+    <ClInclude Include="MathVectors.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

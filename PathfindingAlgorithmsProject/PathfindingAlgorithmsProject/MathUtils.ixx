@@ -1,5 +1,10 @@
 module;
 
+#include <math.h>
+#include "MathVectors.h"
+
+import BooleanUtils;
+
 export module MathUtils;
 
 /**
@@ -22,3 +27,42 @@ export float Clamp01(float value)
 {
     return Clamp(value, 0, 1);
 }
+
+export Vector2 SquarePositionFromAngle(int angle)
+{
+    int angleNormalized = angle % 360;
+
+    Vector2 dot;
+
+    if (angleNormalized % 90 == 0)
+    {
+        dot.x = Between(angleNormalized / 90, 1, 2, true) ? -1 : 1;
+        dot.y = angleNormalized / 90 <= 1 ? 1 : -1;
+    }
+    else
+    {
+        if (Between(angleNormalized, 0, 90, false))
+        {
+            dot.y = 1;
+            dot.x = (((float)(angleNormalized % 90) / 90) * 2 - 1) * -1;
+        }
+        else if (Between(angleNormalized, 90, 180, false))
+        {
+            dot.x = -1;
+            dot.y = (((float)(angleNormalized % 90) / 90) * 2 - 1) * -1;
+        }
+        else if (Between(angleNormalized, 180, 270, false))
+        {
+            dot.y = -1;
+            dot.x = (((float)(angleNormalized % 90) / 90) * 2 -1);
+        }
+        else if (Between(angleNormalized, 270, 360, false))
+        {
+            dot.x = 1;
+            dot.y = (((float)(angleNormalized % 90) / 90) * 2 - 1);
+        }
+    }
+
+    return dot;
+}
+

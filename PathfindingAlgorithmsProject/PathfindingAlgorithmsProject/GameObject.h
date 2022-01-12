@@ -16,6 +16,7 @@ public:
 	friend class GameObjectsManager;
 	friend class GameManager;
 
+private:
 	std::string _name = "";
 	GameObject* _parent = nullptr;
 	std::vector<GameObject*> _children;
@@ -37,7 +38,8 @@ public:
 	float scaleX = 1;
 	float scaleY = 1;
 
-public:
+	bool centerPivot = false;
+
 	short GlobalX() const;
 	short GlobalY() const;
 
