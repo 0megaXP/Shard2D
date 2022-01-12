@@ -41,7 +41,7 @@ void GameManager::GameUpdate()
 {
 
     // Clock update
-    Managers::clockManager->NewFrame();
+    M_ClockManager->NewFrame();
 
     // Events update
 
@@ -49,9 +49,9 @@ void GameManager::GameUpdate()
     appMain->Update();
 
     // Graphic update
-    Managers::graphicManager->RenderScene();
+    M_GraphicManager->RenderScene();
 
-    Managers::clockManager->ManageFramesCap();
-    Managers::clockManager->UpdateDeltaTime();
+    M_ClockManager->ManageFramesCap();
+    M_ClockManager->UpdateDeltaTime();
     //DebugFPS(Managers::clockManager->GetFPS());
 }

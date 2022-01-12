@@ -15,7 +15,7 @@ ApplicationMain::ApplicationMain()
 void ApplicationMain::Start()
 {
 	sprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Doge.png"));
-	Managers::gameObjectsManager->AddObjectToStage(sprite);
+    AddToStage(sprite);
 	sprite->SetVisibility(true);
 	sprite->scaleX = 0.5;
 	sprite->scaleY = 0.5;
@@ -23,13 +23,14 @@ void ApplicationMain::Start()
     sprite->y = 200;
     sprite->a = 1;
     sprite->rotation = 0;
+    sprite->centerPivot = true;
 
     Sprite* point = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/RedPoint.png"));
-    Managers::gameObjectsManager->AddObjectToStage(point);
+    AddToStage(point);
     point->x = sprite->x;
     point->y = sprite->y;
-    point->scaleX = 0.05;
-    point->scaleY = 0.05;
+    point->scaleX = 0.01;
+    point->scaleY = 0.01;
     point->centerPivot = true;
 
     /*childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));

@@ -28,6 +28,9 @@ export float Clamp01(float value)
     return Clamp(value, 0, 1);
 }
 
+/**
+Return the position of a point on the perimeter of a square from a rotation angle.
+*/
 export Vector2 SquarePositionFromAngle(int angle)
 {
     int angleNormalized = angle % 360;

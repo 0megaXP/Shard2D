@@ -1,5 +1,3 @@
-// PathfindingAlgorithmsProject.cpp : Questo file contiene la funzione 'main', in cui inizia e termina l'esecuzione del programma.
-//
 #include <iostream>
 #include <SDL.h>
 
@@ -13,18 +11,18 @@
 
 int main(int argc, char** args)
 {
-    Managers::gameManager->SetupGame();
+    M_GameManager->SetupGame();
 
-    while (!Managers::gameManager->GetExitGame())
+    while (!M_GameManager->GetExitGame())
     {
-        Managers::gameManager->GameUpdate();
+        M_GameManager->GameUpdate();
     }
 
-    delete Managers::assetsManager;
-    delete Managers::clockManager;
-    delete Managers::graphicManager;
-    delete Managers::gameObjectsManager;
-    delete Managers::gameManager;
+    delete M_AssetsManager;
+    delete M_ClockManager;
+    delete M_GraphicManager;
+    delete M_GameObjectsManager;
+    delete M_GameManager;
 
     return 0;
 }

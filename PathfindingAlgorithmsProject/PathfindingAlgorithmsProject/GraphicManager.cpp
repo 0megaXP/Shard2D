@@ -32,7 +32,6 @@ GraphicManager::~GraphicManager()
 
 void GraphicManager::Init()
 {
-
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) 
 	{
 		Log("Error initializing SDL: " + *SDL_GetError(), TextColor::Red);
@@ -92,7 +91,6 @@ void GraphicManager::RenderObject(GameObject* object)
 
 		SDL_FreeSurface(objectImage->_rotatedSurface);
 		objectImage->_rotatedSurface = rotozoomSurface(objectImage->_surface, -object->GlobalRotation(), 1, 0);
-		// TODO Fix the rotation zoom in and the centre position for the child
 
 		if (object->centerPivot)
 		{
@@ -108,7 +106,7 @@ void GraphicManager::RenderObject(GameObject* object)
 		}
 
 		SDL_BlitScaled(objectImage->_rotatedSurface, NULL, _winSurface, &tempRect);
-		//SDL_BlitSurface(objectSurface->_rotatedSurface, NULL, _winSurface, &tempRect);
+		//SDL_BlitSurface(objectImage->_rotatedSurface, NULL, _winSurface, &tempRect);
 
 		for (GameObject* child : object->_children)
 		{
@@ -122,7 +120,7 @@ void GraphicManager::RenderScene()
 	// Refresh the screen
 	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));   
 
-	for (GameObject* object : Managers::gameObjectsManager->_stagedObjects)
+	for (GameObject* object : M_GameObjectsManager->_stagedObjects)
 	{
 		RenderObject(object);
 	}

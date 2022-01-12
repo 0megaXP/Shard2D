@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 
+#define AddToStage Managers::gameObjectsManager->AddObjectToStage
+
 class GameObject;
 
 class GameObjectsManager

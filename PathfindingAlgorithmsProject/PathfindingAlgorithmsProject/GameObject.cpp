@@ -10,7 +10,7 @@ import MathUtils;
 GameObject::GameObject()
 	: _name("New Object")//, _parent(nullptr), _children(std::vector<GameObject*>())
 {
-	Managers::gameObjectsManager->ObjectCreated(this);
+	M_GameObjectsManager->ObjectCreated(this);
 
 
 	std::cout << "GameObject created!" << std::endl;
