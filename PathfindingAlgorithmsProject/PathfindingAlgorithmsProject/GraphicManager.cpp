@@ -88,20 +88,18 @@ void GraphicManager::RenderObject(GameObject* object)
 		_tempRect.y = object->GlobalY();
 		_tempRect.w = _rotatedSurface->w;
 		_tempRect.h = _rotatedSurface->h;
+		// TODO Fixing the object position during the rotation of the parent
+		if (object->Parent() != nullptr)
+		{
+
+		}
 		// Managing the pivot
 		if (object->centerPivot)
 		{
 			_tempRect.x -= _tempRect.w / 2;
 			_tempRect.y -= _tempRect.h / 2;
 		}
-		// TODO Fixing the object position during the rotation with an upper-left corner pivot
-		else
-		{
-			/*Vector2 squarePosition = SquarePositionFromAngle(object->rotation);
 
-			tempRect.x += tempRect.w * ((squarePosition.x - 1) / 2);
-			tempRect.y += tempRect.h * ((squarePosition.y - 1) / 2);*/
-		}
 		// Rendering the surface
 		SDL_BlitSurface(_rotatedSurface, NULL, _winSurface, &_tempRect);
 		SDL_FreeSurface(_rotatedSurface);

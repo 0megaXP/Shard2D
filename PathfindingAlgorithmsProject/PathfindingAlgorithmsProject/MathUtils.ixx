@@ -74,3 +74,25 @@ export Vector2 SquarePositionFromAngle(int angle)
     return dot;
 }
 
+export float Distance(const Vector2& a, const Vector2& b)
+{
+    float cos1 = abs(a.x - b.x);
+    float cos2 = abs(a.y - b.y);
+    return sqrt(cos1 * cos1 + cos2 * cos2);
+    
+}
+
+export int AngleFromPosition(Vector2 position)
+{
+    return 0;
+}
+
+export Vector2 GetPositionInTheCircumference(Vector2 position, float rotation)
+{
+    float radius = Distance(Vector2(0, 0), position);
+    Vector2 normalizedPos = position.Normalize();
+
+    //float actualRotation = 
+
+    return Vector2();
+}

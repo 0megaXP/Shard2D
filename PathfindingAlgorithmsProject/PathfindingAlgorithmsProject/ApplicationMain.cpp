@@ -2,7 +2,7 @@
 
 #include "CustomIOStream.h"
 #include "MathVectors.h"
-#include "MathVectors.h"
+#include "ClockManager.h"
 
 import MathUtils;
 import BooleanUtils;
@@ -33,13 +33,15 @@ void ApplicationMain::Start()
     point->scaleY = 0.01;
     point->centerPivot = true;
 
-    /*childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));
+    childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));
 
 
     childSprite->scaleX = 0.5;
     childSprite->scaleY = 0.5;
+    childSprite->x = 0;
     sprite->AddChild(childSprite);
-    childSprite->a = 1;*/
+    childSprite->a = 1;
+    childSprite->centerPivot = true;
 }
 
 void ApplicationMain::Update()

@@ -11,6 +11,8 @@ struct Vector2
     float x;
     float y;
 
+    const Vector2 Normalize();
+
     Vector2 operator+(const Vector2& other);
 
     Vector2 operator-(const Vector2& other);
