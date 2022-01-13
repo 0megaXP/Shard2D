@@ -19,8 +19,8 @@ void ApplicationMain::Start()
 	sprite->SetVisibility(true);
 	sprite->scaleX = 0.5;
 	sprite->scaleY = 0.5;
-    sprite->x = 200;
-    sprite->y = 200;
+    sprite->x = 500;
+    sprite->y = 500;
     sprite->a = 1;
     sprite->rotation = 0;
     sprite->centerPivot = true;
@@ -40,22 +40,12 @@ void ApplicationMain::Start()
     childSprite->scaleY = 0.5;
     sprite->AddChild(childSprite);
     childSprite->a = 1;*/
-
-    /*int angle1 = 0;
-    int angle2 = 90;
-    int angle3 = 180;
-    int angle4 = 270;
-
-    std::cout << NormalizedVectorFromAngle(angle1) << std::endl;
-    std::cout << NormalizedVectorFromAngle(angle2) << std::endl;
-    std::cout << NormalizedVectorFromAngle(angle3) << std::endl;
-    std::cout << NormalizedVectorFromAngle(angle4) << std::endl;*/
 }
 
 void ApplicationMain::Update()
 {
     SDL_Event e;
-    sprite->rotation += 1;
+    sprite->rotation += 2;
 
     while (SDL_PollEvent(&e) != 0) {
         switch (e.type) {

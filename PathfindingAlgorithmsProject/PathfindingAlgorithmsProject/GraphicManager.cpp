@@ -72,42 +72,40 @@ void GraphicManager::RenderObject(GameObject* object)
 {
 	if (object->IsVisible())
 	{
-		Image* objectImage = object->GetRenderingImage();
+		Image* _objectImage = object->GetRenderingImage();
 
-		SDL_Rect tempRect = SDL_Rect();
-		tempRect.x = object->GlobalX();
-		tempRect.y = object->GlobalY();
+		// Setting the alpha on the surface
+		SDL_SetSurfaceAlphaMod(_objectImage->_surface, (object->GlobalA() * 255));
+		// Setting the scale
+		SDL_Surface* _scaledSurface = zoomSurface(_objectImage->_surface, object->GlobalScaleX(), object->GlobalScaleY(), 0);
+		// Setting the rotation
+		SDL_Surface *_rotatedSurface = rotozoomSurface(_scaledSurface, -object->GlobalRotation(), 1, 0);
 
-		//float scaleAdjustment = 1 - abs((float)(object->GlobalRotation() % 90) / 90 - 0.5) * 2;
-		//std::cout << "Scale Adjustment: " << scaleAdjustment << std::endl;
-
-		//tempRect.w = object->GlobalScaleX() * objectImage->_surface->w * (0.414 * scaleAdjustment + 1);
-		//tempRect.h = object->GlobalScaleY() * objectImage->_surface->h * (0.414 * scaleAdjustment + 1);
-
-		tempRect.w = object->GlobalScaleX() * objectImage->_surface->w;
-		tempRect.h = object->GlobalScaleY() * objectImage->_surface->h;
-		
-		SDL_SetSurfaceAlphaMod(objectImage->_surface, (object->GlobalA() * 255));
-
-		SDL_FreeSurface(objectImage->_rotatedSurface);
-		objectImage->_rotatedSurface = rotozoomSurface(objectImage->_surface, -object->GlobalRotation(), 1, 0);
-
+		SDL_FreeSurface(_scaledSurface);
+		// Setting the rendering rect
+		SDL_Rect _tempRect = SDL_Rect();
+		_tempRect.x = object->GlobalX();
+		_tempRect.y = object->GlobalY();
+		_tempRect.w = _rotatedSurface->w;
+		_tempRect.h = _rotatedSurface->h;
+		// Managing the pivot
 		if (object->centerPivot)
 		{
-			tempRect.x -= tempRect.w / 2;
-			tempRect.y -= tempRect.h / 2;
+			_tempRect.x -= _tempRect.w / 2;
+			_tempRect.y -= _tempRect.h / 2;
 		}
+		// TODO Fixing the object position during the rotation with an upper-left corner pivot
 		else
 		{
-			Vector2 squarePosition = SquarePositionFromAngle(object->rotation);
+			/*Vector2 squarePosition = SquarePositionFromAngle(object->rotation);
 
 			tempRect.x += tempRect.w * ((squarePosition.x - 1) / 2);
-			tempRect.y += tempRect.h * ((squarePosition.y - 1) / 2);
+			tempRect.y += tempRect.h * ((squarePosition.y - 1) / 2);*/
 		}
-
-		SDL_BlitScaled(objectImage->_rotatedSurface, NULL, _winSurface, &tempRect);
-		//SDL_BlitSurface(objectImage->_rotatedSurface, NULL, _winSurface, &tempRect);
-
+		// Rendering the surface
+		SDL_BlitSurface(_rotatedSurface, NULL, _winSurface, &_tempRect);
+		SDL_FreeSurface(_rotatedSurface);
+		// Call the RenderObject() function for all the children
 		for (GameObject* child : object->_children)
 		{
 			RenderObject(child);

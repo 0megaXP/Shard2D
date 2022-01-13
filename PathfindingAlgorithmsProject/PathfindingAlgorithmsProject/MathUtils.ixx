@@ -9,6 +9,9 @@ export module MathUtils;
 
 /**
 Returns a value clamped between the min and max values.
+    \param The value to clamp
+    \param The min value
+    \param The max value
 */
 export float Clamp(float value, float min, float max)
 {
@@ -22,6 +25,7 @@ export float Clamp(float value, float min, float max)
 
 /**
 Returns a value clamped between 0 and 1. If lower than 0, returns 0. If greater than 1, returns 1.
+    \param The value to clamp
 */
 export float Clamp01(float value)
 {
@@ -30,6 +34,7 @@ export float Clamp01(float value)
 
 /**
 Return the position of a point on the perimeter of a square from a rotation angle.
+    \param The rotation angle to evaluate
 */
 export Vector2 SquarePositionFromAngle(int angle)
 {
