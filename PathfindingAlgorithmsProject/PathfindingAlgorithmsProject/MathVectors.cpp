@@ -1,6 +1,7 @@
 #include "MathVectors.h"
 
 #include <iostream>
+#include <math.h>
 
 import MathUtils;
 
@@ -10,9 +11,12 @@ Vector2::Vector2()
 Vector2::Vector2(const float newX, const float newY)
     : x(newX), y(newY) { }
 
+/**
+Normalize the vector with a magnitude of 1.
+*/
 Vector2 const Vector2::Normalize()
 {
-    return Vector2(x / Distance(Vector2(), Vector2(x, y)), y / Distance(Vector2(), Vector2(x, y)));
+    return Vector2(x / (abs(x) + abs(y)), y / (abs(x) + abs(y)));
 }
 
 Vector2 Vector2::operator+(const Vector2& other)
