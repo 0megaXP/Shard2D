@@ -1,5 +1,7 @@
 module;
 
+#define _USE_MATH_DEFINES
+
 #include <math.h>
 #include "MathVectors.h"
 
@@ -30,6 +32,23 @@ Returns a value clamped between 0 and 1. If lower than 0, returns 0. If greater 
 export float Clamp01(float value)
 {
     return Clamp(value, 0, 1);
+}
+
+/**
+Returns a value rounded to zero if it is lower than 0.0001 or higher than -0.0001
+*/
+export float RoundToZero(float value)
+{
+    if (value > 0)
+        if (value < 0.0001)
+            return 0;
+        else
+            return value;
+    else
+        if (value > -0.0001)
+            return 0;
+        else
+            return value;
 }
 
 /**
@@ -74,25 +93,43 @@ export Vector2 SquarePositionFromAngle(int angle)
     return dot;
 }
 
+/**
+Returns the legnth of the distance between 2 Vector2
+*/
 export float Distance(const Vector2& a, const Vector2& b)
 {
-    float cos1 = abs(a.x - b.x);
-    float cos2 = abs(a.y - b.y);
-    return sqrt(cos1 * cos1 + cos2 * cos2);
-    
+    float distX = abs(a.x - b.x);
+    float disty = abs(a.y - b.y);
+    return sqrt(distX * distX + disty * disty);
 }
 
-export int AngleFromPosition(Vector2 position)
+/**
+Returns the position inside a circumference of the given rotation as radians
+*/
+export Vector2 PositionFromRad(float rotation)
 {
-    return 0;
+    float x = cos(rotation);
+    float y = sin(rotation);
+    return Vector2(RoundToZero(x), RoundToZero(y));
 }
 
-export Vector2 GetPositionInTheCircumference(Vector2 position, float rotation)
+/**
+Returns the position inside a circumference of the given rotation as degrees
+*/
+export Vector2 PositionFromDeg(float rotation)
 {
-    float radius = Distance(Vector2(0, 0), position);
-    Vector2 normalizedPos = position.Normalize();
+    float radRotation = rotation * 2 * M_PI / 360;
+    return PositionFromRad(radRotation);
+}
 
-    //float actualRotation = 
-
-    return Vector2();
+/**
+Returns the rotation as degree at a certain position of a circumference with the given centre
+*/
+export float DegFromPosition(Vector2 position, Vector2 centre)
+{
+    Vector2 normalizedPosition = (position - centre).Normalize();
+    float rotation = (normalizedPosition.x * -1 + 1) / 2 * 180;
+    if (normalizedPosition.y < 0)
+        rotation = 360 - rotation;
+    return rotation;
 }

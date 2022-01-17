@@ -23,7 +23,7 @@ void ApplicationMain::Start()
     sprite->y = 500;
     sprite->a = 1;
     sprite->rotation = 0;
-    sprite->centerPivot = true;
+    sprite->centerPivot = false;
 
     Sprite* point = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/RedPoint.png"));
     AddToStage(point);
@@ -34,20 +34,17 @@ void ApplicationMain::Start()
     point->centerPivot = true;
 
     childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));
-
-
     childSprite->scaleX = 0.5;
     childSprite->scaleY = 0.5;
     childSprite->x = 0;
-    sprite->AddChild(childSprite);
+    //sprite->AddChild(childSprite);
     childSprite->a = 1;
-    childSprite->centerPivot = true;
+    childSprite->centerPivot = false;
 }
 
 void ApplicationMain::Update()
 {
     SDL_Event e;
-    sprite->rotation += 2;
 
     while (SDL_PollEvent(&e) != 0) {
         switch (e.type) {
@@ -56,6 +53,7 @@ void ApplicationMain::Update()
 
         case SDL_KEYDOWN:
            //Managers::gameObjectsManager->RemoveObjectFromStage(sprite);
+            sprite->rotation += 1;
             break;
         case SDL_KEYUP:
             //Managers::gameObjectsManager->AddObjectToStage(sprite);
