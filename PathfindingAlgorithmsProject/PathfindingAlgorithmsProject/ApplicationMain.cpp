@@ -17,8 +17,8 @@ void ApplicationMain::Start()
 	sprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Doge.png"));
     AddToStage(sprite);
 	sprite->SetVisibility(true);
-	sprite->scaleX = 0.5;
-	sprite->scaleY = 0.5;
+	sprite->scaleX = 1;
+	sprite->scaleY = 1;
     sprite->x = 500;
     sprite->y = 500;
     sprite->a = 1;
@@ -36,10 +36,10 @@ void ApplicationMain::Start()
     childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));
     childSprite->scaleX = 0.5;
     childSprite->scaleY = 0.5;
-    childSprite->x = 0;
+    childSprite->x = 100;
     //sprite->AddChild(childSprite);
     childSprite->a = 1;
-    childSprite->centerPivot = false;
+    childSprite->centerPivot = true;
 }
 
 void ApplicationMain::Update()

@@ -81,27 +81,35 @@ void GraphicManager::RenderObject(GameObject* object)
 		// Setting the rotation
 		SDL_Surface *_rotatedSurface = rotozoomSurface(_scaledSurface, -object->GlobalRotation(), 1, 0);
 
-		SDL_FreeSurface(_scaledSurface);
 		// Setting the rendering rect
 		SDL_Rect _tempRect = SDL_Rect();
 		_tempRect.x = object->GlobalX();
 		_tempRect.y = object->GlobalY();
 		_tempRect.w = _rotatedSurface->w;
 		_tempRect.h = _rotatedSurface->h;
-		// TODO Fixing the object position during the rotation of the parent
-		if (object->Parent() != nullptr)
-		{
-
-		}
 		// Managing the pivot
 		if (object->centerPivot)
 		{
 			_tempRect.x -= _tempRect.w / 2;
 			_tempRect.y -= _tempRect.h / 2;
 		}
+		// TODO Fix the position also based on the parent rotation and fixed position
+		// Fixing the object position during the rotation
+		{
+			Vector2 normalizedPosition = PositionFromDeg(object->GlobalRotation() + 45);
+			Vector2 basePosition = PositionFromDeg(360 - 45);
+			Vector2 centre = Vector2(object->GlobalX() - _rotatedSurface->w / 2, object->GlobalY() - _rotatedSurface->h / 2);
+			float radius = Distance(Vector2(_tempRect.x, _tempRect.y), centre);
+			if (radius > 0)
+			{
+				_tempRect.x = centre.x + (normalizedPosition.x / basePosition.x) * _objectImage->_surface->w * object->GlobalScaleX() / 2;
+				_tempRect.y = centre.y + (normalizedPosition.y / basePosition.x) * _objectImage->_surface->h * object->GlobalScaleY() / 2;
+			}
+		}
 
 		// Rendering the surface
 		SDL_BlitSurface(_rotatedSurface, NULL, _winSurface, &_tempRect);
+		SDL_FreeSurface(_scaledSurface);
 		SDL_FreeSurface(_rotatedSurface);
 		// Call the RenderObject() function for all the children
 		for (GameObject* child : object->_children)

@@ -59,6 +59,9 @@ export Vector2 SquarePositionFromAngle(int angle)
 {
     int angleNormalized = angle % 360;
 
+    if (angleNormalized < 0)
+        angleNormalized += 360;
+
     Vector2 dot;
 
     if (angleNormalized % 90 == 0)
