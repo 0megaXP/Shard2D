@@ -20,6 +20,8 @@ public:
 private:
 	void Init();
 
+	void FixPositionForRotation(SDL_Rect& _tempRect, SDL_Surface* _rotatedSurface, GameObject* _object);
+
 	void RenderObject(GameObject* object);
 
 	void RenderScene();

@@ -24,6 +24,9 @@ private:
 	bool _visible = true;
 	bool _active = true;
 
+	short fixedOffsetX = 0;
+	short fixedOffsetY = 0;
+
 public:
 	std::string Name() const;
 	GameObject* Parent() const;
@@ -39,6 +42,13 @@ public:
 	float scaleY = 1;
 
 	bool centerPivot = false;
+
+private:
+
+	short GlobalFixedOffsetX() const;
+	short GlobalFixedOffsetY() const;
+
+public:
 
 	short GlobalX() const;
 	short GlobalY() const;

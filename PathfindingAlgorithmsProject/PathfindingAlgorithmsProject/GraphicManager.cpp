@@ -68,6 +68,24 @@ void GraphicManager::Init()
 	return;
 }
 
+void GraphicManager::FixPositionForRotation(SDL_Rect& _tempRect, SDL_Surface* _rotatedSurface, GameObject* _object)
+{
+	float surfaceW = _object->GetRenderingImage()->_surface->w * _object->GlobalScaleX();
+	float surfaceH = _object->GetRenderingImage()->_surface->h * _object->GlobalScaleY();
+	Vector2 normalizedPosition = PositionFromDeg(_object->GlobalRotation() + 45);
+	Vector2 basePosition = PositionFromDeg(360 - 45);
+	Vector2 centre = Vector2(_object->GlobalX() - _rotatedSurface->w / 2, _object->GlobalY() - _rotatedSurface->h / 2);
+	float radius = Distance(Vector2(_tempRect.x, _tempRect.y), centre);
+	if (radius > 0)
+	{
+		_object->fixedOffsetX = centre.x + (normalizedPosition.x / basePosition.x) * surfaceW / 2 - _tempRect.x;
+		_object->fixedOffsetY = centre.y - (normalizedPosition.y / basePosition.y) * surfaceH / 2 - _tempRect.y;
+
+		_tempRect.x += _object->GlobalFixedOffsetX();
+		_tempRect.y += _object->GlobalFixedOffsetY();
+	}
+}
+
 void GraphicManager::RenderObject(GameObject* object)
 {
 	if (object->IsVisible())
@@ -95,17 +113,7 @@ void GraphicManager::RenderObject(GameObject* object)
 		}
 		// TODO Fix the position also based on the parent rotation and fixed position
 		// Fixing the object position during the rotation
-		{
-			Vector2 normalizedPosition = PositionFromDeg(object->GlobalRotation() + 45);
-			Vector2 basePosition = PositionFromDeg(360 - 45);
-			Vector2 centre = Vector2(object->GlobalX() - _rotatedSurface->w / 2, object->GlobalY() - _rotatedSurface->h / 2);
-			float radius = Distance(Vector2(_tempRect.x, _tempRect.y), centre);
-			if (radius > 0)
-			{
-				_tempRect.x = centre.x + (normalizedPosition.x / basePosition.x) * _objectImage->_surface->w * object->GlobalScaleX() / 2;
-				_tempRect.y = centre.y + (normalizedPosition.y / basePosition.x) * _objectImage->_surface->h * object->GlobalScaleY() / 2;
-			}
-		}
+		FixPositionForRotation(_tempRect, _rotatedSurface, object);
 
 		// Rendering the surface
 		SDL_BlitSurface(_rotatedSurface, NULL, _winSurface, &_tempRect);

@@ -31,6 +31,22 @@ GameObject* GameObject::Parent() const
 	return _parent;
 }
 
+short GameObject::GlobalFixedOffsetX() const
+{
+	if (_parent == nullptr)
+		return fixedOffsetX;
+	else
+		return fixedOffsetX + _parent->GlobalFixedOffsetX();
+}
+
+short GameObject::GlobalFixedOffsetY() const
+{
+	if (_parent == nullptr)
+		return fixedOffsetY;
+	else
+		return fixedOffsetY + _parent->GlobalFixedOffsetY();
+}
+
 /*
 Return the GambeObject's x position on the screen (counting all the parents' x)
 */
