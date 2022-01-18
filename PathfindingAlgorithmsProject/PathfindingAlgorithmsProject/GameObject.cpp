@@ -31,20 +31,40 @@ GameObject* GameObject::Parent() const
 	return _parent;
 }
 
-short GameObject::GlobalFixedOffsetX() const
+short GameObject::GlobalFixedX() const
 {
-	if (_parent == nullptr)
-		return fixedOffsetX;
+	if(_parent == nullptr)
+		return fixedX;
 	else
-		return fixedOffsetX + _parent->GlobalFixedOffsetX();
+		return _parent->GlobalFixedX() + fixedX;
 }
 
-short GameObject::GlobalFixedOffsetY() const
+short GameObject::GlobalFixedY() const
 {
 	if (_parent == nullptr)
-		return fixedOffsetY;
+		return fixedY;
 	else
-		return fixedOffsetY + _parent->GlobalFixedOffsetY();
+		return _parent->GlobalFixedY() + fixedY;
+}
+
+short GameObject::GlobalPivotOffsetX() const
+{
+	return GlobalX() + pivotOffsetX;
+}
+
+short GameObject::GlobalPivotOffsetY() const
+{
+	return GlobalY() + pivotOffsetY;
+}
+
+short GameObject::RenderingX() const
+{
+	return GlobalX() + GlobalFixedX() + pivotOffsetX;
+}
+
+short GameObject::RenderingY() const
+{
+	return GlobalY() + GlobalFixedY() + pivotOffsetY;
 }
 
 /*
@@ -67,6 +87,26 @@ short GameObject::GlobalY() const
 		return y + _parent->GlobalY();
 	else
 		return y;
+}
+
+short GameObject::PivotX() const
+{
+	return x - pivotOffsetX;
+}
+
+short GameObject::PivotY() const
+{
+	return y - pivotOffsetY;
+}
+
+short GameObject::GlobalPivotX() const
+{
+	return GlobalX() - pivotOffsetX;
+}
+
+short GameObject::GlobalPivotY() const
+{
+	return GlobalY() - pivotOffsetY;
 }
 
 /*

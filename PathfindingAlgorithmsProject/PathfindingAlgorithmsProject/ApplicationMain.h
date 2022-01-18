@@ -20,6 +20,7 @@ private:
 	void Update();
 
 	Sprite* sprite;
-	Sprite* childSprite;
+	Sprite* childSprite; 
+	Sprite* superChildSprite;
 };
 

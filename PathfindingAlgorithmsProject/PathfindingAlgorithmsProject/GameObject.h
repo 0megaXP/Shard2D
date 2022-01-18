@@ -24,8 +24,11 @@ private:
 	bool _visible = true;
 	bool _active = true;
 
-	short fixedOffsetX = 0;
-	short fixedOffsetY = 0;
+	short fixedX = 0;
+	short fixedY = 0;
+
+	short pivotOffsetX = 0;
+	short pivotOffsetY = 0;
 
 public:
 	std::string Name() const;
@@ -45,13 +48,24 @@ public:
 
 private:
 
-	short GlobalFixedOffsetX() const;
-	short GlobalFixedOffsetY() const;
+	short GlobalPivotOffsetX() const;
+	short GlobalPivotOffsetY() const;
+
+	short RenderingX() const;
+	short RenderingY() const;
 
 public:
 
+	short GlobalFixedX() const;
+	short GlobalFixedY() const;
+
 	short GlobalX() const;
 	short GlobalY() const;
+
+	short PivotX() const;
+	short PivotY() const;
+	short GlobalPivotX() const;
+	short GlobalPivotY() const;
 
 	short GlobalRotation() const;
 	float GlobalA() const;
