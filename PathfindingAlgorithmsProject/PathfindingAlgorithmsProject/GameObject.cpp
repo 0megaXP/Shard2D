@@ -47,6 +47,22 @@ short GameObject::GlobalFixedY() const
 		return _parent->GlobalFixedY() + fixedY;
 }
 
+short GameObject::GlobalSelfFixedX() const
+{
+	if (_parent == nullptr)
+		return selfFixedX;
+	else
+		return _parent->GlobalSelfFixedX() + selfFixedX;
+}
+
+short GameObject::GlobalSelfFixedY() const
+{
+	if (_parent == nullptr)
+		return selfFixedY;
+	else
+		return _parent->GlobalSelfFixedY() + selfFixedY;
+}
+
 short GameObject::GlobalPivotOffsetX() const
 {
 	return GlobalX() + pivotOffsetX;
@@ -59,12 +75,12 @@ short GameObject::GlobalPivotOffsetY() const
 
 short GameObject::RenderingX() const
 {
-	return GlobalX() + GlobalFixedX() + pivotOffsetX;
+	return GlobalX() + GlobalFixedX() + GlobalSelfFixedX() + pivotOffsetX;
 }
 
 short GameObject::RenderingY() const
 {
-	return GlobalY() + GlobalFixedY() + pivotOffsetY;
+	return GlobalY() + GlobalFixedY() + GlobalSelfFixedY() + pivotOffsetY;
 }
 
 /*

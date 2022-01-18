@@ -27,6 +27,9 @@ private:
 	short fixedX = 0;
 	short fixedY = 0;
 
+	short selfFixedX = 0;
+	short selfFixedY = 0;
+
 	short pivotOffsetX = 0;
 	short pivotOffsetY = 0;
 
@@ -51,13 +54,16 @@ private:
 	short GlobalPivotOffsetX() const;
 	short GlobalPivotOffsetY() const;
 
+	short GlobalFixedX() const;
+	short GlobalFixedY() const;
+
+	short GlobalSelfFixedX() const;
+	short GlobalSelfFixedY() const;
+
 	short RenderingX() const;
 	short RenderingY() const;
 
 public:
-
-	short GlobalFixedX() const;
-	short GlobalFixedY() const;
 
 	short GlobalX() const;
 	short GlobalY() const;

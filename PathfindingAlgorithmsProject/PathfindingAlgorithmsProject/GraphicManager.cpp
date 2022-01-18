@@ -78,8 +78,8 @@ void GraphicManager::FixPositionForRotation(SDL_Surface* _rotatedSurface, GameOb
 	float radius = Distance(Vector2(_object->RenderingX(), _object->RenderingY()), centre);
 	if (radius > 0)
 	{
-		_object->fixedX += centre.x + (normalizedPosition.x / basePosition.x) * surfaceW / 2 - _object->RenderingX();
-		_object->fixedY += centre.y - (normalizedPosition.y / basePosition.y) * surfaceH / 2 - _object->RenderingY();
+		_object->selfFixedX += centre.x + (normalizedPosition.x / basePosition.x) * surfaceW / 2 - _object->RenderingX();
+		_object->selfFixedY += centre.y - (normalizedPosition.y / basePosition.y) * surfaceH / 2 - _object->RenderingY();
 	}
 }
 
@@ -87,7 +87,7 @@ void GraphicManager::FixPositionForParentRotation(SDL_Surface* _rotatedSurface, 
 {
 	if (_object->Parent() != nullptr)
 	{
-		Vector2 centre = Vector2(_object->Parent()->GlobalX() /* - _object->x / 2*/, _object->Parent()->GlobalY());
+		Vector2 centre = Vector2(_object->Parent()->GlobalX(), _object->Parent()->GlobalY());
 		float radius = Distance(Vector2(_object->GlobalX(), _object->GlobalY()), centre);
 		if (radius > 0)
 		{
@@ -97,8 +97,8 @@ void GraphicManager::FixPositionForParentRotation(SDL_Surface* _rotatedSurface, 
 			Vector2 normalizedPosition = PositionFromDeg(_object->Parent()->GlobalRotation() + r);
 			Vector2 basePosition = PositionFromDeg(0);
 
-			_object->fixedX += normalizedPosition.x * radius - _object->x;
-			_object->fixedY += normalizedPosition.y * radius - _object->y;
+			_object->fixedX += normalizedPosition.x * radius - _object->x + _object->Parent()->GlobalFixedX();
+			_object->fixedY += normalizedPosition.y * radius - _object->y + _object->Parent()->GlobalFixedY();
 		}
 	}
 }
@@ -108,7 +108,7 @@ void GraphicManager::RenderObject(GameObject* object)
 	if (object->IsVisible())
 	{
 		Image* _objectImage = object->GetRenderingImage(); 
-		object->fixedX = 0; object->fixedY = 0; object->pivotOffsetX = 0; object->pivotOffsetY = 0;
+		object->fixedX = 0; object->fixedY = 0; object->selfFixedX = 0; object->selfFixedY = 0; object->pivotOffsetX = 0; object->pivotOffsetY = 0;
 
 		// Setting the alpha on the surface
 		SDL_SetSurfaceAlphaMod(_objectImage->_surface, (object->GlobalA() * 255));

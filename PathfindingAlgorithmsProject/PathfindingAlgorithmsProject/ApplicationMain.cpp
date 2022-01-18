@@ -23,7 +23,7 @@ void ApplicationMain::Start()
     sprite->y = 500;
     sprite->a = 1;
     sprite->rotation = 0;
-    sprite->centerPivot = false;
+    sprite->centerPivot = true;
 
     Sprite* point = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/RedPoint.png"));
     AddToStage(point);
@@ -40,25 +40,23 @@ void ApplicationMain::Start()
     childSprite->y = 128;
     sprite->AddChild(childSprite);
     childSprite->a = 1;
-    childSprite->centerPivot = false;
+    childSprite->centerPivot = true;
 
     superChildSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Doge.png"));
     superChildSprite->scaleX = 0.25;
     superChildSprite->scaleY = 0.25;
-    superChildSprite->x = 0;
-    superChildSprite->y = 0;
+    superChildSprite->x = 64;
+    superChildSprite->y = 64;
     childSprite->AddChild(superChildSprite);
     superChildSprite->a = 1;
-    superChildSprite->centerPivot = false;
+    superChildSprite->centerPivot = true;
 }
 
 void ApplicationMain::Update()
 {
     SDL_Event e;
-    //childSprite->rotation++;
-    //std::cout << "parent Sprite Fixed position: " << sprite->GlobalFixedX() << " - " << sprite->GlobalFixedY() << std::endl;
-    //std::cout << "Child Sprite Fixed position: " << childSprite->GlobalFixedX() << " - " << childSprite->GlobalFixedY() << std::endl;
-    //std::cout << "Super Child Sprite Fixed position: " << superChildSprite->GlobalFixedX() << " - " << superChildSprite->GlobalFixedY() << std::endl;
+    childSprite->rotation -= 1;
+    superChildSprite->rotation += 1;
 
     while (SDL_PollEvent(&e) != 0) {
         switch (e.type) {
