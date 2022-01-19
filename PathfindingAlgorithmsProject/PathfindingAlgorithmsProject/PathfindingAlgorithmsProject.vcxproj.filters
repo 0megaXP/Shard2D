@@ -99,6 +99,9 @@
     <ClCompile Include="BooleanUtils.ixx">
       <Filter>File di origine\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="TextField.cpp">
+      <Filter>File di origine\Framework\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="MathVectors.h">
       <Filter>File di intestazione\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TextField.h">
+      <Filter>File di intestazione\Framework\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

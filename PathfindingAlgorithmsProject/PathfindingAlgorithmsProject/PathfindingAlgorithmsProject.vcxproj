@@ -65,7 +65,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_gfx.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
@@ -92,7 +92,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Debu
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_gfx.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>start xcopy /E /Y /R  "$(ProjectDir)..\PathfindingAlgorithmsProject\Assets" "$(ProjectDir)..\Release\Assets\"
@@ -114,6 +114,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="MathVectors.cpp" />
     <ClCompile Include="PathfindingAlgorithmsProject.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TextField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationMain.h" />
@@ -129,6 +130,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="Managers.h" />
     <ClInclude Include="MathVectors.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="TextField.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

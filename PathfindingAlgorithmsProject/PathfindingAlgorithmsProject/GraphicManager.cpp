@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <SDL.h>
 #include <SDL2_rotozoom.h>
+#include <SDL_ttf.h>
 #include <math.h>
 
 #include "Managers.h"
@@ -58,6 +59,11 @@ void GraphicManager::Init()
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
 		std::cout << "Error initializing SDL_image with png: " << IMG_GetError << std::endl;
+	}
+
+	if (TTF_Init() < 0) 
+	{
+		std::cout << "Error initializing SDL_ttf: " << TTF_GetError() << std::endl;
 	}
 
 	Log("SDL initialized correctly!", TextColor::Green);
@@ -118,39 +124,42 @@ void GraphicManager::RenderObject(GameObject* _object)
 {
 	if (_object->IsVisible())
 	{
-		Image* _objectImage = _object->GetRenderingImage(); 
-		_object->ResetFixedValues();
-
-		// Setting the alpha on the surface
-		SDL_SetSurfaceAlphaMod(_objectImage->_surface, (_object->GlobalA() * 255));
-		// Setting the scale
-		SDL_Surface* _scaledSurface = zoomSurface(_objectImage->_surface, _object->GlobalScaleX(), _object->GlobalScaleY(), 0);
-		// Setting the rotation
-		SDL_Surface *_rotatedSurface = rotozoomSurface(_scaledSurface, -_object->GlobalRotation(), 1, 0);
-
-		// Managing the pivot
-		if (_object->centerPivot)
+		Image* _objectImage = _object->GetRenderingImage();
+		if (_objectImage)
 		{
-			_object->_pivotOffsetX = -_rotatedSurface->w / 2;
-			_object->_pivotOffsetY = -_rotatedSurface->h / 2;
+			_object->ResetFixedValues();
+
+			// Setting the alpha on the surface
+			SDL_SetSurfaceAlphaMod(_objectImage->_surface, (_object->GlobalA() * 255));
+			// Setting the scale
+			SDL_Surface* _scaledSurface = zoomSurface(_objectImage->_surface, _object->GlobalScaleX(), _object->GlobalScaleY(), 0);
+			// Setting the rotation
+			SDL_Surface *_rotatedSurface = rotozoomSurface(_scaledSurface, -_object->GlobalRotation(), 1, 0);
+
+			// Managing the pivot
+			if (_object->centerPivot)
+			{
+				_object->_pivotOffsetX = -_rotatedSurface->w / 2;
+				_object->_pivotOffsetY = -_rotatedSurface->h / 2;
+			}
+			// Fixing the object position during the rotation
+			FixPositionForRotation(_rotatedSurface, _object);
+			// Fix the position also based on the parent rotation and fixed position
+			FixPositionForParentRotation(_rotatedSurface, _object);
+
+			// Setting the rendering rect
+			SDL_Rect _tempRect = SDL_Rect();
+			_tempRect.x = _object->RenderingX();
+			_tempRect.y = _object->RenderingY();
+			_tempRect.w = _rotatedSurface->w;
+			_tempRect.h = _rotatedSurface->h;
+
+			// Rendering the surface
+			SDL_BlitSurface(_rotatedSurface, NULL, _winSurface, &_tempRect);
+			// Freeing all the surfaces created in this stack
+			SDL_FreeSurface(_scaledSurface);
+			SDL_FreeSurface(_rotatedSurface);
 		}
-		// Fixing the object position during the rotation
-		FixPositionForRotation(_rotatedSurface, _object);
-		// Fix the position also based on the parent rotation and fixed position
-		FixPositionForParentRotation(_rotatedSurface, _object);
-
-		// Setting the rendering rect
-		SDL_Rect _tempRect = SDL_Rect();
-		_tempRect.x = _object->RenderingX();
-		_tempRect.y = _object->RenderingY();
-		_tempRect.w = _rotatedSurface->w;
-		_tempRect.h = _rotatedSurface->h;
-
-		// Rendering the surface
-		SDL_BlitSurface(_rotatedSurface, NULL, _winSurface, &_tempRect);
-		// Freeing all the surfaces created in this stack
-		SDL_FreeSurface(_scaledSurface);
-		SDL_FreeSurface(_rotatedSurface);
 		// Call the RenderObject() function for all the children
 		for (GameObject* child : _object->_children)
 		{

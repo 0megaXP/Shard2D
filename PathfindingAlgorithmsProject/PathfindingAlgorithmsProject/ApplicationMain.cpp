@@ -3,6 +3,7 @@
 #include "CustomIOStream.h"
 #include "MathVectors.h"
 #include "ClockManager.h"
+#include "TextField.h"
 
 import MathUtils;
 import BooleanUtils;
@@ -14,7 +15,7 @@ ApplicationMain::ApplicationMain()
 
 void ApplicationMain::Start()
 {
-	sprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Doge.png"));
+	sprite = new Sprite(M_AssetsManager->GetImagePNG("Doge"));
     AddToStage(sprite);
 	sprite->SetVisibility(true);
 	sprite->scaleX = 0.5;
@@ -25,7 +26,7 @@ void ApplicationMain::Start()
     sprite->rotation = 0;
     sprite->centerPivot = true;
 
-    Sprite* point = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/RedPoint.png"));
+    Sprite* point = new Sprite(M_AssetsManager->GetImagePNG("RedPoint"));
     AddToStage(point);
     point->x = sprite->x;
     point->y = sprite->y;
@@ -33,7 +34,7 @@ void ApplicationMain::Start()
     point->scaleY = 0.01;
     point->centerPivot = true;
 
-    childSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Last_Defenders.png"));
+    childSprite = new Sprite(M_AssetsManager->GetImagePNG("Last_Defenders"));
     childSprite->scaleX = 0.5;
     childSprite->scaleY = 0.5;
     childSprite->x = 128;
@@ -42,7 +43,7 @@ void ApplicationMain::Start()
     childSprite->a = 1;
     childSprite->centerPivot = true;
 
-    superChildSprite = new Sprite(Managers::assetsManager->GetImagePNG("Assets/PNGs/Doge.png"));
+    superChildSprite = new Sprite(M_AssetsManager->GetImagePNG("Doge"));
     superChildSprite->scaleX = 0.25;
     superChildSprite->scaleY = 0.25;
     superChildSprite->x = 64;
@@ -50,6 +51,19 @@ void ApplicationMain::Start()
     childSprite->AddChild(superChildSprite);
     superChildSprite->a = 1;
     superChildSprite->centerPivot = true;
+    
+    TextField* a = new TextField("arial", 20);
+    a->text = "This is a test text, it seems a bit low quality!";
+    a->scaleX = 3;
+    a->scaleY = 3;
+    AddToStage(a);
+
+    TextField* b = new TextField("arial", 60);
+    b->text = "This is a test text, it seems a bit low quality!";
+    b->scaleX = 1;
+    b->scaleY = 1;
+    b->y = 150;
+    AddToStage(b);
 }
 
 void ApplicationMain::Update()
