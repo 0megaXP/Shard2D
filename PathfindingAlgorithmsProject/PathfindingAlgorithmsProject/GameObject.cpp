@@ -8,10 +8,11 @@
 
 import MathUtils;
 GameObject::GameObject()
-	: _name("New Object")//, _parent(nullptr), _children(std::vector<GameObject*>())
+	: _name("New Object")
 {
 	M_GameObjectsManager->ObjectCreated(this);
 
+	Init();
 
 	std::cout << "GameObject created!" << std::endl;
 }
@@ -31,61 +32,68 @@ GameObject* GameObject::Parent() const
 	return _parent;
 }
 
-short GameObject::GlobalFixedX() const
+short GameObject::GlobalParentFixedX() const
 {
 	if(_parent == nullptr)
-		return fixedX;
+		return _parentFixedX;
 	else
-		return _parent->GlobalFixedX() + fixedX;
+		return _parent->GlobalParentFixedX() + _parentFixedX;
 }
 
-short GameObject::GlobalFixedY() const
+short GameObject::GlobalParentFixedY() const
 {
 	if (_parent == nullptr)
-		return fixedY;
+		return _parentFixedY;
 	else
-		return _parent->GlobalFixedY() + fixedY;
+		return _parent->GlobalParentFixedY() + _parentFixedY;
 }
 
 short GameObject::GlobalSelfFixedX() const
 {
 	if (_parent == nullptr)
-		return selfFixedX;
+		return _selfFixedX;
 	else
-		return _parent->GlobalSelfFixedX() + selfFixedX;
+		return _parent->GlobalSelfFixedX() + _selfFixedX;
 }
 
 short GameObject::GlobalSelfFixedY() const
 {
 	if (_parent == nullptr)
-		return selfFixedY;
+		return _selfFixedY;
 	else
-		return _parent->GlobalSelfFixedY() + selfFixedY;
+		return _parent->GlobalSelfFixedY() + _selfFixedY;
 }
 
 short GameObject::GlobalPivotOffsetX() const
 {
-	return GlobalX() + pivotOffsetX;
+	return GlobalX() + _pivotOffsetX;
 }
 
 short GameObject::GlobalPivotOffsetY() const
 {
-	return GlobalY() + pivotOffsetY;
+	return GlobalY() + _pivotOffsetY;
 }
 
 short GameObject::RenderingX() const
 {
-	return GlobalX() + GlobalFixedX() + GlobalSelfFixedX() + pivotOffsetX;
+	return GlobalX() + GlobalParentFixedX() + GlobalSelfFixedX() + _pivotOffsetX;
 }
 
 short GameObject::RenderingY() const
 {
-	return GlobalY() + GlobalFixedY() + GlobalSelfFixedY() + pivotOffsetY;
+	return GlobalY() + GlobalParentFixedY() + GlobalSelfFixedY() + _pivotOffsetY;
 }
 
-/*
-Return the GambeObject's x position on the screen (counting all the parents' x)
-*/
+void GameObject::ResetFixedValues()
+{
+	_parentFixedX = 0;
+	_parentFixedY = 0; 
+	_selfFixedX = 0; 
+	_selfFixedY = 0; 
+	_pivotOffsetX = 0; 
+	_pivotOffsetY = 0;
+}
+
 short GameObject::GlobalX() const
 {
 	if (_parent != nullptr)
@@ -94,9 +102,6 @@ short GameObject::GlobalX() const
 		return x;
 }
 
-/*
-Return the GambeObject's y position on the screen (counting all the parents' y)
-*/
 short GameObject::GlobalY() const
 {
 	if (_parent != nullptr)
@@ -107,27 +112,24 @@ short GameObject::GlobalY() const
 
 short GameObject::PivotX() const
 {
-	return x - pivotOffsetX;
+	return x - _pivotOffsetX;
 }
 
 short GameObject::PivotY() const
 {
-	return y - pivotOffsetY;
+	return y - _pivotOffsetY;
 }
 
 short GameObject::GlobalPivotX() const
 {
-	return GlobalX() - pivotOffsetX;
+	return GlobalX() - _pivotOffsetX;
 }
 
 short GameObject::GlobalPivotY() const
 {
-	return GlobalY() - pivotOffsetY;
+	return GlobalY() - _pivotOffsetY;
 }
 
-/*
-Return the GambeObject's rotation (counting all the parents' rotations)
-*/
 short GameObject::GlobalRotation() const
 {
 	if (_parent == nullptr)
@@ -136,9 +138,6 @@ short GameObject::GlobalRotation() const
 		return (_parent->GlobalRotation() + rotation) % 360;
 }
 
-/*
-Return the GambeObject's alpha (counting all the parents' alphas)
-*/
 float GameObject::GlobalA() const
 {
 	if (a <= 0 || _parent == nullptr)
@@ -147,10 +146,6 @@ float GameObject::GlobalA() const
 		return Clamp01(a * _parent->GlobalA());
 }
 
-
-/*
-Return the GambeObject's x scale on the screen (counting all the parents' x)
-*/
 float GameObject::GlobalScaleX() const
 {
 	if (_parent != nullptr)
@@ -159,9 +154,6 @@ float GameObject::GlobalScaleX() const
 		return scaleX;
 }
 
-/*
-Return the GambeObject's y scale on the screen (counting all the parents' y)
-*/
 float GameObject::GlobalScaleY() const
 {
 	if (_parent != nullptr)
@@ -170,9 +162,6 @@ float GameObject::GlobalScaleY() const
 		return scaleY;
 }
 
-/*
-Return true if the GameObject has to be rendered (also takes count of scale and alpha)
-*/
 bool GameObject::IsVisible() const
 {
 	if (_parent != nullptr && a > 0 && scaleX != 0 && scaleY != 0)
@@ -183,17 +172,11 @@ bool GameObject::IsVisible() const
 		return false;
 }
 
-/*
-Set if the GameObject has to be rendered (also takes count of scale and alpha)
-*/
 void GameObject::SetVisibility(bool isVisible)
 {
 	_visible = isVisible;
 }
 
-/*
-Return true if the GameObject has run events and updates
-*/
 bool GameObject::IsActive() const
 {
 	if (_parent != nullptr)
@@ -202,17 +185,11 @@ bool GameObject::IsActive() const
 		return _active;
 }
 
-/*
-Set if the GameObject has to run events and updates
-*/
 void GameObject::SetActive(bool isActive)
 {
 	_active = isActive;
 }
 
-/*
-Set the param GameObject as child of the actual GameObject.
-*/
 void GameObject::AddChild(GameObject* child)
 {
 	if (child != nullptr)
@@ -226,9 +203,6 @@ void GameObject::AddChild(GameObject* child)
 	}
 }
 
-/*
-Remove the selected child from the GameObject
-*/
 void GameObject::RemoveChild(GameObject* child)
 {
 	if (child != nullptr && _children.size() > 0)
@@ -247,9 +221,6 @@ void GameObject::RemoveChild(GameObject* child)
 	}
 }
 
-/*
-Remove all the children from the GameObject
-*/
 void GameObject::RemoveChildren()
 {
 	for (int i = 0; i < _children.size(); i++)
@@ -259,9 +230,6 @@ void GameObject::RemoveChildren()
 	}
 }
 
-/*
-Function called from the GraphicManager. Return the image to render
-*/
 Image* GameObject::GetRenderingImage()
 {
 	std::cout << "GameObject Image null" << std::endl;
