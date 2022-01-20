@@ -25,7 +25,9 @@ private:
 	std::vector<std::shared_ptr<CustomFont>> _fontsSaved;
 
 public:
-	Image* GetImagePNG(const std::string path);
+	SurfaceImage* GetSurfaceImagePNG(const std::string path);
+
+	TextureImage* GetTextureImagePNG(const std::string path);
 
 	TTF_Font* GetFont(const std::string path);
 

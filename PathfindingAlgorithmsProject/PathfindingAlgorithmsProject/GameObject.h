@@ -121,7 +121,7 @@ public:
 	/*
 	Return the GambeObject's rotation (counting all the parents' rotations)
 	*/
-	short GlobalRotation() const;
+	float GlobalRotation() const;
 	/*
 	Return the GambeObject's alpha (counting all the parents' alphas)
 	*/

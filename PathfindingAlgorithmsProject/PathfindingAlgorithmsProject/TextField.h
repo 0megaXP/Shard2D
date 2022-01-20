@@ -14,7 +14,7 @@ public:
 protected:
 	~TextField();
 
-	std::shared_ptr<Image> _image;
+	std::shared_ptr<TextureImage> _image;
 
 public:
 	TTF_Font* font;

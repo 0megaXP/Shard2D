@@ -6,7 +6,8 @@
 
 #include <iostream>
 
-import MathUtils;
+import MathUtils;
+
 GameObject::GameObject()
 	: _name("New Object")
 {
@@ -130,12 +131,12 @@ short GameObject::GlobalPivotY() const
 	return GlobalY() - _pivotOffsetY;
 }
 
-short GameObject::GlobalRotation() const
+float GameObject::GlobalRotation() const
 {
 	if (_parent == nullptr)
-		return (short)rotation % 360;
+		return rotation;// % 360;
 	else
-		return (short)(_parent->GlobalRotation() + rotation) % 360;
+		return (_parent->GlobalRotation() + rotation);// % 360;
 }
 
 float GameObject::GlobalA() const

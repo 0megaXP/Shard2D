@@ -17,7 +17,7 @@ ApplicationMain::ApplicationMain()
 
 void ApplicationMain::Start()
 {
-	sprite = new Sprite(M_AssetsManager->GetImagePNG("Doge"));
+	sprite = new Sprite(M_AssetsManager->GetSurfaceImagePNG("Doge"));
     AddToStage(sprite);
 	sprite->SetVisibility(true);
 	sprite->scaleX = 0.5;
@@ -28,7 +28,7 @@ void ApplicationMain::Start()
     sprite->rotation = 0;
     sprite->centerPivot = true;
 
-    Sprite* point = new Sprite(M_AssetsManager->GetImagePNG("RedPoint"));
+    Sprite* point = new Sprite(M_AssetsManager->GetSurfaceImagePNG("RedPoint"));
     AddToStage(point);
     point->x = sprite->x;
     point->y = sprite->y;
@@ -36,7 +36,7 @@ void ApplicationMain::Start()
     point->scaleY = 0.01;
     point->centerPivot = true;
 
-    childSprite = new Sprite(M_AssetsManager->GetImagePNG("Last_Defenders"));
+    childSprite = new Sprite(M_AssetsManager->GetSurfaceImagePNG("Last_Defenders"));
     childSprite->scaleX = 0.5;
     childSprite->scaleY = 0.5;
     childSprite->x = 128;
@@ -45,7 +45,7 @@ void ApplicationMain::Start()
     childSprite->a = 1;
     childSprite->centerPivot = true;
 
-    superChildSprite = new Sprite(M_AssetsManager->GetImagePNG("Doge"));
+    superChildSprite = new Sprite(M_AssetsManager->GetSurfaceImagePNG("Doge"));
     superChildSprite->scaleX = 0.25;
     superChildSprite->scaleY = 0.25;
     superChildSprite->x = 64;
@@ -79,8 +79,9 @@ void ApplicationMain::Start()
 void ApplicationMain::Update()
 {
     SDL_Event e;
-    childSprite->rotation -= 1 * M_ClockManager->GetDeltaTime();
-    superChildSprite->rotation += 360 * M_ClockManager->GetDeltaTime();
+    //childSprite->rotation -= 1 * M_ClockManager->GetDeltaTime();
+    //superChildSprite->rotation += 360 * M_ClockManager->GetDeltaTime();
+    sprite->rotation += 10 * M_ClockManager->GetDeltaTime();
 
     while (SDL_PollEvent(&e) != 0) {
         switch (e.type) {
@@ -89,7 +90,7 @@ void ApplicationMain::Update()
 
         case SDL_KEYDOWN:
            //Managers::gameObjectsManager->RemoveObjectFromStage(sprite);
-            sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
+            //sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
             break;
         case SDL_KEYUP:
             //Managers::gameObjectsManager->AddObjectToStage(sprite);

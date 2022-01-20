@@ -1,5 +1,7 @@
 #include "AssetsManager.h"
 
+#include "Managers.h"
+#include "GraphicManager.h"
 #include "CustomIOStream.h"
 
 AssetsManager::AssetsManager()
@@ -14,10 +16,18 @@ AssetsManager::~AssetsManager()
 /**
 Create an Image containing the .png found through the path given.
 */
-Image* AssetsManager::GetImagePNG(const std::string path)
+SurfaceImage* AssetsManager::GetSurfaceImagePNG(const std::string path)
 {
 	SDL_Surface* newSurface = IMG_Load((assetsPrefix + pngPrefix + path + pngSuffix).c_str());
-	Image* newImage = new Image(newSurface);
+	SurfaceImage* newImage = new SurfaceImage(newSurface);
+	return newImage;
+}
+
+TextureImage* AssetsManager::GetTextureImagePNG(const std::string path)
+{
+	SDL_Surface* newSurface = IMG_Load((assetsPrefix + pngPrefix + path + pngSuffix).c_str());
+	SDL_Texture* newTexture = M_GraphicManager->CreateTexture(newSurface);
+		TextureImage * newImage = new TextureImage(newTexture);
 	return newImage;
 }
 
@@ -32,8 +42,6 @@ TTF_Font* AssetsManager::GetFont(const std::string path)
 	}
 
 	return newFont->font;
-
-	//return TTF_OpenFont((assetsPrefix + fontPrefix + path + fontSuffix).c_str(), 72);
 }
 
 CustomFont* AssetsManager::SearchFont(std::string fontName)

@@ -1,6 +1,7 @@
 #include "TextField.h"
 
 #include "Managers.h"
+#include "GraphicManager.h"
 #include "AssetsManager.h"
 #include "CustomIOStream.h"
 
@@ -15,11 +16,13 @@ TextField::TextField(std::string newText, std::string fontName, int newSize)
     if (!textSurface)
     {
         Log("Failed to render text", TextColor::Red);
-        _image = std::shared_ptr<Image>(new Image(nullptr));
+        _image = std::shared_ptr<TextureImage>(new TextureImage(nullptr));
     }
     else
     {
-        _image = std::shared_ptr<Image>(new Image(textSurface));
+        SDL_Texture* textTexture = M_GraphicManager->CreateTexture(textSurface);
+        SDL_FreeSurface(textSurface);
+        _image = std::shared_ptr<TextureImage>(new TextureImage(textTexture));
     }
 }
 
@@ -68,12 +71,14 @@ void TextField::UpdateSurface()
     if (!textSurface)
     {
         Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);
-        _image = std::shared_ptr<Image>(new Image(nullptr));
+        _image = std::shared_ptr<TextureImage>(new TextureImage(nullptr));
     }
     else
     {
         _image.reset();
-        _image = std::shared_ptr<Image>(new Image(textSurface));
+        SDL_Texture* textTexture = M_GraphicManager->CreateTexture(textSurface);
+        SDL_FreeSurface(textSurface);
+        _image = std::shared_ptr<TextureImage>(new TextureImage(textTexture));
     }
 }
 
