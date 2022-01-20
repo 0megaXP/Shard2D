@@ -40,7 +40,7 @@ public:
 	short x = 0;
 	short y = 0;
 
-	short rotation = 0;
+	float rotation = 0;
 
 	float a = 1;
 
@@ -130,11 +130,11 @@ public:
 	/*
 	Return the GambeObject's x scale on the screen (counting all the parents' x)
 	*/
-	float GlobalScaleX() const;
+	virtual float GlobalScaleX() const;
 	/*
 	Return the GambeObject's y scale on the screen (counting all the parents' y)
 	*/
-	float GlobalScaleY() const;
+	virtual float GlobalScaleY() const;
 
 	/*
 	Return true if the GameObject has to be rendered (also takes count of scale and alpha)

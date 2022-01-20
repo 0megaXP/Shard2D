@@ -9,7 +9,7 @@
 class TextField : public GameObject
 {
 public:
-	TextField(std::string fontName, int size);
+	TextField(std::string newText, std::string fontName, int size);
 
 protected:
 	~TextField();
@@ -17,16 +17,25 @@ protected:
 	std::shared_ptr<Image> _image;
 
 public:
-	std::string text = "";
 	TTF_Font* font;
-	SDL_Color color = SDL_Color(255,255,255);
+	Uint32 width = 1280;
+	Uint8 size = 24;
 
 private:
-	Uint8 _size = 24;
+	std::string _text = "";
+	SDL_Color _color = SDL_Color(255,255,255);
 
 public:
-	void SetSize(int newSize);
-	int Size() const;
+	float GlobalScaleX() const override;
+	float GlobalScaleY() const override;
+
+	void SetText(std::string newText);
+	void SetColor(SDL_Color newColor);
+
+private:
+	float NormalizedSize() const;
+
+	void UpdateSurface();
 
 protected:
 	virtual Image* GetRenderingImage() override;

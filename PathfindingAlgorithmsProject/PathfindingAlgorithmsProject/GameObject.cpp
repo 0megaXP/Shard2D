@@ -133,9 +133,9 @@ short GameObject::GlobalPivotY() const
 short GameObject::GlobalRotation() const
 {
 	if (_parent == nullptr)
-		return rotation % 360;
+		return (short)rotation % 360;
 	else
-		return (_parent->GlobalRotation() + rotation) % 360;
+		return (short)(_parent->GlobalRotation() + rotation) % 360;
 }
 
 float GameObject::GlobalA() const

@@ -4,41 +4,80 @@
 #include "AssetsManager.h"
 #include "CustomIOStream.h"
 
-TextField::TextField(std::string fontName, int size)
+TextField::TextField(std::string newText, std::string fontName, int newSize)
+    : _text(newText), size(newSize)
 {
-    font = M_AssetsManager->GetFont(fontName, size);
+    font = M_AssetsManager->GetFont(fontName);
+
+    SDL_Surface* textSurface;
+
+    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, width / ((scaleX + scaleY) / 2) / NormalizedSize());
+    if (!textSurface)
+    {
+        Log("Failed to render text", TextColor::Red);
+        _image = std::shared_ptr<Image>(new Image(nullptr));
+    }
+    else
+    {
+        _image = std::shared_ptr<Image>(new Image(textSurface));
+    }
 }
 
 TextField::~TextField()
 {
 }
 
-void TextField::SetSize(int newSize)
+float TextField::GlobalScaleX() const
 {
-    if (newSize < 0)
-        _size = 0;
+    if (Parent() != nullptr)
+        return scaleX * ((float)size / 72) * Parent()->GlobalScaleX();
     else
-        _size = newSize;
+        return scaleX * ((float)size / 72);
 }
 
-int TextField::Size() const
+float TextField::GlobalScaleY() const
 {
-    return _size;
+    if (Parent() != nullptr)
+        return scaleY * NormalizedSize() * Parent()->GlobalScaleY();
+    else
+        return scaleY * NormalizedSize();
+}
+
+void TextField::SetText(std::string newText)
+{
+    _text = newText;
+    UpdateSurface();
+}
+
+void TextField::SetColor(SDL_Color newColor)
+{
+    _color = newColor;
+    UpdateSurface();
+}
+
+float TextField::NormalizedSize() const
+{
+    return ((float)size / 72);
+}
+
+void TextField::UpdateSurface()
+{
+    SDL_Surface* textSurface;
+
+    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, width / ((scaleX + scaleY) / 2) / NormalizedSize());
+    if (!textSurface)
+    {
+        Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);
+        _image = std::shared_ptr<Image>(new Image(nullptr));
+    }
+    else
+    {
+        _image.reset();
+        _image = std::shared_ptr<Image>(new Image(textSurface));
+    }
 }
 
 Image* TextField::GetRenderingImage()
 {
-    //if (_image.get() != nullptr)
-        //delete _image.get();
-
-    SDL_Surface* textSurface;
-
-    textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
-    if (!textSurface)
-    {
-        Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);
-        return nullptr;
-    }
-    _image = std::shared_ptr<Image>(new Image(textSurface));
     return _image.get();
 }

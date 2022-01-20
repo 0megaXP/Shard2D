@@ -21,7 +21,28 @@ Image* AssetsManager::GetImagePNG(const std::string path)
 	return newImage;
 }
 
-TTF_Font* AssetsManager::GetFont(const std::string path, int size)
+TTF_Font* AssetsManager::GetFont(const std::string path)
 {
-	return TTF_OpenFont((assetsPrefix + fontPrefix + path + fontSuffix).c_str(), size);
+	CustomFont* newFont = SearchFont(path);
+
+	if (newFont == nullptr)
+	{
+		newFont = new CustomFont(path, TTF_OpenFont((assetsPrefix + fontPrefix + path + fontSuffix).c_str(), 72));
+		_fontsSaved.push_back(std::shared_ptr<CustomFont>(newFont));
+	}
+
+	return newFont->font;
+
+	//return TTF_OpenFont((assetsPrefix + fontPrefix + path + fontSuffix).c_str(), 72);
+}
+
+CustomFont* AssetsManager::SearchFont(std::string fontName)
+{
+	for (int i = 0; i < _fontsSaved.size(); i++)
+	{
+		if (_fontsSaved[i].get()->fontName == fontName)
+			return _fontsSaved[i].get();
+	}
+
+	return nullptr;
 }

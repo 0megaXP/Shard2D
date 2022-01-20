@@ -146,5 +146,8 @@
     <ClInclude Include="TextField.h">
       <Filter>File di intestazione\Framework\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="CustomFont.h">
+      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

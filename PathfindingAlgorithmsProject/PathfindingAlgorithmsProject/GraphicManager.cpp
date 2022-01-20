@@ -26,6 +26,8 @@ GraphicManager::~GraphicManager()
 {
 	// Destroy the app window and call the SDL destructor
 	SDL_DestroyWindow(_window);
+	TTF_Quit();
+	IMG_Quit();
 	SDL_Quit();
 
 	Log("SDL exit correctly!", TextColor::Green);
@@ -125,7 +127,7 @@ void GraphicManager::RenderObject(GameObject* _object)
 	if (_object->IsVisible())
 	{
 		Image* _objectImage = _object->GetRenderingImage();
-		if (_objectImage)
+		if (_objectImage && _objectImage->_surface)
 		{
 			_object->ResetFixedValues();
 

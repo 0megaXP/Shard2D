@@ -120,6 +120,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="ApplicationMain.h" />
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="ClockManager.h" />
+    <ClInclude Include="CustomFont.h" />
     <ClInclude Include="CustomIOStream.h" />
     <ClInclude Include="CustomTweener.h" />
     <ClInclude Include="GameManager.h" />
