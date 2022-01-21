@@ -1,5 +1,11 @@
 #pragma once
 
+#define SURFACE_RENDERING 0
+#define TEXTURE_RENDERING 1
+
+// Must be SURFACE_RENDERING or TEXTURE_RENDERING
+#define RENDERING_TYPE TEXTURE_RENDERING
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
@@ -17,8 +23,13 @@ public:
 	~GraphicManager();
 
 	SDL_Window* _window;
-	SDL_Surface* _winSurface;
+#if RENDERING_TYPE == TEXTURE_RENDERING
 	SDL_Renderer* _winRenderer;
+#else
+	SDL_Surface* _winSurface;
+#endif
+
+	int renderingType = TEXTURE_RENDERING;
 
 	friend class GameManager;
 
@@ -29,10 +40,15 @@ private:
 	void Init();
 
 	void FixPositionForRotation(SDL_Surface* _rotatedSurface, GameObject* _object, SurfaceImage* _image);
-	void FixPositionForParentRotation(SDL_Surface* _rotatedSurface, GameObject* _object);
+	void FixPositionForParentRotation(GameObject* _object);
 
 	void RenderObject(GameObject* object);
+
+#if RENDERING_TYPE == TEXTURE_RENDERING
+	void RenderTextureObject(GameObject* _object, TextureImage* _image);
+#else
 	void RenderSurfaceObject(GameObject* _object, SurfaceImage* _image);
+#endif
 
 	void RenderScene();
 };

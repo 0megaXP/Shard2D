@@ -14,6 +14,9 @@ public:
 	~Image() {};
 
 	std::string type;
+
+private:
+	friend class GraphicManager;
 };
 
 struct SurfaceImage : Image

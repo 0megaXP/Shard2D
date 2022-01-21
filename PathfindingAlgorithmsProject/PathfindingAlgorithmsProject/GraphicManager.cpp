@@ -17,7 +17,6 @@
 import MathUtils;
 
 GraphicManager::GraphicManager()
-	: _window(nullptr), _winSurface(nullptr), _winRenderer(nullptr)
 {
 	Init();
 }
@@ -55,6 +54,13 @@ void GraphicManager::Init()
 		return;
 	}
 
+#if RENDERING_TYPE == TEXTURE_RENDERING
+	_winRenderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+	if (!_winRenderer) 
+	{
+		Log("Failed to create window and renderer: " + *SDL_GetError(), TextColor::Red);
+	}
+#else
 	_winSurface = SDL_GetWindowSurface(_window);
 	if (!_winSurface)
 	{
@@ -62,12 +68,8 @@ void GraphicManager::Init()
 		system("pause");
 		return;
 	}
+#endif
 
-	_winRenderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
-	if (!_winRenderer) 
-	{
-		Log("Failed to create window and renderer: " + *SDL_GetError(), TextColor::Red);
-	}
 
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
@@ -81,9 +83,11 @@ void GraphicManager::Init()
 
 	Log("SDL initialized correctly!", TextColor::Green);
 
-	// Set the background color
-	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
+#if RENDERING_TYPE == TEXTURE_RENDERING
 	SDL_SetRenderDrawColor(_winRenderer, 0, 0, 0, 255);
+#else
+	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
+#endif
 	SDL_UpdateWindowSurface(_window);
 	return;
 }
@@ -111,7 +115,7 @@ void GraphicManager::FixPositionForRotation(SDL_Surface* _rotatedSurface, GameOb
 	}
 }
 
-void GraphicManager::FixPositionForParentRotation(SDL_Surface* _rotatedSurface, GameObject* _object)
+void GraphicManager::FixPositionForParentRotation(GameObject* _object)
 {
 	/*This function is used for fixing the GameObject's position during its parent's rotation.*/
 	if (_object->Parent() != nullptr)
@@ -128,87 +132,29 @@ void GraphicManager::FixPositionForParentRotation(SDL_Surface* _rotatedSurface, 
 			Vector2 normalizedPosition = PositionFromDeg(_object->Parent()->GlobalRotation() + _objectActualRotation);
 			Vector2 basePosition = PositionFromDeg(0);
 
-			_object->_parentFixedX += normalizedPosition.x * radius - _object->x + _object->Parent()->GlobalParentFixedX();
-			_object->_parentFixedY += normalizedPosition.y * radius - _object->y + _object->Parent()->GlobalParentFixedY();
+			_object->_parentFixedX += normalizedPosition.x * radius - _object->x ;//+ _object->Parent()->GlobalParentFixedX();
+			_object->_parentFixedY += normalizedPosition.y * radius - _object->y ;//+ _object->Parent()->GlobalParentFixedY();
 		}
 	}
 }
-
-/*void GraphicManager::RenderObject(GameObject* _object)
-{
-	if (_object->IsVisible())
-	{
-		Image* _objectImage = _object->GetRenderingImage();
-		if (_objectImage && _objectImage->_surface)
-		{
-			
-			_object->ResetFixedValues();
-
-			// Setting the alpha on the surface
-			//SDL_SetSurfaceAlphaMod(_objectImage->_surface, (_object->GlobalA() * 255));
-			// Setting the scale
-			//SDL_Surface* _scaledSurface = zoomSurface(_objectImage->_surface, _object->GlobalScaleX(), _object->GlobalScaleY(), 0);
-			// Setting the rotation
-			//SDL_Surface *_rotatedSurface = rotozoomSurface(_scaledSurface, -_object->GlobalRotation(), 1, 0);
-
-			// Managing the pivot
-			if (_object->centerPivot)
-			{
-				_object->_pivotOffsetX = -_objectImage->_surface->w / 2;
-				_object->_pivotOffsetY = -_objectImage->_surface->h / 2;
-			}
-			// Fixing the object position during the rotation
-			FixPositionForRotation(_rotatedSurface, _object);
-			// Fix the position also based on the parent rotation and fixed position
-			FixPositionForParentRotation(_rotatedSurface, _object);
-
-			
-
-			SDL_Point rotPoint = SDL_Point();
-			rotPoint.x = _object->GlobalX();
-			rotPoint.x = _object->GlobalY();
-
-			SDL_RenderDrawPoint(_winRenderer, rotPoint.x, rotPoint.y);
-
-			// Setting the rendering rect
-			SDL_Rect _tempRect = SDL_Rect();
-			_tempRect.x = _object->RenderingX();
-			_tempRect.y = _object->RenderingY();
-			_tempRect.w = _objectImage->_surface->w * _object->GlobalScaleX();
-			_tempRect.h = _objectImage->_surface->h * _object->GlobalScaleY();
-
-			SDL_Texture* texture = SDL_CreateTextureFromSurface(_winRenderer, _objectImage->_surface);
-			SDL_SetTextureAlphaMod(texture, _object->GlobalA() * 255);
-
-			// Rendering the surface
-			//SDL_BlitSurface(_rotatedSurface, NULL, _winSurface, &_tempRect);
-			SDL_RenderCopyEx( _winRenderer, texture, NULL, &_tempRect, _object->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
-			SDL_DestroyTexture(texture);
-			// Freeing all the surfaces created in this stack
-			//SDL_FreeSurface(_scaledSurface);
-			//SDL_FreeSurface(_rotatedSurface);
-		}
-		// Call the RenderObject() function for all the children
-		for (GameObject* child : _object->_children)
-		{
-			RenderObject(child);
-		}
-	}
-}*/
 
 void GraphicManager::RenderObject(GameObject* _object)
 {
 	if (_object->IsVisible())
 	{
 		Image* _objectImage = _object->GetRenderingImage();
+
+#if RENDERING_TYPE == TEXTURE_RENDERING
+		if (_objectImage->type == TEXTURE_TYPE)
+		{
+			RenderTextureObject(_object, static_cast<TextureImage*>(_objectImage));
+		}
+#else
 		if (_objectImage->type == SURFACE_TYPE)
 		{
 			RenderSurfaceObject(_object, static_cast<SurfaceImage*>(_objectImage));
 		}
-		else if (_objectImage->type == TEXTURE_TYPE)
-		{
-
-		}
+#endif
 		
 		// Call the RenderObject() function for all the children
 		for (GameObject* child : _object->_children)
@@ -218,6 +164,44 @@ void GraphicManager::RenderObject(GameObject* _object)
 	}
 }
 
+#if RENDERING_TYPE == TEXTURE_RENDERING
+void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _image)
+{
+	if (_image && _image->_texture)
+	{
+		_object->ResetFixedValues();
+
+		SDL_Texture* texture = _image->_texture;
+		int textureW, textureH, access;
+		unsigned int format;
+		SDL_QueryTexture(_image->_texture, &format, &access, &textureW, &textureH);
+
+		// Managing the pivot
+		if (_object->centerPivot)
+		{
+			_object->_pivotOffsetX = textureW / -2 * _object->GlobalScaleX();
+			_object->_pivotOffsetY = textureH / -2 * _object->GlobalScaleY();
+		}
+
+		SDL_Point rotPoint = SDL_Point();
+		rotPoint.x = -_object->_pivotOffsetX;
+		rotPoint.y = -_object->_pivotOffsetY;
+
+		FixPositionForParentRotation(_object);
+
+		// Setting the rendering rect
+		SDL_Rect _tempRect = SDL_Rect();
+		_tempRect.x = _object->RenderingX();
+		_tempRect.y = _object->RenderingY();
+		_tempRect.w = textureW * _object->GlobalScaleX();
+		_tempRect.h = textureH * _object->GlobalScaleY();
+
+		SDL_SetTextureAlphaMod(_image->_texture, _object->GlobalA() * 255);
+
+		SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _object->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
+	}
+}
+#else
 void GraphicManager::RenderSurfaceObject(GameObject* _object, SurfaceImage* _image)
 {
 	if (_image && _image->_surface)
@@ -240,7 +224,7 @@ void GraphicManager::RenderSurfaceObject(GameObject* _object, SurfaceImage* _ima
 		// Fixing the object position during the rotation
 		FixPositionForRotation(_rotatedSurface, _object, _image);
 		// Fix the position also based on the parent rotation and fixed position
-		FixPositionForParentRotation(_rotatedSurface, _object);
+		FixPositionForParentRotation(_object);
 
 		// Setting the rendering rect
 		SDL_Rect _tempRect = SDL_Rect();
@@ -256,21 +240,26 @@ void GraphicManager::RenderSurfaceObject(GameObject* _object, SurfaceImage* _ima
 		SDL_FreeSurface(_rotatedSurface);
 	}
 }
+#endif
 
 void GraphicManager::RenderScene()
 {
-	// Refresh the screen
-	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
+#if RENDERING_TYPE == TEXTURE_RENDERING
 	SDL_SetRenderDrawColor(_winRenderer, 0, 0, 0, 255);
-	// Clear the window to white
+	SDL_RenderClear(_winRenderer);
+#else
+	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
+#endif
 
 	for (GameObject* object : M_GameObjectsManager->_stagedObjects)
 	{
 		RenderObject(object);
 	}
 
+#if RENDERING_TYPE == TEXTURE_RENDERING
+	SDL_RenderPresent(_winRenderer);
+#else
 	// Refresh the window for all the new objects to render
-	//SDL_RenderPresent(_winRenderer);
 	SDL_UpdateWindowSurface(_window);
-	SDL_RenderClear(_winRenderer);
+#endif
 }
