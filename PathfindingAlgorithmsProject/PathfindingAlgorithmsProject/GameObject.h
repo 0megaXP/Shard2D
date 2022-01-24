@@ -3,10 +3,11 @@
 #include <string>
 #include <vector>
 #include "Image.h"
+#include "EventDispatcher.h"
 
 class GraphicManager;
 
-class GameObject
+class GameObject : EventDispatcher
 {
 public:
 	GameObject();

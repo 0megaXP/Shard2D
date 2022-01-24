@@ -45,9 +45,9 @@ void ApplicationMain::Start()
     childSprite->a = 1;
     childSprite->centerPivot = true;
 
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 1; i++)
     {
-        superChildSprite = new Sprite(M_AssetsManager->GetSurfaceImagePNG("Doge"));
+        superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
         superChildSprite->scaleX = 0.25;
         superChildSprite->scaleY = 0.25;
         superChildSprite->x = 64;
@@ -70,10 +70,13 @@ void ApplicationMain::Start()
         TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!","arial", 24);
         b->scaleX = 1;
         b->scaleY = 1;
-        b->centerPivot = false;
-        b->y = 0;
-        b->x = 0;
+        b->centerPivot = true;
+        b->x = 640;
+        b->y = 360;
+        b->SetColor(SDL_Color(255, 255, 0, 255));
         AddToStage(b);
+
+        std::cout << sizeof(*sprite) << std::endl;
 }
 
 void ApplicationMain::Update()

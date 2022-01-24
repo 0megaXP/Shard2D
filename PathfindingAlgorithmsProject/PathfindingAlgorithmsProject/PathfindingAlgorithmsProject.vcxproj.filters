@@ -102,6 +102,12 @@
     <ClCompile Include="TextField.cpp">
       <Filter>File di origine\Framework\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="EventsManager.cpp">
+      <Filter>File di origine\Framework\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EventDispatcher.cpp">
+      <Filter>File di origine\Framework\GameObjects\ObjectUtils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -147,6 +153,12 @@
       <Filter>File di intestazione\Framework\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="CustomFont.h">
+      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="EventsManager.h">
+      <Filter>File di intestazione\Framework\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="EventDispatcher.h">
       <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
     </ClInclude>
   </ItemGroup>
