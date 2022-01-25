@@ -108,6 +108,9 @@
     <ClCompile Include="EventDispatcher.cpp">
       <Filter>File di origine\Framework\GameObjects\ObjectUtils</Filter>
     </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>File di origine\Framework\GameObjects\ObjectUtils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -159,6 +162,9 @@
       <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
     <ClInclude Include="EventDispatcher.h">
+      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
       <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
     </ClInclude>
   </ItemGroup>

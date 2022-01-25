@@ -105,6 +105,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="BooleanUtils.ixx" />
     <ClCompile Include="ClockManager.cpp" />
     <ClCompile Include="CustomTweener.cpp" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
     <ClCompile Include="EventsManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -125,6 +126,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="CustomFont.h" />
     <ClInclude Include="CustomIOStream.h" />
     <ClInclude Include="CustomTweener.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="EventDispatcher.h" />
     <ClInclude Include="EventsManager.h" />
     <ClInclude Include="GameManager.h" />

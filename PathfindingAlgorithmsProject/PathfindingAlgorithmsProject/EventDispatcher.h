@@ -1,4 +1,18 @@
 #pragma once
+
+class Event;
+
+class EventListener
+{
+public:
+	EventListener(void (*callback)(Event* _event), int priority);
+
+	void (*callback)(Event* _event);
+	int priority;
+
+	bool Equals(void (*callback)(Event* _event));
+};
+
 class EventDispatcher
 {
 public:
