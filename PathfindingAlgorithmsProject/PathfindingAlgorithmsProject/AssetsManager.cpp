@@ -27,7 +27,8 @@ TextureImage* AssetsManager::GetTextureImagePNG(const std::string path)
 {
 	SDL_Surface* newSurface = IMG_Load((assetsPrefix + pngPrefix + path + pngSuffix).c_str());
 	SDL_Texture* newTexture = M_GraphicManager->CreateTexture(newSurface);
-		TextureImage * newImage = new TextureImage(newTexture);
+	TextureImage * newImage = new TextureImage(newTexture);
+	SDL_FreeSurface(newSurface);
 	return newImage;
 }
 

@@ -55,6 +55,12 @@
     <Filter Include="File di origine\Utils\CustomTweens">
       <UniqueIdentifier>{fcf68b09-92ac-4f72-9fcb-a485080a0ecd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="File di origine\Framework\GameObjects\ObjectUtils\Events">
+      <UniqueIdentifier>{226c7e40-d0b1-4036-800b-f4833901071a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di intestazione\Framework\GameObjects\ObjectUtils\Events">
+      <UniqueIdentifier>{df48bc8c-3b86-4ec7-9ba1-e6b4563ea108}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -106,10 +112,10 @@
       <Filter>File di origine\Framework\Managers</Filter>
     </ClCompile>
     <ClCompile Include="EventDispatcher.cpp">
-      <Filter>File di origine\Framework\GameObjects\ObjectUtils</Filter>
+      <Filter>File di origine\Framework\GameObjects\ObjectUtils\Events</Filter>
     </ClCompile>
     <ClCompile Include="Event.cpp">
-      <Filter>File di origine\Framework\GameObjects\ObjectUtils</Filter>
+      <Filter>File di origine\Framework\GameObjects\ObjectUtils\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,10 +168,10 @@
       <Filter>File di intestazione\Framework\Managers</Filter>
     </ClInclude>
     <ClInclude Include="EventDispatcher.h">
-      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
+      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils\Events</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils</Filter>
+      <Filter>File di intestazione\Framework\GameObjects\ObjectUtils\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

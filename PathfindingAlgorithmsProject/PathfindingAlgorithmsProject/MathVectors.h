@@ -11,6 +11,9 @@ struct Vector2
     float x;
     float y;
 
+    /**
+    Normalize the vector with a magnitude of 1.
+    */
     const Vector2 Normalize();
 
     Vector2 operator+(const Vector2& other);

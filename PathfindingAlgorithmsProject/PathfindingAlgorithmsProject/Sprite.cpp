@@ -17,6 +17,7 @@ Sprite::Sprite(Image* newImage)
 Sprite::~Sprite()
 {
 	std::cout << "Sprite object destroyed!" << std::endl;
+	
 }
 
 Image* Sprite::GetRenderingImage()

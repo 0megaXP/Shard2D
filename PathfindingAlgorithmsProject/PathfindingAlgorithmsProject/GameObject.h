@@ -7,7 +7,7 @@
 
 class GraphicManager;
 
-class GameObject : EventDispatcher
+class GameObject : public EventDispatcher
 {
 public:
 	GameObject();

@@ -57,16 +57,18 @@ void ApplicationMain::Start()
         superChildSprite->centerPivot = true;
     }
 
-    /*for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 1; i++)
     {
-        TextField* a = new TextField("arial", 150);
-        a->text = "This is a test text, it seems a bit low quality!";
-        a->scaleX = 0.5;
-        a->scaleY = 0.5;
-        a->color = SDL_Color(255, 255, 0, 255);
-        a->y = 140;
-        AddToStage(a);
-    }*/
+        TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 24);
+        b->scaleX = 1;
+        b->scaleY = 1;
+        b->centerPivot = true;
+        b->x = 640;
+        b->y = 50;
+        b->SetColor(SDL_Color(255, 255, 255, 255));
+        AddToStage(b);
+    }
+
         TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!","arial", 24);
         b->scaleX = 1;
         b->scaleY = 1;
@@ -75,8 +77,6 @@ void ApplicationMain::Start()
         b->y = 360;
         b->SetColor(SDL_Color(255, 255, 0, 255));
         AddToStage(b);
-
-        std::cout << sizeof(*sprite) << std::endl;
 }
 
 void ApplicationMain::Update()
