@@ -19,9 +19,16 @@ private:
 public:
 	void SetupGame();
 
+	/*
+	Function called to close the application. Use this function for a properly memory deallocation
+	*/
 	void ExitGame();
 	bool GetExitGame();
 
+	/*
+	This function does not have to be called manually.
+	The game main update function.
+	*/
 	void GameUpdate();
 };
 

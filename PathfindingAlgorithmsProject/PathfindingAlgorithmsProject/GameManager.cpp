@@ -39,19 +39,23 @@ bool GameManager::GetExitGame()
 
 void GameManager::GameUpdate()
 {
+    if (!_updating)
+    {
+        _updating = true;
+        // Clock update
+        M_ClockManager->NewFrame();
 
-    // Clock update
-    M_ClockManager->NewFrame();
+        // Events update
 
-    // Events update
+        // Logic update
+        appMain->Update();
 
-    // Logic update
-    appMain->Update();
+        // Graphic update
+        M_GraphicManager->RenderScene();
 
-    // Graphic update
-    M_GraphicManager->RenderScene();
-
-    M_ClockManager->ManageFramesCap();
-    M_ClockManager->UpdateDeltaTime();
-    DebugFPS(Managers::clockManager->GetFPS());
+        M_ClockManager->ManageFramesCap();
+        M_ClockManager->UpdateDeltaTime();
+        DebugFPS(Managers::clockManager->GetFPS());
+        _updating = false;
+    }
 }

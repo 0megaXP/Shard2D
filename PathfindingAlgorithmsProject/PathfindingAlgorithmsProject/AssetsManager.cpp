@@ -18,9 +18,6 @@ AssetsManager::~AssetsManager()
 	Log("AssetsManager destroyed!", TextColor::Purple);
 }
 
-/**
-Create an Image containing the .png found through the path given.
-*/
 SurfaceImage* AssetsManager::GetSurfaceImagePNG(const std::string path)
 {
 	SDL_Surface* newSurface = IMG_Load((assetsPrefix + pngPrefix + path + pngSuffix).c_str());

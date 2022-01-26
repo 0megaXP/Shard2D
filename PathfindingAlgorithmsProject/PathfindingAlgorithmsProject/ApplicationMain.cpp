@@ -69,14 +69,14 @@ void ApplicationMain::Start()
         AddToStage(b);
     }
 
-        TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!","arial", 24);
-        b->scaleX = 1;
-        b->scaleY = 1;
-        b->centerPivot = true;
-        b->x = 640;
-        b->y = 360;
-        b->SetColor(SDL_Color(255, 255, 0, 255));
-        AddToStage(b);
+    TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!","arial", 24);
+    b->scaleX = 1;
+    b->scaleY = 1;
+    b->centerPivot = true;
+    b->x = 640;
+    b->y = 360;
+    b->SetColor(SDL_Color(255, 255, 0, 255));
+    AddToStage(b);
 }
 
 void ApplicationMain::Update()

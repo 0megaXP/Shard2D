@@ -30,9 +30,6 @@ void GameObjectsManager::ObjectCreated(GameObject* object)
 	_createdObjects.push_back(std::shared_ptr<GameObject>(object));
 }
 
-/**
-Add the GameObject to the stage (the first rendered layer).
-*/
 void GameObjectsManager::AddObjectToStage(GameObject* object)
 {
 	for (GameObject* stagedObject : _stagedObjects)
@@ -47,9 +44,6 @@ void GameObjectsManager::AddObjectToStage(GameObject* object)
 	_stagedObjects.push_back(object);
 }
 
-/**
-Remove the GameObject from the stage.
-*/
 void GameObjectsManager::RemoveObjectFromStage(GameObject* object)
 {
 	int count = 0;

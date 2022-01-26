@@ -34,6 +34,9 @@ public:
 	friend class GameManager;
 
 public:
+	/*
+	Creates a texture from a given surface
+	*/
 	SDL_Texture* CreateTexture(SDL_Surface* surface);
 
 private:

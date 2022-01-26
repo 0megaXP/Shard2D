@@ -29,10 +29,19 @@ private:
 
 
 public:
+	/**
+	Creates and returns an Image containing the surface created from the .png found at the path given
+	*/
 	SurfaceImage* GetSurfaceImagePNG(const std::string path);
 
+	/*
+	Creates and returns an Image containing the texture created from the .png found at the path given
+	*/
 	TextureImage* GetTextureImagePNG(const std::string path);
 
+	/*
+	Creates and returns an Image containing the font created from the .ttf found at the path given
+	*/
 	TTF_Font* GetFont(const std::string path);
 
 private:
