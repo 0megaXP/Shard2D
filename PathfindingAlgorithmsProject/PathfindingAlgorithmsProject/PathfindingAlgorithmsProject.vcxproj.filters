@@ -173,5 +173,8 @@
     <ClInclude Include="Event.h">
       <Filter>File di intestazione\Framework\GameObjects\ObjectUtils\Events</Filter>
     </ClInclude>
+    <ClInclude Include="CustomMap.h">
+      <Filter>File di intestazione\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

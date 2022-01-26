@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "CustomFont.h"
 #include <vector>
+#include "CustomMap.h"
 
 class AssetsManager
 {
@@ -23,6 +24,9 @@ private:
 	std::string fontPrefix = "Fonts/";
 	std::string fontSuffix = ".ttf";
 	std::vector<std::shared_ptr<CustomFont>> _fontsSaved;
+
+	CustomMap<std::string, SDL_Texture*> _texturesSaved;
+
 
 public:
 	SurfaceImage* GetSurfaceImagePNG(const std::string path);

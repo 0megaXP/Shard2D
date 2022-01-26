@@ -125,6 +125,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="ClockManager.h" />
     <ClInclude Include="CustomFont.h" />
     <ClInclude Include="CustomIOStream.h" />
+    <ClInclude Include="CustomMap.h" />
     <ClInclude Include="CustomTweener.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventDispatcher.h" />

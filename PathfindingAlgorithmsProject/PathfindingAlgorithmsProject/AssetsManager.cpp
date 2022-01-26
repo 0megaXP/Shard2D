@@ -10,6 +10,11 @@ AssetsManager::AssetsManager()
 
 AssetsManager::~AssetsManager()
 {
+	std::vector<SDL_Texture*> textures = _texturesSaved.GetAllValues();
+	
+	for (SDL_Texture* texture : textures)
+		SDL_DestroyTexture(texture);
+
 	Log("AssetsManager destroyed!", TextColor::Purple);
 }
 
@@ -25,8 +30,12 @@ SurfaceImage* AssetsManager::GetSurfaceImagePNG(const std::string path)
 
 TextureImage* AssetsManager::GetTextureImagePNG(const std::string path)
 {
+	if (_texturesSaved.Contains(path))
+		return new TextureImage(_texturesSaved.Get(path));
+
 	SDL_Surface* newSurface = IMG_Load((assetsPrefix + pngPrefix + path + pngSuffix).c_str());
 	SDL_Texture* newTexture = M_GraphicManager->CreateTexture(newSurface);
+	_texturesSaved.Insert(path, newTexture);
 	TextureImage * newImage = new TextureImage(newTexture);
 	SDL_FreeSurface(newSurface);
 	return newImage;
