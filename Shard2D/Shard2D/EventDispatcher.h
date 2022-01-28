@@ -1,8 +1,10 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include "CustomMap.h"
 #include <vector>
+#include <memory>
+#include "CustomIOStream.h"
 
 class Event;
 
@@ -10,6 +12,7 @@ class EventListener
 {
 public:
 	EventListener(void (*callback)(Event* _event), int priority = 0);
+	~EventListener() { Log("EventListener destroyed", TextColor::Purple); };
 
 	void (*callback)(Event* _event);
 	int priority;
@@ -23,9 +26,11 @@ public:
 	EventDispatcher() : _target(this) {};
 	EventDispatcher(EventDispatcher* target) : _target(target) {};
 
+	~EventDispatcher();
+
 private:
 
-	std::map<std::string, std::vector<EventListener*>> _eventMap;
+	CustomMap<std::string, std::vector<std::shared_ptr<EventListener>>*> _eventMap;
 	EventDispatcher* _target;
 
 public:
@@ -47,7 +52,7 @@ public:
 
 	void RemoveAllListener();
 
-	void DispatchEvent(/*Event event*/);
+	void DispatchEvent(Event* _event);
 
 	bool HasEventListener(/*Event event*/) const;
 };

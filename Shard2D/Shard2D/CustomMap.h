@@ -9,7 +9,7 @@ class CustomMap
 public:
 	CustomMap<t1, t2>() : _map(new std::map<t1, t2>()) {}
 
-	~CustomMap<t1, t2>() { delete _map; }
+	~CustomMap<t1, t2>() { _map->clear(); }
 
 private:
 	std::map<t1, t2>* _map;
@@ -22,7 +22,10 @@ public:
 	t2 Get(t1 key)
 	{
 		_iterator = _map->find(key);
-		return _iterator->second;
+		if (_iterator != _map->end())
+			return _iterator->second;
+		else
+			return t2();
 	}
 
 	/*

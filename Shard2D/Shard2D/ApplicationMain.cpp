@@ -6,9 +6,15 @@
 #include "MathVectors.h"
 #include "ClockManager.h"
 #include "TextField.h"
+#include "Event.h"
 
 import MathUtils;
 import BooleanUtils;
+
+void EventDispatched(Event* _event)
+{
+    Log("Event dispatched succesfully!");
+}
 
 ApplicationMain::ApplicationMain()
 {
@@ -77,6 +83,8 @@ void ApplicationMain::Start()
     b->y = 360;
     b->SetColor(SDL_Color(255, 255, 0, 255));
     AddToStage(b);
+
+    sprite->AddEventListener("TestEvent", &EventDispatched);
 }
 
 void ApplicationMain::Update()
@@ -94,6 +102,8 @@ void ApplicationMain::Update()
         case SDL_KEYDOWN:
            //Managers::gameObjectsManager->RemoveObjectFromStage(sprite);
             //sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
+            Log("Dispatch launched!");
+            sprite->DispatchEvent(new Event("TestEvent"));
             break;
         case SDL_KEYUP:
             //Managers::gameObjectsManager->AddObjectToStage(sprite);
