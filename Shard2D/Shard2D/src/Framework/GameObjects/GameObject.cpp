@@ -1,10 +1,8 @@
 #include "GameObject.h"
-#include "ClockManager.h"
-#include "GraphicManager.h"
-#include "GameObjectsManager.h"
-#include "Managers.h"
 
 #include <iostream>
+
+#include "../Management/Managers.h"
 
 import MathUtils;
 

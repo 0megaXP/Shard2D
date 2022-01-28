@@ -1,18 +1,11 @@
 #include "GraphicManager.h"
 
-#include <SDL_image.h>
-#include <SDL.h>
 #include <SDL2_rotozoom.h>
 #include <SDL_ttf.h>
-#include <math.h>
 
-#include "Managers.h"
-#include "AssetsManager.h"
-#include "GameObjectsManager.h"
-#include "GameObject.h"
-#include "CustomIOStream.h"
-#include "MathVectors.h"
-#include "Image.h"
+#include "../GameObjects/GameObject.h"
+#include "../Utils/ShardUtils.h"
+#include "../Management/Managers.h"
 
 import MathUtils;
 

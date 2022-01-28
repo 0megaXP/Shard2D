@@ -1,9 +1,7 @@
 #include "TextField.h"
 
-#include "Managers.h"
-#include "GraphicManager.h"
-#include "AssetsManager.h"
-#include "CustomIOStream.h"
+#include "../Management/Managers.h"
+#include "../Utils/ShardUtils.h"
 
 TextField::TextField(std::string newText, std::string fontName, int newSize)
     : _text(newText), size(newSize)

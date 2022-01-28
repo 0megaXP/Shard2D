@@ -1,7 +1,8 @@
 #include "ClockManager.h"
 
 #include <SDL.h>
-#include "CustomIOStream.h"
+
+#include "../Utils/ShardUtils.h"
 
 ClockManager::ClockManager()
     : _deltaTime(0)

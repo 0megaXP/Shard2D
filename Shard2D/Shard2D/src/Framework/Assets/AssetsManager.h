@@ -4,10 +4,13 @@
 #include <memory>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include "Image.h"
-#include "CustomFont.h"
 #include <vector>
-#include "CustomMap.h"
+
+#include "CustomFont.h"
+
+#include "../Graphic/Image.h"
+
+#include "../Utils/CustomMap.h"
 
 class AssetsManager
 {

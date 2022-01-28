@@ -3,12 +3,6 @@
 #include <SDL.h>
 #include <Windows.h>
 
-#include "GameManager.h"
-#include "GameObjectsManager.h"
-#include "AssetsManager.h"
-#include "GameManager.h"
-#include "ClockManager.h"
-#include "GraphicManager.h"
 #include "Managers.h"
 
 void Shard2D::Init()

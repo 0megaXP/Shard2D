@@ -10,7 +10,6 @@
 #include <SDL_image.h>
 #include <vector>
 
-
 struct Image;
 struct SurfaceImage;
 struct TextureImage;

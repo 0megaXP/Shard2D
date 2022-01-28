@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "src/Framework/Management/Kickstart.h"
+#include "src/Framework/Management/Kickstart.h
 
 int main()
 {

@@ -1,11 +1,7 @@
 #pragma once
 
-#include "GameObject.h"
-#include "Sprite.h"
-#include "Managers.h"
-#include "AssetsManager.h"
-#include "GameObjectsManager.h"
-#include "GameManager.h"
+#include "../Framework/GameObjects/Sprite.h"
+#include "../Framework/GameObjects/TextField.h"
 
 class ApplicationMain
 {

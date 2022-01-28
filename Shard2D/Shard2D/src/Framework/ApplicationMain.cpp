@@ -2,11 +2,10 @@
 
 #include <SDL.h>
 
-#include "CustomIOStream.h"
-#include "MathVectors.h"
-#include "ClockManager.h"
-#include "TextField.h"
-#include "Event.h"
+#include "Management/Managers.h"
+#include "Utils/ShardUtils.h"
+#include "Management/Managers.h"
+#include "Events/Event.h"
 
 import MathUtils;
 import BooleanUtils;
@@ -51,7 +50,7 @@ void ApplicationMain::Start()
     childSprite->a = 1;
     childSprite->centerPivot = true;
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 1000; i++)
     {
         superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
         superChildSprite->scaleX = 0.25;
@@ -63,7 +62,7 @@ void ApplicationMain::Start()
         superChildSprite->centerPivot = true;
     }
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 100; i++)
     {
         TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 24);
         b->scaleX = 1;

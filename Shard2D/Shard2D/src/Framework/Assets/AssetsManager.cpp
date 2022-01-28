@@ -1,8 +1,8 @@
 #include "AssetsManager.h"
 
-#include "Managers.h"
-#include "GraphicManager.h"
-#include "CustomIOStream.h"
+#include "../Utils//CustomIOStream.h"
+
+#include "../Management/Managers.h"
 
 AssetsManager::AssetsManager()
 {

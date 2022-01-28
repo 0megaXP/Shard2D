@@ -1,7 +1,6 @@
 #include "Sprite.h"
 
-#include <iostream>
-
+#include "../Utils/ShardUtils.h"
 
 Sprite::Sprite()
 {

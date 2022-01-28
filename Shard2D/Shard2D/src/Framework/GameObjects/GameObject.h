@@ -2,10 +2,10 @@
 
 #include <string>
 #include <vector>
-#include "Image.h"
-#include "EventDispatcher.h"
 
-class GraphicManager;
+#include "../Graphic/Image.h"
+
+#include "../Events/EventDispatcher.h"
 
 class GameObject : public EventDispatcher
 {

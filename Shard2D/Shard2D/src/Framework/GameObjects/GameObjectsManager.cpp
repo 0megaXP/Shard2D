@@ -1,9 +1,8 @@
 #include "GameObjectsManager.h"
 
 #include "GameObject.h"
-#include "Managers.h"
-
-#include "CustomIOStream.h"
+#include "../Management/Managers.h"
+#include "../Utils/ShardUtils.h"
 
 GameObjectsManager::GameObjectsManager()
 	: _createdObjects(std::vector<std::shared_ptr<GameObject>>()) ,_stagedObjects(std::vector<GameObject*>())

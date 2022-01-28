@@ -1,16 +1,10 @@
 #include "GameManager.h"
 
+#include <SDL_events.h>
 #include <memory>
 
-#include "GraphicManager.h"
-#include "ClockManager.h"
-#include "AssetsManager.h"
-#include "GameObjectsManager.h"
-#include "Managers.h"
-#include "GameObject.h"
-#include "ApplicationMain.h"
-#include <SDL_events.h>
-#include "CustomIOStream.h"
+#include "../Management/Managers.h"
+#include "../ApplicationMain.h"
 
 GameManager::GameManager()
 {

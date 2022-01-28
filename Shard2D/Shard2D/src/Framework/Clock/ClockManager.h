@@ -2,8 +2,6 @@
 
 #include <stdint.h>
 
-class GameManager;
-
 class ClockManager
 {
 public:

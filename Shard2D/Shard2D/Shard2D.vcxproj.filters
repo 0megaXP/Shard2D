@@ -18,123 +18,117 @@
     <ClCompile Include="Shard2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Kickstart.cpp">
+    <ClCompile Include="src\Framework\Management\Kickstart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextField.cpp">
+    <ClCompile Include="src\Framework\GameObjects\TextField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="src\Framework\GameObjects\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MathVectors.cpp">
+    <ClCompile Include="src\Framework\Utils\MathVectors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Managers.cpp">
+    <ClCompile Include="src\Framework\Management\Managers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicManager.cpp">
+    <ClCompile Include="src\Framework\Graphic\GraphicManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectsManager.cpp">
+    <ClCompile Include="src\Framework\GameObjects\GameObjectsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="src\Framework\GameObjects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
+    <ClCompile Include="src\Framework\Management\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventsManager.cpp">
+    <ClCompile Include="src\Framework\Events\EventDispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventDispatcher.cpp">
+    <ClCompile Include="src\Framework\Events\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Event.cpp">
+    <ClCompile Include="src\Framework\Utils\CustomTweener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CustomTweener.cpp">
+    <ClCompile Include="src\Framework\Clock\ClockManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ClockManager.cpp">
+    <ClCompile Include="src\Framework\Assets\AssetsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AssetsManager.cpp">
+    <ClCompile Include="src\Framework\Utils\BooleanUtils.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ApplicationMain.cpp">
+    <ClCompile Include="src\Framework\Utils\MathUtils.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BooleanUtils.ixx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MathUtils.ixx">
+    <ClCompile Include="src\Framework\ApplicationMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextField.h">
+    <ClInclude Include="src\Framework\GameObjects\TextField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="src\Framework\GameObjects\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MathVectors.h">
+    <ClInclude Include="src\Framework\Utils\MathVectors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Managers.h">
+    <ClInclude Include="src\Framework\Management\Managers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
+    <ClInclude Include="src\Framework\Graphic\Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicManager.h">
+    <ClInclude Include="src\Framework\Graphic\GraphicManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectsManager.h">
+    <ClInclude Include="src\Framework\GameObjects\GameObjectsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="src\Framework\GameObjects\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
+    <ClInclude Include="src\Framework\Management\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventsManager.h">
+    <ClInclude Include="src\Framework\Events\EventDispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventDispatcher.h">
+    <ClInclude Include="src\Framework\Events\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
+    <ClInclude Include="src\Framework\Utils\CustomTweener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CustomTweener.h">
+    <ClInclude Include="src\Framework\Utils\CustomMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CustomMap.h">
+    <ClInclude Include="src\Framework\Utils\CustomIOStream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CustomIOStream.h">
+    <ClInclude Include="src\Framework\Assets\CustomFont.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CustomFont.h">
+    <ClInclude Include="src\Framework\Clock\ClockManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColoredOutput.h">
+    <ClInclude Include="src\Framework\Assets\AssetsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ClockManager.h">
+    <ClInclude Include="src\Framework\Management\Kickstart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AssetsManager.h">
+    <ClInclude Include="src\Framework\ApplicationMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ApplicationMain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Kickstart.h">
+    <ClInclude Include="src\Framework\Utils\ShardUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
