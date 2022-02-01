@@ -5,6 +5,7 @@
 
 #include "../Management/Managers.h"
 #include "../ApplicationMain.h"
+#include "../Events/Event.h"
 
 GameManager::GameManager()
 {
@@ -40,9 +41,13 @@ void GameManager::GameUpdate()
         M_ClockManager->NewFrame();
 
         // Events update
+        for (GameObject* object : M_GameObjectsManager->_stagedObjects)
+            object->DispatchEvent(Event::Update);
 
         // Logic update
         appMain->Update();
+        for (GameObject* object : M_GameObjectsManager->_stagedObjects)
+            object->Update();
 
         // Graphic update
         M_GraphicManager->RenderScene();

@@ -177,16 +177,11 @@ protected:
 	/*
 	Function called when the GameObject is initialized
 	*/
-	virtual void Init();
-
-	/*
-	Function called at the first frame of the GameObject
-	*/
-	virtual void Start();
+	virtual void Init() {};
 
 	/*
 	Function called each frame
 	*/
-	virtual void Update();
+	virtual void Update() {};
 };
 

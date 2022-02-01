@@ -231,18 +231,5 @@ void GameObject::RemoveChildren()
 
 Image* GameObject::GetRenderingImage()
 {
-	std::cout << "GameObject Image null" << std::endl;
 	return nullptr;
-}
-
-void GameObject::Init()
-{
-}
-
-void GameObject::Start()
-{
-}
-
-void GameObject::Update()
-{
 }

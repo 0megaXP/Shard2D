@@ -4,18 +4,18 @@
 
 Sprite::Sprite()
 {
-	std::cout << "Sprite object created!" << std::endl;
+	std::cout << "Sprite object created! -> ";
 }
 
 Sprite::Sprite(Image* newImage)
 	: _image(std::shared_ptr<Image>(newImage))
 {
-	std::cout << "Sprite object created!" << std::endl;
+	std::cout << "Sprite object created! -> ";
 }
 
 Sprite::~Sprite()
 {
-	std::cout << "Sprite object destroyed!" << std::endl;
+	std::cout << "Sprite object destroyed! -> ";
 }
 
 Image* Sprite::GetRenderingImage()

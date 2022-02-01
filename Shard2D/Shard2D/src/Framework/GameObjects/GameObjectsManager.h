@@ -23,6 +23,7 @@ public:
 	virtual ~GameObjectsManager();
 
 	friend class GraphicManager;
+	friend class GameManager;
 
 private:
 	std::vector<GameObject*> _stagedObjects;

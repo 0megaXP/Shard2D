@@ -69,9 +69,9 @@ public:
 	/**
 		Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the `DispatchEvent()` method is called.
 
-		@param _event:		The Event object that is dispatched into the event flow.
+		@param eventType:		The type of event that is dispatched into the event flow.
 	**/
-	void DispatchEvent(Event* _event);
+	void DispatchEvent(std::string eventType);
 
 	/**
 		Checks whether the EventDispatcher object has any listeners registered for a specific type of event.

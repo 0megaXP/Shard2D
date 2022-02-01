@@ -27,6 +27,9 @@ ApplicationMain::ApplicationMain()
 
 void ApplicationMain::Start()
 {
+    GameObject* a = new GameObject();
+    AddToStage(a);
+
 	sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
     AddToStage(sprite);
 	sprite->SetVisibility(true);
@@ -109,7 +112,7 @@ void ApplicationMain::Update()
            //Managers::gameObjectsManager->RemoveObjectFromStage(sprite);
             //sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
             Log("Dispatch launched!");
-            sprite->DispatchEvent(new Event("TestEvent"));
+            sprite->DispatchEvent("TestEvent");
             sprite->RemoveAllListener();
             //sprite->RemoveEventListener("TestEvent", &EventDispatched);
             break;

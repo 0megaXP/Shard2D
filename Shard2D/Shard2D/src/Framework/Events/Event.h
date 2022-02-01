@@ -14,9 +14,7 @@ public:
 
 	static const inline std::string Removed = "removed";
 
-	static const inline std::string EnterFrame = "enterFrame";
-
-	static const inline std::string ExitFrame = "exitFrame";
+	static const inline std::string Update = "update";
 
 	static const inline std::string Rendered = "rendered";
 

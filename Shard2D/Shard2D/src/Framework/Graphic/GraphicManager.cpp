@@ -6,6 +6,7 @@
 #include "../GameObjects/GameObject.h"
 #include "../Utils/ShardUtils.h"
 #include "../Management/Managers.h"
+#include "../Events/Event.h"
 
 import MathUtils;
 
@@ -137,17 +138,20 @@ void GraphicManager::RenderObject(GameObject* _object)
 	{
 		Image* _objectImage = _object->GetRenderingImage();
 
+		if (_objectImage != nullptr)
+		{
 #if RENDERING_TYPE == TEXTURE_RENDERING
-		if (_objectImage->type == TEXTURE_TYPE)
-		{
-			RenderTextureObject(_object, static_cast<TextureImage*>(_objectImage));
-		}
+			if (_objectImage->type == TEXTURE_TYPE)
+			{
+				RenderTextureObject(_object, static_cast<TextureImage*>(_objectImage));
+			}
 #else
-		if (_objectImage->type == SURFACE_TYPE)
-		{
-			RenderSurfaceObject(_object, static_cast<SurfaceImage*>(_objectImage));
-		}
+			if (_objectImage->type == SURFACE_TYPE)
+			{
+				RenderSurfaceObject(_object, static_cast<SurfaceImage*>(_objectImage));
+			}
 #endif
+		}
 		
 		// Call the RenderObject() function for all the children
 		for (GameObject* child : _object->_children)
@@ -192,6 +196,7 @@ void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _ima
 		SDL_SetTextureAlphaMod(_image->_texture, _object->GlobalA() * 255);
 
 		SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _object->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
+		_object->DispatchEvent(Event::Rendered);
 	}
 }
 #else
@@ -231,6 +236,7 @@ void GraphicManager::RenderSurfaceObject(GameObject* _object, SurfaceImage* _ima
 		// Freeing all the surfaces created in this stack
 		SDL_FreeSurface(_scaledSurface);
 		SDL_FreeSurface(_rotatedSurface);
+		_object->DispatchEvent(Event::Rendered);
 	}
 }
 #endif

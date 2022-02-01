@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "../Management/Managers.h"
 #include "../Utils/ShardUtils.h"
+#include "../Events/Event.h"
 
 GameObjectsManager::GameObjectsManager()
 	: _createdObjects(std::vector<std::shared_ptr<GameObject>>()) ,_stagedObjects(std::vector<GameObject*>())
@@ -41,6 +42,7 @@ void GameObjectsManager::AddObjectToStage(GameObject* object)
 	}
 
 	_stagedObjects.push_back(object);
+	object->DispatchEvent(Event::Added);
 }
 
 void GameObjectsManager::RemoveObjectFromStage(GameObject* object)
@@ -51,6 +53,7 @@ void GameObjectsManager::RemoveObjectFromStage(GameObject* object)
 		if (stagedObject == object)
 		{
 			_stagedObjects.erase(_stagedObjects.begin() + count);
+			object->DispatchEvent(Event::Removed);
 			return;
 		}
 		count++;

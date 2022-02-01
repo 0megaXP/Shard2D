@@ -72,14 +72,19 @@ void EventDispatcher::RemoveAllListener()
 	_eventMap.Reset();
 }
 
-void EventDispatcher::DispatchEvent(Event* _event)
+void EventDispatcher::DispatchEvent(std::string eventType)
 {
-	_event->_target = this;
-
 	// TODO Priority management
-	if (_eventMap.Contains(_event->GetType()))
-		for (std::shared_ptr<EventListener> listener : *_eventMap.Get(_event->GetType()))
+	if (_eventMap.Contains(eventType))
+	{
+		Event* _event = new Event(eventType);
+		_event->_target = this;
+
+		for (std::shared_ptr<EventListener> listener : *_eventMap.Get(eventType))
 			listener.get()->callback(_event);
+
+		delete _event;
+	}
 }
 
 bool EventDispatcher::HasEventListener(std::string newEventType, void(*callback)(Event* _event))
