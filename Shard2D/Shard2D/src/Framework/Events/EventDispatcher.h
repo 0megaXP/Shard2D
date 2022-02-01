@@ -16,9 +16,13 @@ public:
 	EventListener(void (*callback)(Event* _event), int priority = 0);
 	~EventListener() { Log("EventListener destroyed", TextColor::Purple); };
 
+private:
 	void (*callback)(Event* _event);
 	int priority;
 
+	friend class EventDispatcher;
+
+public:
 	bool Equals(void (*callback)(Event* _event));
 };
 
@@ -50,12 +54,32 @@ public:
 	*/
 	void AddEventListener(std::string newEventType, void(*callback)(Event* _event), int priority = 0);
 
-	void RemoveEventListener(/*EventType type, T listener*/);
+	/**
+		Removes a listener from the EventDispatcher object. If there is no
+		matching listener registered with the EventDispatcher object, a call to
+		this method has no effect.
+
+		@param newEventType:	The type of event.
+		@param callback:		The callback function for the EventListener.
+	**/
+	void RemoveEventListener(std::string newEventType, void(*callback)(Event* _event));
 
 	void RemoveAllListener();
 
+	/**
+		Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the `DispatchEvent()` method is called.
+
+		@param _event:		The Event object that is dispatched into the event flow.
+	**/
 	void DispatchEvent(Event* _event);
 
-	bool HasEventListener(/*Event event*/) const;
+	/**
+		Checks whether the EventDispatcher object has any listeners registered for a specific type of event.
+
+		@param newEventType:	The type of event.
+		@param callback:		The callback function for the EventListener.
+		@return					A value of `true` if a listener of the specified type is registered; `false` otherwise.
+	**/
+	bool HasEventListener(std::string newEventType, void(*callback)(Event* _event));
 };
 

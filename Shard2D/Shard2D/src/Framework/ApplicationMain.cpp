@@ -15,6 +15,11 @@ void EventDispatched(Event* _event)
     Log("Event dispatched succesfully!");
 }
 
+void SecondEventDispatched(Event* _event)
+{
+    Log("Event dispatched succesfully for 2 times!");
+}
+
 ApplicationMain::ApplicationMain()
 {
 	Start();
@@ -50,7 +55,7 @@ void ApplicationMain::Start()
     childSprite->a = 1;
     childSprite->centerPivot = true;
 
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 1; i++)
     {
         superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
         superChildSprite->scaleX = 0.25;
@@ -62,7 +67,7 @@ void ApplicationMain::Start()
         superChildSprite->centerPivot = true;
     }
 
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 1; i++)
     {
         TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 24);
         b->scaleX = 1;
@@ -84,6 +89,7 @@ void ApplicationMain::Start()
     AddToStage(b);
 
     sprite->AddEventListener("TestEvent", &EventDispatched);
+    sprite->AddEventListener("TestEvent", &SecondEventDispatched);
 }
 
 void ApplicationMain::Update()
@@ -92,6 +98,7 @@ void ApplicationMain::Update()
     childSprite->rotation -= 180 * M_ClockManager->GetDeltaTime();
     superChildSprite->rotation += 360 * M_ClockManager->GetDeltaTime();
     sprite->rotation += 30 * M_ClockManager->GetDeltaTime();
+
 
     while (SDL_PollEvent(&e) != 0) {
         switch (e.type) {
@@ -103,6 +110,8 @@ void ApplicationMain::Update()
             //sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
             Log("Dispatch launched!");
             sprite->DispatchEvent(new Event("TestEvent"));
+            sprite->RemoveAllListener();
+            //sprite->RemoveEventListener("TestEvent", &EventDispatched);
             break;
         case SDL_KEYUP:
             //Managers::gameObjectsManager->AddObjectToStage(sprite);

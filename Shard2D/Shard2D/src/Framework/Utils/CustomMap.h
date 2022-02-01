@@ -53,9 +53,10 @@ public:
 	/*
 	Removes the value given
 	*/
-	void Remove(t2 value)
+	void Remove(t1 key)
 	{
-		_map->erase(value);
+		_iterator = _map->find(key);
+		_map->erase(_iterator);
 	}
 
 	/*
@@ -88,6 +89,11 @@ public:
 	std::map<t1, t2>* Map()
 	{
 		return _map;
+	}
+
+	void Reset()
+	{
+		_map->clear();
 	}
 };
 

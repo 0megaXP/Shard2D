@@ -20,6 +20,10 @@ public:
 
 	static const inline std::string Rendered = "rendered";
 
+private:
+
+	friend class EventDispatcher;
+
 protected:
 	std::string _type;
 

@@ -17,10 +17,7 @@ bool EventListener::Equals(void(*callback)(Event* _event))
 
 EventDispatcher::~EventDispatcher()
 {
-	// Deallocate all the vector pointers inside the eventMap
-	std::vector<std::vector<std::shared_ptr<EventListener>>*> listenerVectors = _eventMap.GetAllValues();
-	for (std::vector<std::shared_ptr<EventListener>>* vectorPtr : listenerVectors)
-		delete vectorPtr;
+	RemoveAllListener();
 }
 
 void EventDispatcher::AddEventListener(std::string newEventType, void(*callback)(Event* _event), int priority)
@@ -36,11 +33,65 @@ void EventDispatcher::AddEventListener(std::string newEventType, void(*callback)
 	_eventMap.Get(newEventType)->push_back(_eventListener);
 }
 
+void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callback)(Event* _event))
+{
+	if (callback == nullptr)
+		return;
+
+	if (!_eventMap.Contains(newEventType))
+		return;
+
+	std::vector<std::shared_ptr<EventListener>>* listenersVectorPtr = _eventMap.Get(newEventType);
+	if (listenersVectorPtr->size() > 1)
+	{
+		for (int i = 0; i < listenersVectorPtr->size(); i++)
+		{
+			if (listenersVectorPtr->at(i).get()->Equals(callback))
+			{
+				listenersVectorPtr->erase(listenersVectorPtr->begin() + i);
+				return;
+			}
+		}
+	}
+	else
+	{
+		if (listenersVectorPtr->at(0).get()->Equals(callback))
+		{
+			delete(_eventMap.Get(newEventType));
+			_eventMap.Remove(newEventType);
+		}
+	}
+}
+
+void EventDispatcher::RemoveAllListener()
+{
+	// Deallocate all the vector pointers inside the eventMap
+	std::vector<std::vector<std::shared_ptr<EventListener>>*> listenerVectors = _eventMap.GetAllValues();
+	for (std::vector<std::shared_ptr<EventListener>>* vectorPtr : listenerVectors)
+		delete vectorPtr;
+	_eventMap.Reset();
+}
+
 void EventDispatcher::DispatchEvent(Event* _event)
 {
+	_event->_target = this;
+
 	// TODO Priority management
 	if (_eventMap.Contains(_event->GetType()))
 		for (std::shared_ptr<EventListener> listener : *_eventMap.Get(_event->GetType()))
 			listener.get()->callback(_event);
-}	
+}
+
+bool EventDispatcher::HasEventListener(std::string newEventType, void(*callback)(Event* _event))
+{
+	if (!_eventMap.Contains(newEventType))
+		return false;
+
+	for (std::shared_ptr<EventListener> listener : *_eventMap.Get(newEventType))
+		if (listener.get()->callback == callback)
+			return true;
+
+	return false;
+}
+
 		
