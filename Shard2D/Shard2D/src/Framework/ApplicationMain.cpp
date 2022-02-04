@@ -34,11 +34,11 @@ void ApplicationMain::Start()
 	sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
     AddToStage(sprite);
 	sprite->SetVisibility(true);
-	sprite->scaleX = 0.5;
-	sprite->scaleY = 0.5;
-    sprite->x = 640;
-    sprite->y = 360;
-    sprite->a = 1;
+	sprite->scaleX = 0.5f;
+	sprite->scaleY = 0.5f;
+    sprite->x = 640.f;
+    sprite->y = 360.f;
+    sprite->a = 1.f;
     sprite->rotation = 0;
     sprite->centerPivot = true;
 
@@ -46,15 +46,15 @@ void ApplicationMain::Start()
     AddToStage(point);
     point->x = sprite->x;
     point->y = sprite->y;
-    point->scaleX = 0.01;
-    point->scaleY = 0.01;
+    point->scaleX = 0.01f;
+    point->scaleY = 0.01f;
     point->centerPivot = true;
 
     childSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Last_Defenders"));
-    childSprite->scaleX = 0.5;
-    childSprite->scaleY = 0.5;
-    childSprite->x = 128;
-    childSprite->y = 128;
+    childSprite->scaleX = 0.5f;
+    childSprite->scaleY = 0.5f;
+    childSprite->x = 128.f;
+    childSprite->y = 128.f;
     sprite->AddChild(childSprite);
     childSprite->a = 1;
     childSprite->centerPivot = true;
@@ -62,12 +62,12 @@ void ApplicationMain::Start()
     for (int i = 0; i < 1; i++)
     {
         superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
-        superChildSprite->scaleX = 0.30;
-        superChildSprite->scaleY = 0.30;
-        superChildSprite->x = 64;
-        superChildSprite->y = 64;
+        superChildSprite->scaleX = 0.30f;
+        superChildSprite->scaleY = 0.30f;
+        superChildSprite->x = 64.f;
+        superChildSprite->y = 64.f;
         childSprite->AddChild(superChildSprite);
-        superChildSprite->a = 1;
+        superChildSprite->a = 1.f;
         superChildSprite->centerPivot = true;
     }
 
@@ -93,7 +93,7 @@ void ApplicationMain::Start()
     AddToStage(b);
 
     sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
-    sprite->AddEventListener<MouseEvent>("TestMouseEvent", &SecondEventDispatched);
+    sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
 }
 
 void ApplicationMain::Update()
@@ -113,6 +113,7 @@ void ApplicationMain::Update()
            //Managers::gameObjectsManager->RemoveObjectFromStage(sprite);
             //sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
             sprite->DispatchEvent<Event>("TestEvent");
+            sprite->RemoveEventListener<Event>("TestEvent", &EventDispatched);
             //sprite->RemoveEventListener("TestEvent", &EventDispatched);
             break;
         case SDL_KEYUP:
@@ -121,7 +122,8 @@ void ApplicationMain::Update()
             break;
         case SDL_MOUSEBUTTONDOWN:
 
-            sprite->DispatchEvent<MouseEvent>("TestMouseEvent");
+            sprite->DispatchEvent<MouseEvent>("TestEvent");
+            sprite->RemoveEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
 
             break;
         }

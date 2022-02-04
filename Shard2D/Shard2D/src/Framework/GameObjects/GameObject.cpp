@@ -96,27 +96,27 @@ void GameObject::ResetFixedValues()
 short GameObject::GlobalX() const
 {
 	if (_parent != nullptr)
-		return x + _parent->GlobalX();
+		return short(x + _parent->GlobalX());
 	else
-		return x;
+		return short(x);
 }
 
 short GameObject::GlobalY() const
 {
 	if (_parent != nullptr)
-		return y + _parent->GlobalY();
+		return short(y + _parent->GlobalY());
 	else
-		return y;
+		return short(y);
 }
 
 short GameObject::PivotX() const
 {
-	return x - _pivotOffsetX;
+	return short(x - _pivotOffsetX);
 }
 
 short GameObject::PivotY() const
 {
-	return y - _pivotOffsetY;
+	return short(y - _pivotOffsetY);
 }
 
 short GameObject::GlobalPivotX() const
@@ -222,7 +222,7 @@ void GameObject::RemoveChild(GameObject* child)
 
 void GameObject::RemoveChildren()
 {
-	for (int i = 0; i < _children.size(); i++)
+	for (Uint8 i = 0; i < _children.size(); i++)
 	{
 		_children[i]->_parent = nullptr;
 		_children.erase(_children.begin() + i);

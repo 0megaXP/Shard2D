@@ -10,7 +10,7 @@ TextField::TextField(std::string newText, std::string fontName, int newSize)
 
     SDL_Surface* textSurface;
 
-    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, width / ((scaleX + scaleY) / 2) / NormalizedSize());
+    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
     if (!textSurface)
     {
         Log("Failed to render text", TextColor::Red);
@@ -65,7 +65,7 @@ void TextField::UpdateSurface()
 {
     SDL_Surface* textSurface;
 
-    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, width / ((scaleX + scaleY) / 2) / NormalizedSize());
+    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
     if (!textSurface)
     {
         Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);

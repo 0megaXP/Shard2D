@@ -38,8 +38,8 @@ public:
 	std::string Name() const;
 	GameObject* Parent() const;
 
-	short x = 0;
-	short y = 0;
+	float x = 0;
+	float y = 0;
 
 	float rotation = 0;
 

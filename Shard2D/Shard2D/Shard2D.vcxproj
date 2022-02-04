@@ -166,7 +166,6 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="src\Framework\Assets\AssetsManager.cpp" />
     <ClCompile Include="src\Framework\Utils\BooleanUtils.ixx" />
     <ClCompile Include="src\Framework\Clock\ClockManager.cpp" />
-    <ClCompile Include="src\Framework\Utils\CustomTweener.cpp" />
     <ClCompile Include="src\Framework\Events\Event.cpp" />
     <ClCompile Include="src\Framework\Events\EventDispatcher.cpp" />
     <ClCompile Include="src\Framework\Management\GameManager.cpp" />
@@ -191,7 +190,6 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="src\Framework\Assets\CustomFont.h" />
     <ClInclude Include="src\Framework\Utils\CustomIOStream.h" />
     <ClInclude Include="src\Framework\Utils\CustomMap.h" />
-    <ClInclude Include="src\Framework\Utils\CustomTweener.h" />
     <ClInclude Include="src\Framework\Events\Event.h" />
     <ClInclude Include="src\Framework\Events\EventDispatcher.h" />
     <ClInclude Include="src\Framework\Management\GameManager.h" />

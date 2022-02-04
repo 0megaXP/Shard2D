@@ -53,7 +53,7 @@ TTF_Font* AssetsManager::GetFont(const std::string path)
 
 CustomFont* AssetsManager::SearchFont(std::string fontName)
 {
-	for (int i = 0; i < _fontsSaved.size(); i++)
+	for (Uint8 i = 0; i < _fontsSaved.size(); i++)
 	{
 		if (_fontsSaved[i].get()->fontName == fontName)
 			return _fontsSaved[i].get();

@@ -98,14 +98,14 @@ void GraphicManager::FixPositionForRotation(SDL_Surface* _rotatedSurface, GameOb
 	// Saves a standard direction (used during the x and y calculation)
 	Vector2 basePosition = PositionFromDeg(360 - 45);
 	// The central point of the circumference used to create each position for its rotation
-	Vector2 centre = Vector2(_object->GlobalX() - _rotatedSurface->w / 2, _object->GlobalY() - _rotatedSurface->h / 2);
+	Vector2 centre = Vector2(float(_object->GlobalX() - _rotatedSurface->w / 2), float(_object->GlobalY() - _rotatedSurface->h / 2));
 	float radius = Distance(Vector2(_object->RenderingX(), _object->RenderingY()), centre);
 	// If the distance between the centre and the rendering position is 0, the object position doesn't need to be fixed
 	if (radius > 0)
 	{
 		// Set the new fixed offset
-		_object->_selfFixedX += centre.x + (normalizedPosition.x / basePosition.x) * surfaceW / 2 - _object->RenderingX();
-		_object->_selfFixedY += centre.y - (normalizedPosition.y / basePosition.y) * surfaceH / 2 - _object->RenderingY();
+		_object->_selfFixedX += short(centre.x + (normalizedPosition.x / basePosition.x) * surfaceW / 2 - _object->RenderingX());
+		_object->_selfFixedY += short(centre.y - (normalizedPosition.y / basePosition.y) * surfaceH / 2 - _object->RenderingY());
 	}
 }
 
@@ -122,12 +122,12 @@ void GraphicManager::FixPositionForParentRotation(GameObject* _object)
 		{
 			Vector2 _objectLocalPosition = Vector2(_object->x, _object->y);
 
-			int _objectActualRotation = DegFromPosition(_objectLocalPosition, Vector2());
+			int _objectActualRotation = int(DegFromPosition(_objectLocalPosition, Vector2()));
 			Vector2 normalizedPosition = PositionFromDeg(_object->Parent()->GlobalRotation() + _objectActualRotation);
 			Vector2 basePosition = PositionFromDeg(0);
 
-			_object->_parentFixedX += normalizedPosition.x * radius - _object->x ;//+ _object->Parent()->GlobalParentFixedX();
-			_object->_parentFixedY += normalizedPosition.y * radius - _object->y ;//+ _object->Parent()->GlobalParentFixedY();
+			_object->_parentFixedX += short(normalizedPosition.x * radius - _object->x);//+ _object->Parent()->GlobalParentFixedX();
+			_object->_parentFixedY += short(normalizedPosition.y * radius - _object->y);//+ _object->Parent()->GlobalParentFixedY();
 		}
 	}
 }
@@ -176,8 +176,8 @@ void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _ima
 		// Managing the pivot
 		if (_object->centerPivot)
 		{
-			_object->_pivotOffsetX = textureW / -2 * _object->GlobalScaleX();
-			_object->_pivotOffsetY = textureH / -2 * _object->GlobalScaleY();
+			_object->_pivotOffsetX = short(textureW / -2 * _object->GlobalScaleX());
+			_object->_pivotOffsetY = short(textureH / -2 * _object->GlobalScaleY());
 		}
 
 		SDL_Point rotPoint = SDL_Point();
@@ -188,12 +188,12 @@ void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _ima
 
 		// Setting the rendering rect
 		SDL_Rect _tempRect = SDL_Rect();
-		_tempRect.x = _object->RenderingX();
-		_tempRect.y = _object->RenderingY();
-		_tempRect.w = textureW * _object->GlobalScaleX();
-		_tempRect.h = textureH * _object->GlobalScaleY();
+		_tempRect.x = int(_object->RenderingX());
+		_tempRect.y = int(_object->RenderingY());
+		_tempRect.w = int(textureW * _object->GlobalScaleX());
+		_tempRect.h = int(textureH * _object->GlobalScaleY());
 
-		SDL_SetTextureAlphaMod(_image->_texture, _object->GlobalA() * 255);
+		SDL_SetTextureAlphaMod(_image->_texture, Uint8(_object->GlobalA() * 255));
 
 		SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _object->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
 		_object->DispatchEvent<Event>(Event::Rendered);

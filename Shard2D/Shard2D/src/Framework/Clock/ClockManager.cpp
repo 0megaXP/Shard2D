@@ -49,7 +49,7 @@ void ClockManager::UpdateDeltaTime()
 
 void ClockManager::NewFrame()
 {
-    _startTick = SDL_GetTicks();
+    _startTick = float(SDL_GetTicks());
     _startFrameCounter = SDL_GetPerformanceCounter();
 }
 

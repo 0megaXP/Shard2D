@@ -39,7 +39,7 @@ void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callba
 	std::vector<std::shared_ptr<Listener>>* listenersVectorPtr = _eventMap.Get(newEventType);
 	if (listenersVectorPtr->size() > 1)
 	{
-		for (int i = 0; i < listenersVectorPtr->size(); i++)
+		for (UINT i = 0; i < listenersVectorPtr->size(); i++)
 		{
 			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(i).get());
 			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(callback)))

@@ -51,9 +51,6 @@
     <ClCompile Include="src\Framework\Events\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Utils\CustomTweener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Framework\Clock\ClockManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -102,9 +99,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Events\Event.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\Utils\CustomTweener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Utils\CustomMap.h">
