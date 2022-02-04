@@ -6,6 +6,7 @@
 #include "Utils/ShardUtils.h"
 #include "Management/Managers.h"
 #include "Events/Event.h"
+#include "Events/MouseEvent.h"
 
 import MathUtils;
 import BooleanUtils;
@@ -15,9 +16,9 @@ void EventDispatched(Event* _event)
     Log("Event dispatched succesfully!");
 }
 
-void SecondEventDispatched(Event* _event)
+void SecondEventDispatched(MouseEvent* _event)
 {
-    Log("Event dispatched succesfully for 2 times!");
+    Log("Mouse event dispatched succesfully!");
 }
 
 ApplicationMain::ApplicationMain()
@@ -61,8 +62,8 @@ void ApplicationMain::Start()
     for (int i = 0; i < 1; i++)
     {
         superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
-        superChildSprite->scaleX = 0.25;
-        superChildSprite->scaleY = 0.25;
+        superChildSprite->scaleX = 0.30;
+        superChildSprite->scaleY = 0.30;
         superChildSprite->x = 64;
         superChildSprite->y = 64;
         childSprite->AddChild(superChildSprite);
@@ -91,8 +92,8 @@ void ApplicationMain::Start()
     b->SetColor(SDL_Color(255, 255, 0, 255));
     AddToStage(b);
 
-    sprite->AddEventListener("TestEvent", &EventDispatched);
-    sprite->AddEventListener("TestEvent", &SecondEventDispatched);
+    sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
+    sprite->AddEventListener<MouseEvent>("TestMouseEvent", &SecondEventDispatched);
 }
 
 void ApplicationMain::Update()
@@ -111,17 +112,16 @@ void ApplicationMain::Update()
         case SDL_KEYDOWN:
            //Managers::gameObjectsManager->RemoveObjectFromStage(sprite);
             //sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
-            Log("Dispatch launched!");
-            sprite->DispatchEvent("TestEvent");
-            sprite->RemoveAllListener();
+            sprite->DispatchEvent<Event>("TestEvent");
             //sprite->RemoveEventListener("TestEvent", &EventDispatched);
             break;
         case SDL_KEYUP:
             //Managers::gameObjectsManager->AddObjectToStage(sprite);
 
             break;
-        case SDL_MOUSEMOTION:
+        case SDL_MOUSEBUTTONDOWN:
 
+            sprite->DispatchEvent<MouseEvent>("TestMouseEvent");
 
             break;
         }

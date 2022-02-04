@@ -7,8 +7,8 @@ class EventDispatcher;
 class Event
 {
 public:
-	Event() : _type("") {} ;
-	Event(std::string type) : _type(type) {};
+	Event() : _type(""), _id("Event") {};
+	Event(std::string type) : _type(type), _id("Event") {};
 
 	static const inline std::string Added = "added";
 
@@ -24,10 +24,13 @@ private:
 
 protected:
 	std::string _type;
+	std::string _id;
 
 	EventDispatcher* _target = nullptr;
 
 public:
 	std::string GetType() const;
 	EventDispatcher* GetTarget() const;
+
+	virtual std::string GetID() { return _id; };
 };

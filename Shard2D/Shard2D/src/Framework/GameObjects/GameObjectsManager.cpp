@@ -42,7 +42,7 @@ void GameObjectsManager::AddObjectToStage(GameObject* object)
 	}
 
 	_stagedObjects.push_back(object);
-	object->DispatchEvent(Event::Added);
+	object->DispatchEvent<Event>(Event::Added);
 }
 
 void GameObjectsManager::RemoveObjectFromStage(GameObject* object)
@@ -53,7 +53,7 @@ void GameObjectsManager::RemoveObjectFromStage(GameObject* object)
 		if (stagedObject == object)
 		{
 			_stagedObjects.erase(_stagedObjects.begin() + count);
-			object->DispatchEvent(Event::Removed);
+			object->DispatchEvent<Event>(Event::Removed);
 			return;
 		}
 		count++;

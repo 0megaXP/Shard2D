@@ -3,37 +3,32 @@
 #include <stdexcept>
 
 #include "Event.h"
-
-EventListener::EventListener(void(*newCallback)(Event* _event), int newPriority)
-	: callback(newCallback), priority(newPriority)
-{
-
-}
-
-bool EventListener::Equals(void(*callback)(Event* _event))
-{
-	return this->callback == callback;
-}
+#include "MouseEvent.h"
 
 EventDispatcher::~EventDispatcher()
 {
 	RemoveAllListener();
 }
 
-void EventDispatcher::AddEventListener(std::string newEventType, void(*callback)(Event* _event), int priority)
+template<typename T>
+void EventDispatcher::AddEventListener(std::string newEventType, void(*callback)(T* _event), int priority)
 {
 	if (callback == nullptr)
 		throw std::invalid_argument("The callback is an invalid memory adress.");
 
 	// TODO optimize and improvve the event listener management (maybe not using vector pointers)
 	if (!_eventMap.Contains(newEventType))
-		_eventMap.Insert(newEventType, new std::vector< std::shared_ptr<EventListener>>());
+		_eventMap.Insert(newEventType, new std::vector< std::shared_ptr<Listener>>());
 
-	std::shared_ptr<EventListener> _eventListener = std::shared_ptr<EventListener>(new EventListener(callback, priority));
+	std::shared_ptr<EventListener<T>> _eventListener = std::shared_ptr<EventListener<T>>(new EventListener<T>(callback, priority));
 	_eventMap.Get(newEventType)->push_back(_eventListener);
 }
 
-void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callback)(Event* _event))
+template void EventDispatcher::AddEventListener<Event>(std::string newEventType, void(*callback)(Event* _event), int priority);
+template void EventDispatcher::AddEventListener<MouseEvent>(std::string newEventType, void(*callback)(MouseEvent* _event), int priority);
+
+template<typename T>
+void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callback)(T* _event))
 {
 	if (callback == nullptr)
 		return;
@@ -41,12 +36,13 @@ void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callba
 	if (!_eventMap.Contains(newEventType))
 		return;
 
-	std::vector<std::shared_ptr<EventListener>>* listenersVectorPtr = _eventMap.Get(newEventType);
+	std::vector<std::shared_ptr<Listener>>* listenersVectorPtr = _eventMap.Get(newEventType);
 	if (listenersVectorPtr->size() > 1)
 	{
 		for (int i = 0; i < listenersVectorPtr->size(); i++)
 		{
-			if (listenersVectorPtr->at(i).get()->Equals(callback))
+			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(i).get());
+			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(callback)))
 			{
 				listenersVectorPtr->erase(listenersVectorPtr->begin() + i);
 				return;
@@ -55,7 +51,8 @@ void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callba
 	}
 	else
 	{
-		if (listenersVectorPtr->at(0).get()->Equals(callback))
+		EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(0).get());
+		if (tempListener != nullptr && tempListener->Compare(EventListener<T>(callback)))
 		{
 			delete(_eventMap.Get(newEventType));
 			_eventMap.Remove(newEventType);
@@ -63,40 +60,56 @@ void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callba
 	}
 }
 
+template void EventDispatcher::RemoveEventListener<Event>(std::string newEventType, void(*callback)(Event* _event));
+template void EventDispatcher::RemoveEventListener<MouseEvent>(std::string newEventType, void(*callback)(MouseEvent* _event));
+
 void EventDispatcher::RemoveAllListener()
 {
 	// Deallocate all the vector pointers inside the eventMap
-	std::vector<std::vector<std::shared_ptr<EventListener>>*> listenerVectors = _eventMap.GetAllValues();
-	for (std::vector<std::shared_ptr<EventListener>>* vectorPtr : listenerVectors)
+	std::vector<std::vector<std::shared_ptr<Listener>>*> listenerVectors = _eventMap.GetAllValues();
+	for (std::vector<std::shared_ptr<Listener>>* vectorPtr : listenerVectors)
 		delete vectorPtr;
 	_eventMap.Reset();
 }
 
+template<typename T>
 void EventDispatcher::DispatchEvent(std::string eventType)
 {
 	// TODO Priority management
 	if (_eventMap.Contains(eventType))
 	{
-		Event* _event = new Event(eventType);
+		T* _event = new T(eventType);
 		_event->_target = this;
 
-		for (std::shared_ptr<EventListener> listener : *_eventMap.Get(eventType))
-			listener.get()->callback(_event);
+		for (std::shared_ptr<Listener> listener : *_eventMap.Get(eventType))
+		{
+			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
+			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(tempListener->callback)))
+				tempListener->callback(_event);
+		}
 
 		delete _event;
 	}
 }
 
-bool EventDispatcher::HasEventListener(std::string newEventType, void(*callback)(Event* _event))
+template void EventDispatcher::DispatchEvent<Event>(std::string eventType);
+template void EventDispatcher::DispatchEvent<MouseEvent>(std::string eventType);
+
+template<typename T>
+bool EventDispatcher::HasEventListener(std::string newEventType, void(*callback)(T* _event))
 {
 	if (!_eventMap.Contains(newEventType))
 		return false;
 
-	for (std::shared_ptr<EventListener> listener : *_eventMap.Get(newEventType))
-		if (listener.get()->callback == callback)
+	for (std::shared_ptr<Listener> listener : *_eventMap.Get(newEventType))
+	{
+		EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
+		if (tempListener != nullptr && tempListener->Compare(EventListener<T>(callback)))
 			return true;
+	}
 
 	return false;
 }
 
-		
+template bool EventDispatcher::HasEventListener<Event>(std::string newEventType, void(*callback)(Event* _event));
+template bool EventDispatcher::HasEventListener<MouseEvent>(std::string newEventType, void(*callback)(MouseEvent* _event));

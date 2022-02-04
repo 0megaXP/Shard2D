@@ -42,7 +42,7 @@ void GameManager::GameUpdate()
 
         // Events update
         for (GameObject* object : M_GameObjectsManager->_stagedObjects)
-            object->DispatchEvent(Event::Update);
+            object->DispatchEvent<Event>(Event::Update);
 
         // Logic update
         appMain->Update();

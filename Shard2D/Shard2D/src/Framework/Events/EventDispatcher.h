@@ -6,25 +6,10 @@
 #include <vector>
 #include <memory>
 
+#include "EventListener.h"
 #include "../Utils/ShardUtils.h"
 
 class Event;
-
-class EventListener
-{
-public:
-	EventListener(void (*callback)(Event* _event), int priority = 0);
-	~EventListener() { Log("EventListener destroyed", TextColor::Purple); };
-
-private:
-	void (*callback)(Event* _event);
-	int priority;
-
-	friend class EventDispatcher;
-
-public:
-	bool Equals(void (*callback)(Event* _event));
-};
 
 class EventDispatcher
 {
@@ -36,7 +21,7 @@ public:
 
 private:
 
-	CustomMap<std::string, std::vector<std::shared_ptr<EventListener>>*> _eventMap;
+	CustomMap<std::string, std::vector<std::shared_ptr<Listener>>*> _eventMap;
 	EventDispatcher* _target;
 
 public:
@@ -52,7 +37,8 @@ public:
 
 		@throws ArgumentError The callback specified is not a function.
 	*/
-	void AddEventListener(std::string newEventType, void(*callback)(Event* _event), int priority = 0);
+	template<typename T>
+	void AddEventListener(std::string newEventType, void(*callback)(T* _event), int priority = 0);
 
 	/**
 		Removes a listener from the EventDispatcher object. If there is no
@@ -62,7 +48,8 @@ public:
 		@param newEventType:	The type of event.
 		@param callback:		The callback function for the EventListener.
 	**/
-	void RemoveEventListener(std::string newEventType, void(*callback)(Event* _event));
+	template<typename T>
+	void RemoveEventListener(std::string newEventType, void(*callback)(T* _event));
 
 	void RemoveAllListener();
 
@@ -71,6 +58,7 @@ public:
 
 		@param eventType:		The type of event that is dispatched into the event flow.
 	**/
+	template<typename T>
 	void DispatchEvent(std::string eventType);
 
 	/**
@@ -80,6 +68,7 @@ public:
 		@param callback:		The callback function for the EventListener.
 		@return					A value of `true` if a listener of the specified type is registered; `false` otherwise.
 	**/
-	bool HasEventListener(std::string newEventType, void(*callback)(Event* _event));
+	template<typename T>
+	bool HasEventListener(std::string newEventType, void(*callback)(T* _event));
 };
 

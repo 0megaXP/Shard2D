@@ -183,6 +183,8 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="src\Framework\GameObjects\TextField.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Framework\Events\MouseEvent.h" />
+    <ClInclude Include="src\Framework\Events\EventListener.h" />
     <ClInclude Include="src\Framework\Utils\ShardUtils.h" />
     <ClInclude Include="src\Framework\Assets\AssetsManager.h" />
     <ClInclude Include="src\Framework\Clock\ClockManager.h" />

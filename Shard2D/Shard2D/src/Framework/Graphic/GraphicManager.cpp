@@ -196,7 +196,7 @@ void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _ima
 		SDL_SetTextureAlphaMod(_image->_texture, _object->GlobalA() * 255);
 
 		SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _object->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
-		_object->DispatchEvent(Event::Rendered);
+		_object->DispatchEvent<Event>(Event::Rendered);
 	}
 }
 #else
