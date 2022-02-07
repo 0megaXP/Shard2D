@@ -6,6 +6,7 @@
 TextField::TextField(std::string newText, std::string fontName, int newSize)
     : _text(newText), size(newSize)
 {
+    width = 1280;
     font = M_AssetsManager->GetFont(fontName);
 
     SDL_Surface* textSurface;
@@ -21,6 +22,7 @@ TextField::TextField(std::string newText, std::string fontName, int newSize)
         SDL_Texture* textTexture = M_GraphicManager->CreateTexture(textSurface);
         SDL_FreeSurface(textSurface);
         _image = std::shared_ptr<TextureImage>(new TextureImage(textTexture));
+        height = _image.get()->GetHeight();
     }
 }
 

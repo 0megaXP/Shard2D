@@ -169,15 +169,12 @@ void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _ima
 		_object->ResetFixedValues();
 
 		SDL_Texture* texture = _image->_texture;
-		int textureW, textureH, access;
-		unsigned int format;
-		SDL_QueryTexture(_image->_texture, &format, &access, &textureW, &textureH);
 
 		// Managing the pivot
 		if (_object->centerPivot)
 		{
-			_object->_pivotOffsetX = short(textureW / -2 * _object->GlobalScaleX());
-			_object->_pivotOffsetY = short(textureH / -2 * _object->GlobalScaleY());
+			_object->_pivotOffsetX = short(_image->_width / -2 * _object->GlobalScaleX());
+			_object->_pivotOffsetY = short(_image->_height / -2 * _object->GlobalScaleY());
 		}
 
 		SDL_Point rotPoint = SDL_Point();
@@ -190,8 +187,8 @@ void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _ima
 		SDL_Rect _tempRect = SDL_Rect();
 		_tempRect.x = int(_object->RenderingX());
 		_tempRect.y = int(_object->RenderingY());
-		_tempRect.w = int(textureW * _object->GlobalScaleX());
-		_tempRect.h = int(textureH * _object->GlobalScaleY());
+		_tempRect.w = int(_image->_width * _object->GlobalScaleX());
+		_tempRect.h = int(_image->_height * _object->GlobalScaleY());
 
 		SDL_SetTextureAlphaMod(_image->_texture, Uint8(_object->GlobalA() * 255));
 

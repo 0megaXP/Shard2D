@@ -8,8 +8,12 @@ Sprite::Sprite()
 }
 
 Sprite::Sprite(Image* newImage)
-	: _image(std::shared_ptr<Image>(newImage))
 {
+	this->_image = std::shared_ptr<Image>(newImage);
+
+	width = _image->GetWidth();
+	height = _image->GetHeight();
+
 	std::cout << "Sprite object created! -> ";
 }
 

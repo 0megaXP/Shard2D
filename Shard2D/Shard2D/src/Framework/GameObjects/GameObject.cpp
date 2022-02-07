@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "../Graphic/Image.h"
 #include "../Management/Managers.h"
 
 import MathUtils;
@@ -147,18 +148,26 @@ float GameObject::GlobalA() const
 
 float GameObject::GlobalScaleX() const
 {
+	float widthScale = 1;
+	if (_image != nullptr)
+		widthScale = width / _image.get()->GetWidth();
+
 	if (_parent != nullptr)
-		return scaleX * _parent->GlobalScaleX();
+		return scaleX * _parent->GlobalScaleX() * widthScale;
 	else
-		return scaleX;
+		return scaleX * widthScale;
 }
 
 float GameObject::GlobalScaleY() const
 {
+	float heightScale = 1;
+	if (_image != nullptr)
+		heightScale = height / _image.get()->GetHeight();
+
 	if (_parent != nullptr)
-		return scaleY * _parent->GlobalScaleY();
+		return scaleY * _parent->GlobalScaleY() * heightScale;
 	else
-		return scaleY;
+		return scaleY * heightScale;
 }
 
 bool GameObject::IsVisible() const

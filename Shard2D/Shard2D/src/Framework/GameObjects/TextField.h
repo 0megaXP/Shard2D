@@ -18,7 +18,6 @@ protected:
 
 public:
 	TTF_Font* font;
-	Uint32 width = 1280;
 	Uint8 size = 24;
 
 private:

@@ -15,6 +15,10 @@ public:
 
 	std::string type;
 
+	virtual float GetWidth() { return 0; };
+
+	virtual float GetHeight() { return 0; };
+
 private:
 	friend class GraphicManager;
 };
@@ -53,12 +57,22 @@ public:
 		: _texture(newTexture)
 	{
 		type = TEXTURE_TYPE;
+		SDL_QueryTexture(_texture, &_format, &_access, &_width, &_height);
 	};
 
 	~TextureImage() { SDL_DestroyTexture(_texture); };
 
+	float GetWidth() { return float(_width); };
+
+	float GetHeight() { return float(_height); };
+
 private:
 	SDL_Texture* _texture;
+
+	int _width;
+	int _height;
+	int _access;
+	unsigned int _format;
 
 	friend class GraphicManager;
 };

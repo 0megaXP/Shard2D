@@ -41,6 +41,9 @@ public:
 	float x = 0;
 	float y = 0;
 
+	float width = 0;
+	float height = 0;
+
 	float rotation = 0;
 
 	float a = 1;
@@ -173,6 +176,8 @@ protected:
 	Function called from the GraphicManager. Return the image to render
 	*/
 	virtual Image* GetRenderingImage();
+
+	std::shared_ptr<Image> _image;
 
 	/*
 	Function called when the GameObject is initialized

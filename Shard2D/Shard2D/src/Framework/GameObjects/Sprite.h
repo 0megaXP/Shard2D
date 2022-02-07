@@ -13,8 +13,6 @@ public:
 protected:
 	~Sprite();
 
-	std::shared_ptr<Image> _image;
-
 public:
 
 protected:

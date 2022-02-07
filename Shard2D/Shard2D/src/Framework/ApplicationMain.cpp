@@ -28,7 +28,7 @@ ApplicationMain::ApplicationMain()
 
 void ApplicationMain::Start()
 {
-    GameObject* a = new GameObject();
+    /*GameObject* a = new GameObject();
     AddToStage(a);
 
 	sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
@@ -69,11 +69,11 @@ void ApplicationMain::Start()
         childSprite->AddChild(superChildSprite);
         superChildSprite->a = 1.f;
         superChildSprite->centerPivot = true;
-    }
+    }*/
 
     for (int i = 0; i < 1; i++)
     {
-        TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 24);
+        TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 36);
         b->scaleX = 1;
         b->scaleY = 1;
         b->centerPivot = true;
@@ -83,7 +83,7 @@ void ApplicationMain::Start()
         AddToStage(b);
     }
 
-    TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!","arial", 24);
+    TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!","arial", 72);
     b->scaleX = 1;
     b->scaleY = 1;
     b->centerPivot = true;
@@ -92,16 +92,16 @@ void ApplicationMain::Start()
     b->SetColor(SDL_Color(255, 255, 0, 255));
     AddToStage(b);
 
-    sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
-    sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
+    //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
+    //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
 }
 
 void ApplicationMain::Update()
 {
     SDL_Event e;
-    childSprite->rotation -= 180 * M_ClockManager->GetDeltaTime();
-    superChildSprite->rotation += 360 * M_ClockManager->GetDeltaTime();
-    sprite->rotation += 30 * M_ClockManager->GetDeltaTime();
+    //childSprite->rotation -= 180 * M_ClockManager->GetDeltaTime();
+    //superChildSprite->rotation += 360 * M_ClockManager->GetDeltaTime();
+    //sprite->rotation += 30 * M_ClockManager->GetDeltaTime();
 
 
     while (SDL_PollEvent(&e) != 0) {
@@ -112,8 +112,8 @@ void ApplicationMain::Update()
         case SDL_KEYDOWN:
            //Managers::gameObjectsManager->RemoveObjectFromStage(sprite);
             //sprite->rotation += 360 * M_ClockManager->GetDeltaTime();
-            sprite->DispatchEvent<Event>("TestEvent");
-            sprite->RemoveEventListener<Event>("TestEvent", &EventDispatched);
+            //sprite->DispatchEvent<Event>("TestEvent");
+            //sprite->RemoveEventListener<Event>("TestEvent", &EventDispatched);
             //sprite->RemoveEventListener("TestEvent", &EventDispatched);
             break;
         case SDL_KEYUP:
@@ -122,8 +122,8 @@ void ApplicationMain::Update()
             break;
         case SDL_MOUSEBUTTONDOWN:
 
-            sprite->DispatchEvent<MouseEvent>("TestEvent");
-            sprite->RemoveEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
+            //sprite->DispatchEvent<MouseEvent>("TestEvent");
+            //sprite->RemoveEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
 
             break;
         }
