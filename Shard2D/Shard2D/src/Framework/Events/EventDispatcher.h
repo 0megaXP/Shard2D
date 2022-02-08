@@ -1,8 +1,6 @@
 #pragma once
 
 #include <string>
-
-
 #include <vector>
 #include <memory>
 
@@ -20,6 +18,8 @@ public:
 	~EventDispatcher();
 
 private:
+
+	friend class EventsManager;
 
 	CustomMap<std::string, std::vector<std::shared_ptr<Listener>>*> _eventMap;
 	EventDispatcher* _target;
@@ -41,9 +41,7 @@ public:
 	void AddEventListener(std::string newEventType, void(*callback)(T* _event), int priority = 0);
 
 	/**
-		Removes a listener from the EventDispatcher object. If there is no
-		matching listener registered with the EventDispatcher object, a call to
-		this method has no effect.
+		Removes a listener from the EventDispatcher object. If there is no matching listener registered with the EventDispatcher object, a call to this method has no effect.
 
 		@param newEventType:	The type of event.
 		@param callback:		The callback function for the EventListener.

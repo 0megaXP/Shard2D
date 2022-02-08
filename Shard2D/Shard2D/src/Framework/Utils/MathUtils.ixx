@@ -136,3 +136,28 @@ export float DegFromPosition(Vector2 position, Vector2 centre)
         rotation = 360 - rotation;
     return rotation;
 }
+
+export bool PointInsideRect(Vector2 point, Vector2 origin, float width, float height, float rotation)
+{
+    Vector2 rectPoints[5];
+
+    rectPoints[0] = origin;
+    rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
+    rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
+    rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
+    rectPoints[4] = rectPoints[0]; // The 5th is the first just for the loop check
+
+    int edgesCount = 0;
+    for (int i = 1; i < 5; i++)
+    {
+        if (Between(point.y, rectPoints[i - 1].y, rectPoints[i].y - 0.1, true) && point.x <= (rectPoints[i - 1].x + rectPoints[i].x) / 2)
+        {
+            edgesCount++;
+        }
+
+        if (edgesCount > 1)
+            return false;
+    }
+
+    return edgesCount == 1;
+}

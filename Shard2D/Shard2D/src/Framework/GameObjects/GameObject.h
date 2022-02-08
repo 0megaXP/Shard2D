@@ -16,6 +16,7 @@ public:
 	friend class GraphicManager;
 	friend class GameObjectsManager;
 	friend class GameManager;
+	friend class EventsManager;
 
 private:
 	std::string _name = "";
@@ -33,6 +34,8 @@ private:
 
 	short _pivotOffsetX = 0;
 	short _pivotOffsetY = 0;
+
+	bool mouseOverlapped = false;
 
 public:
 	std::string Name() const;
@@ -52,6 +55,9 @@ public:
 	float scaleY = 1;
 
 	bool centerPivot = false;
+
+	bool mouseEnabled = true;
+	bool blockMouseEvents = true;
 
 private:
 	/*
@@ -82,15 +88,6 @@ private:
 	short GlobalSelfFixedY() const;
 
 	/*
-	Return the GambeObject's x rendering position (using all the fixed positions and offsets)
-	*/
-	short RenderingX() const;
-	/*
-	Return the GambeObject's y rendering position (using all the fixed positions and offsets)
-	*/
-	short RenderingY() const;
-
-	/*
 	Reset all the value used for the position fixing during the rendering
 	*/
 	void ResetFixedValues();
@@ -104,6 +101,15 @@ public:
 	Return the GambeObject's y position on the screen (counting all the parents' y)
 	*/
 	short GlobalY() const;
+
+	/*
+	Return the GambeObject's x rendering position (using all the fixed positions and offsets)
+	*/
+	short RenderingX() const;
+	/*
+	Return the GambeObject's y rendering position (using all the fixed positions and offsets)
+	*/
+	short RenderingY() const;
 
 	/*
 	Return the GambeObject's local pivot x position

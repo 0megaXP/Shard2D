@@ -24,6 +24,7 @@ public:
 
 	friend class GraphicManager;
 	friend class GameManager;
+	friend class EventsManager;
 
 private:
 	std::vector<GameObject*> _stagedObjects;

@@ -28,7 +28,7 @@ ApplicationMain::ApplicationMain()
 
 void ApplicationMain::Start()
 {
-    /*GameObject* a = new GameObject();
+    GameObject* a = new GameObject();
     AddToStage(a);
 
 	sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
@@ -39,8 +39,8 @@ void ApplicationMain::Start()
     sprite->x = 640.f;
     sprite->y = 360.f;
     sprite->a = 1.f;
-    sprite->rotation = 0;
-    sprite->centerPivot = true;
+    sprite->rotation = 45;
+    sprite->centerPivot = false;
 
     Sprite* point = new Sprite(M_AssetsManager->GetTextureImagePNG("RedPoint"));
     AddToStage(point);
@@ -69,7 +69,7 @@ void ApplicationMain::Start()
         childSprite->AddChild(superChildSprite);
         superChildSprite->a = 1.f;
         superChildSprite->centerPivot = true;
-    }*/
+    }
 
     for (int i = 0; i < 1; i++)
     {
@@ -92,6 +92,8 @@ void ApplicationMain::Start()
     b->SetColor(SDL_Color(255, 255, 0, 255));
     AddToStage(b);
 
+    
+
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
 }
@@ -103,6 +105,7 @@ void ApplicationMain::Update()
     //superChildSprite->rotation += 360 * M_ClockManager->GetDeltaTime();
     //sprite->rotation += 30 * M_ClockManager->GetDeltaTime();
 
+   
 
     while (SDL_PollEvent(&e) != 0) {
         switch (e.type) {
@@ -124,7 +127,17 @@ void ApplicationMain::Update()
 
             //sprite->DispatchEvent<MouseEvent>("TestEvent");
             //sprite->RemoveEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
+            
+            int mouseX = 0;
+            int mouseY = 0;
+            if (SDL_GetMouseState(&mouseX, &mouseY))
+            {
+                std::cout << mouseX << " - " << mouseY << std::endl;
+            }
 
+            if (PointInsideRect(Vector2(mouseX, mouseY), Vector2(sprite->RenderingX(), sprite->RenderingY()), sprite->width * sprite->GlobalScaleX(), sprite->height * sprite->GlobalScaleY(), sprite->GlobalRotation()))
+                std::cout << "Point Inside!" << std::endl;
+           
             break;
         }
     }

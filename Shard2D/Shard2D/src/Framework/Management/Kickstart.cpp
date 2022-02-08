@@ -22,6 +22,7 @@ void Shard2D::Init()
         M_GameManager->GameUpdate();
     }
 
+    delete M_EventsManager;
     delete M_AssetsManager;
     delete M_ClockManager;
     delete M_GraphicManager;
