@@ -4,6 +4,7 @@
 
 #include "Event.h"
 #include "MouseEvent.h"
+#include "KeyboardEvent.h"
 
 EventDispatcher::~EventDispatcher()
 {
@@ -26,6 +27,7 @@ void EventDispatcher::AddEventListener(std::string newEventType, void(*callback)
 
 template void EventDispatcher::AddEventListener<Event>(std::string newEventType, void(*callback)(Event* _event), int priority);
 template void EventDispatcher::AddEventListener<MouseEvent>(std::string newEventType, void(*callback)(MouseEvent* _event), int priority);
+template void EventDispatcher::AddEventListener<KeyboardEvent>(std::string newEventType, void(*callback)(KeyboardEvent* _event), int priority);
 
 template<typename T>
 void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callback)(T* _event))
@@ -62,6 +64,7 @@ void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callba
 
 template void EventDispatcher::RemoveEventListener<Event>(std::string newEventType, void(*callback)(Event* _event));
 template void EventDispatcher::RemoveEventListener<MouseEvent>(std::string newEventType, void(*callback)(MouseEvent* _event));
+template void EventDispatcher::RemoveEventListener<KeyboardEvent>(std::string newEventType, void(*callback)(KeyboardEvent* _event));
 
 void EventDispatcher::RemoveAllListener()
 {
@@ -94,6 +97,31 @@ void EventDispatcher::DispatchEvent(std::string eventType)
 
 template void EventDispatcher::DispatchEvent<Event>(std::string eventType);
 template void EventDispatcher::DispatchEvent<MouseEvent>(std::string eventType);
+template void EventDispatcher::DispatchEvent<KeyboardEvent>(std::string eventType);
+
+template<typename T>
+void EventDispatcher::DispatchEvent(T _newEvent)
+{
+	// TODO Priority management
+	if (_eventMap.Contains(_newEvent.GetType()))
+	{
+		T* _event = new T(_newEvent);
+		_event->_target = this;
+
+		for (std::shared_ptr<Listener> listener : *_eventMap.Get(_newEvent.GetType()))
+		{
+			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
+			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(tempListener->callback)))
+				tempListener->callback(_event);
+		}
+
+		delete _event;
+	}
+}
+
+template void EventDispatcher::DispatchEvent<Event>(Event _event);
+template void EventDispatcher::DispatchEvent<MouseEvent>(MouseEvent _event);
+template void EventDispatcher::DispatchEvent<KeyboardEvent>(KeyboardEvent _event);
 
 template<typename T>
 bool EventDispatcher::HasEventListener(std::string newEventType, void(*callback)(T* _event))
@@ -113,3 +141,4 @@ bool EventDispatcher::HasEventListener(std::string newEventType, void(*callback)
 
 template bool EventDispatcher::HasEventListener<Event>(std::string newEventType, void(*callback)(Event* _event));
 template bool EventDispatcher::HasEventListener<MouseEvent>(std::string newEventType, void(*callback)(MouseEvent* _event));
+template bool EventDispatcher::HasEventListener<KeyboardEvent>(std::string newEventType, void(*callback)(KeyboardEvent* _event));

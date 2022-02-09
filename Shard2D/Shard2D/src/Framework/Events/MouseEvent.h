@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <SDL.h>
 
 #include "Event.h"
 
@@ -9,8 +10,8 @@ class EventDispatcher;
 class MouseEvent : virtual public Event
 {
 public:
-	MouseEvent() : Event("") { this->_id = "MouseEvent"; };
-	MouseEvent(std::string type) { this->_type = type;  this->_id = "MouseEvent"; };
+	MouseEvent() : Event("") { this->_id = "MouseEvent"; SDL_GetMouseState(&_mouseX, &_mouseY);};
+	MouseEvent(std::string type) { this->_type = type;  this->_id = "MouseEvent"; SDL_GetMouseState(&_mouseX, &_mouseY);};
 
 	static const inline std::string LeftButtonPressed				= "leftButtonPressed";
 	static const inline std::string LeftButtonReleased				= "leftButtonReleased";
@@ -30,15 +31,15 @@ public:
 private:
 	friend class EventDispatcher;
 
-	float _mouseX = 0;
+	int _mouseX = 0;
 
-	float _mouseY = 0;
+	int _mouseY = 0;
 
 public:
 	virtual std::string GetID() { return this->_id; };
 
-	float GetMouseX() { return _mouseX; };
+	int GetMouseX() { return _mouseX; };
 
-	float GetMouseY() { return _mouseY; };
+	int GetMouseY() { return _mouseY; };
 };
 

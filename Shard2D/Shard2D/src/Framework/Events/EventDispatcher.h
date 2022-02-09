@@ -60,6 +60,14 @@ public:
 	void DispatchEvent(std::string eventType);
 
 	/**
+		Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the `DispatchEvent()` method is called.
+
+		@param _event:		The event that is dispatched into the event flow.
+	**/
+	template<typename T>
+	void DispatchEvent(T _event);
+
+	/**
 		Checks whether the EventDispatcher object has any listeners registered for a specific type of event.
 
 		@param newEventType:	The type of event.

@@ -18,5 +18,7 @@ private:
 	Sprite* sprite;
 	Sprite* childSprite; 
 	Sprite* superChildSprite;
+
+	TextField* fpsCounter;
 };
 

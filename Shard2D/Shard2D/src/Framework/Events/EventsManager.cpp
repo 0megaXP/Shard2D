@@ -4,6 +4,9 @@
 #include "../Management/Managers.h"
 #include "../Utils/ShardUtils.h"
 
+#include "KeyboardEvent.h"
+#include "Keycode.h"
+
 import MathUtils;
 
 EventsManager::EventsManager()
@@ -25,14 +28,18 @@ void EventsManager::CatchInputs()
 	SDL_Event sdlEvent;
 	eventsToDispatch.clear();
 	mouseEventsToDispatch.clear();
+	keyboardEventsToDispatch.clear();
 
 	while (SDL_PollEvent(&sdlEvent) != 0)
 	{
 		switch (sdlEvent.type)
 		{
 			case SDL_KEYDOWN:
+				//std::cout << sdlEvent.key.keysym.sym << std::endl;
+				keyboardEventsToDispatch.push_back(KeyboardEvent(KeyboardEvent::ButtonPressed, static_cast<Shard2D::Keycode>(sdlEvent.key.keysym.sym)));
 				break;
 			case SDL_KEYUP:
+				keyboardEventsToDispatch.push_back(KeyboardEvent(KeyboardEvent::ButtonReleased, static_cast<Shard2D::Keycode>(sdlEvent.key.keysym.sym)));
 				break;
 			case SDL_MOUSEBUTTONUP:
 				RunMouseButtonUpEvent(sdlEvent);
@@ -47,6 +54,7 @@ void EventsManager::CatchInputs()
 		}
 	}
 
+	DispatchKeyboardEvents();
 	DispatchMouseEvents();
 }
 
@@ -64,6 +72,22 @@ void EventsManager::DispatchMouseEvents()
 				CheckObjectForEvents(object->_children[childI], deadlineReached);
 
 		CheckObjectForEvents(object, deadlineReached);
+	}
+}
+
+void EventsManager::DispatchKeyboardEvents()
+{
+	for (int i = M_GameObjectsManager->_stagedObjects.size() - 1; i >= 0; i--)
+	{
+		GameObject* object = M_GameObjectsManager->_stagedObjects[i];
+		// Checks all the gameObject's children from the end
+		if (object->_children.size() > 0)
+			for (int childI = object->_children.size() - 1; childI >= 0; childI--)
+				for(KeyboardEvent e : keyboardEventsToDispatch)
+					object->_children[childI]->DispatchEvent<KeyboardEvent>(e);
+
+		for (KeyboardEvent e : keyboardEventsToDispatch)
+			object->DispatchEvent<KeyboardEvent>(e);
 	}
 }
 

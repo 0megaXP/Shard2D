@@ -16,7 +16,7 @@ public:
 	static inline const int Gray =		8;
 };
 
-static void inline Log(const std::string text, int textColor = 7)
+static void inline Log(const auto text, int textColor = 7)
 {
 	HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 

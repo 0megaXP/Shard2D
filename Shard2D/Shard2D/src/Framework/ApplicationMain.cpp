@@ -7,6 +7,7 @@
 #include "Management/Managers.h"
 #include "Events/Event.h"
 #include "Events/MouseEvent.h"
+#include "Events/KeyboardEvent.h"
 
 import MathUtils;
 import BooleanUtils;
@@ -21,9 +22,9 @@ void MouseEndOverlap(MouseEvent* _event)
     Log("End overlap");
 }
 
-void LeftButtonClicked(MouseEvent* _event)
+void LeftButtonClicked(KeyboardEvent* _event)
 {
-    Log("Left Button clicked");
+    std::cout << "Key pressed: " << _event->GetKeycode() << std::endl;
 }
 
 ApplicationMain::ApplicationMain()
@@ -69,6 +70,10 @@ void ApplicationMain::Start()
         superChildSprite->centerPivot = true;
     }
 
+    fpsCounter = new TextField("Test", "arial", 36);
+    fpsCounter->y = 670;
+    AddToStage(fpsCounter);
+
     for (int i = 0; i < 1; i++)
     {
         TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 36);
@@ -92,7 +97,7 @@ void ApplicationMain::Start()
 
     sprite->AddEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
     sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
-    sprite->AddEventListener<MouseEvent>(MouseEvent::LeftButtonPressed, &LeftButtonClicked);
+    sprite->AddEventListener<KeyboardEvent>(KeyboardEvent::ButtonPressed, &LeftButtonClicked);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
@@ -100,6 +105,7 @@ void ApplicationMain::Start()
 
 void ApplicationMain::Update()
 {
+    fpsCounter->SetText("FPS: " + std::to_string(int(M_ClockManager->GetFPS())));
     //point->x = sprite->RenderingX();
     //point->y = sprite->RenderingY();
 

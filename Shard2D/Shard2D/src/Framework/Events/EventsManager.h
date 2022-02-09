@@ -8,6 +8,7 @@
 
 class EventDispatcher;
 class GameObject;
+class KeyboardEvent;
 
 class EventsManager
 {
@@ -20,6 +21,7 @@ public:
 
 private:
 	std::vector<std::string> eventsToDispatch;
+	std::vector<KeyboardEvent> keyboardEventsToDispatch;
 	std::vector<std::string> mouseEventsToDispatch;
 
 	Vector2 mousePosition;
@@ -27,6 +29,8 @@ private:
 	void CatchInputs();
 
 	void DispatchMouseEvents();
+
+	void DispatchKeyboardEvents();
 
 	void CheckObjectForEvents(GameObject* object, bool &deadlineReached);
 
