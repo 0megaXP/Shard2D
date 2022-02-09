@@ -126,8 +126,8 @@ void GraphicManager::FixPositionForParentRotation(GameObject* _object)
 			Vector2 normalizedPosition = PositionFromDeg(_object->Parent()->GlobalRotation() + _objectActualRotation);
 			Vector2 basePosition = PositionFromDeg(0);
 
-			_object->_parentFixedX += short(normalizedPosition.x * radius - _object->x);//+ _object->Parent()->GlobalParentFixedX();
-			_object->_parentFixedY += short(normalizedPosition.y * radius - _object->y);//+ _object->Parent()->GlobalParentFixedY();
+			_object->_parentFixedX += short(normalizedPosition.x * radius - _object->x);
+			_object->_parentFixedY += short(normalizedPosition.y * radius - _object->y);
 		}
 	}
 }
@@ -183,6 +183,19 @@ void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _ima
 
 		FixPositionForParentRotation(_object);
 
+		// Set the final rendering position for future needs
+		if (_object->GlobalRotation() != 0 && _object->centerPivot)
+		{
+			// Adjust the position with the rotation of the texture
+			_object->_finalFixedX = _object->RenderingX() - _object->_pivotOffsetX + PositionFromDeg(225 + _object->GlobalRotation()).x * _object->width / 2 * _object->GlobalScaleX() / -PositionFromDeg(225).x;
+			_object->_finalFixedY = _object->RenderingY() - _object->_pivotOffsetY + PositionFromDeg(225 + _object->GlobalRotation()).y * _object->height / 2 * _object->GlobalScaleY() / -PositionFromDeg(225).y;
+		}
+		else
+		{
+			_object->_finalFixedX = _object->RenderingX();
+			_object->_finalFixedY = _object->RenderingY();
+		}
+
 		// Setting the rendering rect
 		SDL_Rect _tempRect = SDL_Rect();
 		_tempRect.x = int(_object->RenderingX());
@@ -220,6 +233,9 @@ void GraphicManager::RenderSurfaceObject(GameObject* _object, SurfaceImage* _ima
 		FixPositionForRotation(_rotatedSurface, _object, _image);
 		// Fix the position also based on the parent rotation and fixed position
 		FixPositionForParentRotation(_object);
+
+		_object->_finalFixedX = _object->RenderingX();
+		_object->_finalFixedY = _object->RenderingY();
 
 		// Setting the rendering rect
 		SDL_Rect _tempRect = SDL_Rect();

@@ -20,7 +20,7 @@ static void inline Log(const std::string text, int textColor = 7)
 {
 	HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	std::cout << "\r";
+	//std::cout << std::endl;
 	SetConsoleTextAttribute(hConsole, textColor);
 	std::cout << text << std::endl;
 	SetConsoleTextAttribute(hConsole, TextColor::White);

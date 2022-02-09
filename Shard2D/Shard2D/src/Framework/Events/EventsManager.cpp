@@ -2,6 +2,9 @@
 
 #include "../GameObjects/GameObject.h"
 #include "../Management/Managers.h"
+#include "../Utils/ShardUtils.h"
+
+import MathUtils;
 
 EventsManager::EventsManager()
 {
@@ -13,7 +16,11 @@ EventsManager::~EventsManager()
 
 void EventsManager::CatchInputs()
 {
+	// Getting mouse position
+	int _actualMouseX = 0;
+	int _actualMouseY = 0;
 	SDL_GetMouseState(&_actualMouseX, &_actualMouseY);
+	mousePosition = Vector2(_actualMouseX, _actualMouseY);
 
 	SDL_Event sdlEvent;
 	eventsToDispatch.clear();
@@ -35,25 +42,65 @@ void EventsManager::CatchInputs()
 				break;
 			case SDL_MOUSEWHEEL:
 				break;
+			case SDL_QUIT:
+				Managers::gameManager->ExitGame();
 		}
 	}
+
+	DispatchMouseEvents();
 }
 
 void EventsManager::DispatchMouseEvents()
 {
+	// If true means that every other overlap with objects will be denied
+	bool deadlineReached = false;
+	// Checks all the gameObjects from the end
+	for (int i = M_GameObjectsManager->_stagedObjects.size() - 1; i >= 0; i--)
+	{
+		GameObject* object = M_GameObjectsManager->_stagedObjects[i];
+		// Checks all the gameObject's children from the end
+		if(object->_children.size() > 0)
+			for (int childI = object->_children.size() - 1; childI >= 0; childI--)
+				CheckObjectForEvents(object->_children[childI], deadlineReached);
+
+		CheckObjectForEvents(object, deadlineReached);
+	}
 }
 
-void EventsManager::CheckMouseOverlapEvents()
+void EventsManager::CheckObjectForEvents(GameObject* object, bool& deadlineReached)
 {
-	bool deadlineReached = false;
-	for (GameObject* object : M_GameObjectsManager->_stagedObjects)
+	if (object->mouseEnabled && !deadlineReached)
 	{
-		if (object->mouseEnabled && !deadlineReached)
+		// Checks if the mouse is inside the object 
+		if (PointInsideRect(mousePosition, Vector2(object->_finalFixedX, object->_finalFixedY), object->width * object->GlobalScaleX(), object->height * object->GlobalScaleY(), object->GlobalRotation()))
 		{
+			if (!object->mouseOverlapped)
+			{
+				object->mouseOverlapped = true;
+				object->DispatchEvent<MouseEvent>(MouseEvent::BeginOverlap);
+			}
 
+			// Dispatch all the others MouseEvents
+			for (std::string _event : mouseEventsToDispatch)
+				object->DispatchEvent<MouseEvent>(_event);
+
+			if (object->blockMouseEvents)
+				deadlineReached = true;
 		}
 		else
 		{
+			if (object->mouseOverlapped)
+			{
+				object->mouseOverlapped = false;
+				object->DispatchEvent<MouseEvent>(MouseEvent::EndOverlap);
+			}
+		}
+	}
+	else
+	{
+		if (object->mouseOverlapped)
+		{
+			object->mouseOverlapped = false;
 			object->DispatchEvent<MouseEvent>(MouseEvent::EndOverlap);
 		}
 	}

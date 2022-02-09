@@ -11,14 +11,19 @@
 import MathUtils;
 import BooleanUtils;
 
-void EventDispatched(Event* _event)
+void MouseBeginOverlap(MouseEvent* _event)
 {
-    Log("Event dispatched succesfully!");
+    Log("Begin Overlap");
 }
 
-void SecondEventDispatched(MouseEvent* _event)
+void MouseEndOverlap(MouseEvent* _event)
 {
-    Log("Mouse event dispatched succesfully!");
+    Log("End overlap");
+}
+
+void LeftButtonClicked(MouseEvent* _event)
+{
+    Log("Left Button clicked");
 }
 
 ApplicationMain::ApplicationMain()
@@ -40,15 +45,7 @@ void ApplicationMain::Start()
     sprite->y = 360.f;
     sprite->a = 1.f;
     sprite->rotation = 45;
-    sprite->centerPivot = false;
-
-    Sprite* point = new Sprite(M_AssetsManager->GetTextureImagePNG("RedPoint"));
-    AddToStage(point);
-    point->x = sprite->x;
-    point->y = sprite->y;
-    point->scaleX = 0.01f;
-    point->scaleY = 0.01f;
-    point->centerPivot = true;
+    sprite->centerPivot = true;
 
     childSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Last_Defenders"));
     childSprite->scaleX = 0.5f;
@@ -58,6 +55,7 @@ void ApplicationMain::Start()
     sprite->AddChild(childSprite);
     childSprite->a = 1;
     childSprite->centerPivot = true;
+    childSprite->blockMouseEvents = false;
 
     for (int i = 0; i < 1; i++)
     {
@@ -83,16 +81,18 @@ void ApplicationMain::Start()
         AddToStage(b);
     }
 
-    TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!","arial", 72);
+    /*TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 72);
     b->scaleX = 1;
     b->scaleY = 1;
     b->centerPivot = true;
     b->x = 640;
     b->y = 360;
     b->SetColor(SDL_Color(255, 255, 0, 255));
-    AddToStage(b);
+    AddToStage(b);*/
 
-    
+    sprite->AddEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
+    sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
+    sprite->AddEventListener<MouseEvent>(MouseEvent::LeftButtonPressed, &LeftButtonClicked);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
@@ -100,14 +100,17 @@ void ApplicationMain::Start()
 
 void ApplicationMain::Update()
 {
-    SDL_Event e;
+    //point->x = sprite->RenderingX();
+    //point->y = sprite->RenderingY();
+
+    //SDL_Event e;
     //childSprite->rotation -= 180 * M_ClockManager->GetDeltaTime();
     //superChildSprite->rotation += 360 * M_ClockManager->GetDeltaTime();
     //sprite->rotation += 30 * M_ClockManager->GetDeltaTime();
 
    
 
-    while (SDL_PollEvent(&e) != 0) {
+    /*while (SDL_PollEvent(&e) != 0) {
         switch (e.type) {
         case SDL_QUIT:
             Managers::gameManager->ExitGame();
@@ -128,17 +131,17 @@ void ApplicationMain::Update()
             //sprite->DispatchEvent<MouseEvent>("TestEvent");
             //sprite->RemoveEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
             
-            int mouseX = 0;
-            int mouseY = 0;
-            if (SDL_GetMouseState(&mouseX, &mouseY))
-            {
-                std::cout << mouseX << " - " << mouseY << std::endl;
-            }
-
-            if (PointInsideRect(Vector2(mouseX, mouseY), Vector2(sprite->RenderingX(), sprite->RenderingY()), sprite->width * sprite->GlobalScaleX(), sprite->height * sprite->GlobalScaleY(), sprite->GlobalRotation()))
-                std::cout << "Point Inside!" << std::endl;
+            //int mouseX = 0;
+            //int mouseY = 0;
+            //if (SDL_GetMouseState(&mouseX, &mouseY))
+            //{
+            //    std::cout << mouseX << " - " << mouseY << std::endl;
+            //}
+            //
+            //if (PointInsideRect(Vector2(mouseX, mouseY), Vector2(sprite->RenderingX(), sprite->RenderingY()), sprite->width * sprite->GlobalScaleX(), sprite->height * sprite->GlobalScaleY(), sprite->GlobalRotation()))
+            //    std::cout << "Point Inside!" << std::endl;
            
             break;
         }
-    }
+    }*/
 }

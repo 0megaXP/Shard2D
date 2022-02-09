@@ -7,6 +7,7 @@
 #include "EventListener.h"
 
 class EventDispatcher;
+class GameObject;
 
 class EventsManager
 {
@@ -21,14 +22,13 @@ private:
 	std::vector<std::string> eventsToDispatch;
 	std::vector<std::string> mouseEventsToDispatch;
 
-	int _actualMouseX = 0;
-	int _actualMouseY = 0;
+	Vector2 mousePosition;
 
 	void CatchInputs();
 
 	void DispatchMouseEvents();
 
-	void CheckMouseOverlapEvents();
+	void CheckObjectForEvents(GameObject* object, bool &deadlineReached);
 
 	void RunMouseButtonDownEvent(SDL_Event& sdlEvent);
 

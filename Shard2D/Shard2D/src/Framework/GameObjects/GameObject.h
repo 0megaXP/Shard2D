@@ -37,6 +37,9 @@ private:
 
 	bool mouseOverlapped = false;
 
+	short _finalFixedX = 0;
+	short _finalFixedY = 0;
+
 public:
 	std::string Name() const;
 	GameObject* Parent() const;

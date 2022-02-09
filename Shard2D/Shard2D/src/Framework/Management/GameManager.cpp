@@ -44,6 +44,8 @@ void GameManager::GameUpdate()
         for (GameObject* object : M_GameObjectsManager->_stagedObjects)
             object->DispatchEvent<Event>(Event::Update);
 
+        M_EventsManager->CatchInputs();
+
         // Logic update
         appMain->Update();
         for (GameObject* object : M_GameObjectsManager->_stagedObjects)

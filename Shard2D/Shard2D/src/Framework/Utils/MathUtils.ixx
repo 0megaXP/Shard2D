@@ -139,25 +139,28 @@ export float DegFromPosition(Vector2 position, Vector2 centre)
 
 export bool PointInsideRect(Vector2 point, Vector2 origin, float width, float height, float rotation)
 {
-    Vector2 rectPoints[5];
+    Vector2 rectPoints[4];
 
     rectPoints[0] = origin;
     rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
     rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
     rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
-    rectPoints[4] = rectPoints[0]; // The 5th is the first just for the loop check
 
-    int edgesCount = 0;
-    for (int i = 1; i < 5; i++)
+    int i, j, c = 0;
+    for (i = 0, j = 4 - 1; i < 4; j = i++) {
+        if (((rectPoints[i].y > point.y) != (rectPoints[j].y > point.y)) &&
+            (point.x < (rectPoints[j].x - rectPoints[i].x) * (point.y - rectPoints[i].y) / (rectPoints[j].y - rectPoints[i].y) + rectPoints[i].x))
+            c = ~c;
+    }
+    return c;
+
+    /*int edgesMatched = 0;
+    for (int i = 1; i < 4; i++)
     {
-        if (Between(point.y, rectPoints[i - 1].y, rectPoints[i].y - 0.1, true) && point.x <= (rectPoints[i - 1].x + rectPoints[i].x) / 2)
-        {
-            edgesCount++;
-        }
-
-        if (edgesCount > 1)
-            return false;
+        if (((rectPoints[i].y > point.y) != (rectPoints[i - 1].y > point.y)) &&
+             (point.x < (rectPoints[i - 1].x - rectPoints[i].x) * (point.y - rectPoints[i].y) / (rectPoints[i - 1].y - rectPoints[i].y) + rectPoints[i].x))
+            edgesMatched = ~edgesMatched;
     }
 
-    return edgesCount == 1;
+    return edgesMatched;*/
 }
