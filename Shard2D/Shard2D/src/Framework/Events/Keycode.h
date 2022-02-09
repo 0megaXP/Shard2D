@@ -2,9 +2,6 @@
 
 namespace Shard2D
 {
-//#define SDLK_SCANCODE_MASK (1<<30)
-//#define SCANCODE_TO_KEYCODE(X)  (X | SCANCODE_MASK)
-
 	enum Keycode
 	{
         Unknown = 0,

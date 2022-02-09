@@ -25,17 +25,18 @@ void EventsManager::CatchInputs()
 	SDL_GetMouseState(&_actualMouseX, &_actualMouseY);
 	mousePosition = Vector2(_actualMouseX, _actualMouseY);
 
-	SDL_Event sdlEvent;
+	// Setup the arrays
 	eventsToDispatch.clear();
 	mouseEventsToDispatch.clear();
 	keyboardEventsToDispatch.clear();
 
+	SDL_Event sdlEvent;
+	// Loop all the events catched
 	while (SDL_PollEvent(&sdlEvent) != 0)
 	{
 		switch (sdlEvent.type)
 		{
 			case SDL_KEYDOWN:
-				//std::cout << sdlEvent.key.keysym.sym << std::endl;
 				keyboardEventsToDispatch.push_back(KeyboardEvent(KeyboardEvent::ButtonPressed, static_cast<Shard2D::Keycode>(sdlEvent.key.keysym.sym)));
 				break;
 			case SDL_KEYUP:
@@ -69,9 +70,9 @@ void EventsManager::DispatchMouseEvents()
 		// Checks all the gameObject's children from the end
 		if(object->_children.size() > 0)
 			for (int childI = object->_children.size() - 1; childI >= 0; childI--)
-				CheckObjectForEvents(object->_children[childI], deadlineReached);
+				CheckObjectForMouseEvents(object->_children[childI], deadlineReached);
 
-		CheckObjectForEvents(object, deadlineReached);
+		CheckObjectForMouseEvents(object, deadlineReached);
 	}
 }
 
@@ -91,7 +92,7 @@ void EventsManager::DispatchKeyboardEvents()
 	}
 }
 
-void EventsManager::CheckObjectForEvents(GameObject* object, bool& deadlineReached)
+void EventsManager::CheckObjectForMouseEvents(GameObject* object, bool& deadlineReached)
 {
 	if (object->mouseEnabled && !deadlineReached)
 	{

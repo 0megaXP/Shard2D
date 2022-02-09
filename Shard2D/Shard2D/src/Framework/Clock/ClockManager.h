@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <vector>
 
 class ClockManager
 {
@@ -14,8 +15,13 @@ private:
 	float _deltaTime = 0;
 	float _startTick = 0;
 
-	int _frameRateCap = 240;
+	int _frameRateCap = 60;
 	uint64_t _startFrameCounter;
+
+	float FPS;
+	std::vector<float> fpsSaved;
+	int frameToSave = 60;
+	int fpsCount = 0;
 
 public:
 	/*
@@ -37,5 +43,7 @@ private:
 	void UpdateDeltaTime();
 	void NewFrame();
 	void ManageFramesCap();
+
+	void UpdateFPS();
 };
 

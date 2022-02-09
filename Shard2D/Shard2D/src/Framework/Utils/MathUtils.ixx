@@ -52,51 +52,6 @@ export float RoundToZero(float value)
 }
 
 /**
-Return the position of a point on the perimeter of a square from a rotation angle.
-    \param The rotation angle to evaluate
-*/
-export Vector2 SquarePositionFromAngle(int angle)
-{
-    int angleNormalized = angle % 360;
-
-    if (angleNormalized < 0)
-        angleNormalized += 360;
-
-    Vector2 dot;
-
-    if (angleNormalized % 90 == 0)
-    {
-        dot.x = Between(angleNormalized / 90, 1, 2, true) ? -1 : 1;
-        dot.y = angleNormalized / 90 <= 1 ? 1 : -1;
-    }
-    else
-    {
-        if (Between(angleNormalized, 0, 90, false))
-        {
-            dot.y = 1;
-            dot.x = (((float)(angleNormalized % 90) / 90) * 2 - 1) * -1;
-        }
-        else if (Between(angleNormalized, 90, 180, false))
-        {
-            dot.x = -1;
-            dot.y = (((float)(angleNormalized % 90) / 90) * 2 - 1) * -1;
-        }
-        else if (Between(angleNormalized, 180, 270, false))
-        {
-            dot.y = -1;
-            dot.x = (((float)(angleNormalized % 90) / 90) * 2 -1);
-        }
-        else if (Between(angleNormalized, 270, 360, false))
-        {
-            dot.x = 1;
-            dot.y = (((float)(angleNormalized % 90) / 90) * 2 - 1);
-        }
-    }
-
-    return dot;
-}
-
-/**
 Returns the legnth of the distance between 2 Vector2
 */
 export float Distance(const Vector2& a, const Vector2& b)
@@ -137,6 +92,9 @@ export float DegFromPosition(Vector2 position, Vector2 centre)
     return rotation;
 }
 
+/**
+Checks if the given point is inside the rect created with the given origin point, width, height and rotation
+*/
 export bool PointInsideRect(Vector2 point, Vector2 origin, float width, float height, float rotation)
 {
     Vector2 rectPoints[4];
@@ -153,14 +111,4 @@ export bool PointInsideRect(Vector2 point, Vector2 origin, float width, float he
             c = ~c;
     }
     return c;
-
-    /*int edgesMatched = 0;
-    for (int i = 1; i < 4; i++)
-    {
-        if (((rectPoints[i].y > point.y) != (rectPoints[i - 1].y > point.y)) &&
-             (point.x < (rectPoints[i - 1].x - rectPoints[i].x) * (point.y - rectPoints[i].y) / (rectPoints[i - 1].y - rectPoints[i].y) + rectPoints[i].x))
-            edgesMatched = ~edgesMatched;
-    }
-
-    return edgesMatched;*/
 }
