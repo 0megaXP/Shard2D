@@ -163,6 +163,10 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Framework\Entities\EntitiesManager.cpp" />
+    <ClCompile Include="src\Framework\Entities\Entity.cpp" />
+    <ClCompile Include="src\Framework\Entities\Sprite.cpp" />
+    <ClCompile Include="src\Framework\Entities\TextField.cpp" />
     <ClCompile Include="src\Framework\Events\EventsManager.cpp" />
     <ClCompile Include="src\Framework\Assets\AssetsManager.cpp" />
     <ClCompile Include="src\Framework\Utils\BooleanUtils.ixx" />
@@ -170,19 +174,19 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="src\Framework\Events\Event.cpp" />
     <ClCompile Include="src\Framework\Events\EventDispatcher.cpp" />
     <ClCompile Include="src\Framework\Management\GameManager.cpp" />
-    <ClCompile Include="src\Framework\GameObjects\GameObject.cpp" />
-    <ClCompile Include="src\Framework\GameObjects\GameObjectsManager.cpp" />
     <ClCompile Include="src\Framework\Graphic\GraphicManager.cpp" />
     <ClCompile Include="src\Framework\Management\Kickstart.cpp" />
     <ClCompile Include="src\Framework\Management\Managers.cpp" />
     <ClCompile Include="src\Framework\Utils\MathUtils.ixx" />
     <ClCompile Include="src\Framework\Utils\MathVectors.cpp" />
     <ClCompile Include="Shard2D.cpp" />
-    <ClCompile Include="src\Framework\GameObjects\Sprite.cpp" />
     <ClCompile Include="src\Framework\ApplicationMain.cpp" />
-    <ClCompile Include="src\Framework\GameObjects\TextField.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Framework\Entities\EntitiesManager.h" />
+    <ClInclude Include="src\Framework\Entities\Entity.h" />
+    <ClInclude Include="src\Framework\Entities\Sprite.h" />
+    <ClInclude Include="src\Framework\Entities\TextField.h" />
     <ClInclude Include="src\Framework\Events\Keycode.h" />
     <ClInclude Include="src\Framework\Events\KeyboardEvent.h" />
     <ClInclude Include="src\Framework\Events\EventsManager.h" />
@@ -197,16 +201,12 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="src\Framework\Events\Event.h" />
     <ClInclude Include="src\Framework\Events\EventDispatcher.h" />
     <ClInclude Include="src\Framework\Management\GameManager.h" />
-    <ClInclude Include="src\Framework\GameObjects\GameObject.h" />
-    <ClInclude Include="src\Framework\GameObjects\GameObjectsManager.h" />
     <ClInclude Include="src\Framework\Graphic\GraphicManager.h" />
     <ClInclude Include="src\Framework\Graphic\Image.h" />
     <ClInclude Include="src\Framework\Management\Kickstart.h" />
     <ClInclude Include="src\Framework\Management\Managers.h" />
     <ClInclude Include="src\Framework\Utils\MathVectors.h" />
-    <ClInclude Include="src\Framework\GameObjects\Sprite.h" />
     <ClInclude Include="src\Framework\ApplicationMain.h" />
-    <ClInclude Include="src\Framework\GameObjects\TextField.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

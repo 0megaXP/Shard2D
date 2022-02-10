@@ -5,7 +5,7 @@
 #include "GameManager.h"
 #include "../Graphic/GraphicManager.h"
 #include "../Assets/AssetsManager.h"
-#include "../GameObjects/GameObjectsManager.h"
+#include "../Entities/EntitiesManager.h"
 #include "../Clock/ClockManager.h"
 #include "../Events/EventsManager.h"
 
@@ -13,7 +13,7 @@
 #define	M_GraphicManager		Managers::graphicManager
 #define	M_ClockManager			Managers::clockManager
 #define	M_AssetsManager			Managers::assetsManager
-#define	M_GameObjectsManager	Managers::gameObjectsManager
+#define	M_EntitiesManager		Managers::entitiesManager
 #define	M_EventsManager			Managers::eventsManager
 
 
@@ -24,7 +24,7 @@ public:
 	static GraphicManager* const graphicManager;
 	static ClockManager* const clockManager;
 	static AssetsManager* const assetsManager;
-	static GameObjectsManager* const gameObjectsManager;
+	static EntitiesManager* const entitiesManager;
 	static EventsManager* const eventsManager;
 };
 

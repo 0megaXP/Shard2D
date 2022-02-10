@@ -41,14 +41,14 @@ void GameManager::GameUpdate()
         M_ClockManager->NewFrame();
 
         // Events update
-        for (GameObject* object : M_GameObjectsManager->_stagedObjects)
+        for (Entity* object : M_EntitiesManager->_stagedEntities)
             object->DispatchEvent<Event>(Event::Update);
 
         M_EventsManager->CatchInputs();
 
         // Logic update
         appMain->Update();
-        for (GameObject* object : M_GameObjectsManager->_stagedObjects)
+        for (Entity* object : M_EntitiesManager->_stagedEntities)
             object->Update();
 
         // Graphic update

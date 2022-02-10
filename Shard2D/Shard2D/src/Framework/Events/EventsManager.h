@@ -7,7 +7,7 @@
 #include "EventListener.h"
 
 class EventDispatcher;
-class GameObject;
+class Entity;
 class KeyboardEvent;
 
 class EventsManager
@@ -41,7 +41,7 @@ private:
 	/**
 	Checks if the player is pointing to a GameObject with the mouseEvent set to true. A MouseEvent can be called only if the cursor is pointing to the specified GameObject.
 	*/
-	void CheckObjectForMouseEvents(GameObject* object, bool &deadlineReached);
+	void CheckEntitiesForMouseEvents(Entity* entity, bool &deadlineReached);
 	/**
 	Checks the mouse button pressed
 	*/

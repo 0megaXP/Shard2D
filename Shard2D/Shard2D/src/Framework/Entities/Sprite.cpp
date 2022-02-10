@@ -24,6 +24,5 @@ Sprite::~Sprite()
 
 Image* Sprite::GetRenderingImage()
 {
-
 	return _image.get();
 }

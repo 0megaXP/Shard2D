@@ -1,4 +1,4 @@
-#include "GameObject.h"
+#include "Entity.h"
 
 #include <iostream>
 
@@ -7,32 +7,32 @@
 
 import MathUtils;
 
-GameObject::GameObject()
-	: _name("New Object")
+Entity::Entity()
+	: _name("New Entity")
 {
-	M_GameObjectsManager->ObjectCreated(this);
+	M_EntitiesManager->EntityCreated(this);
 
 	Init();
 
-	std::cout << "GameObject created!" << std::endl;
+	std::cout << "Entity created!" << std::endl;
 }
 
-GameObject::~GameObject()
+Entity::~Entity()
 {
-	std::cout << "GameObject destroyed!" << std::endl;
+	std::cout << "Entity destroyed!" << std::endl;
 }
 
-std::string GameObject::Name() const
+std::string Entity::Name() const
 {
 	return _name;
 }
 
-GameObject* GameObject::Parent() const
+Entity* Entity::Parent() const
 {
 	return _parent;
 }
 
-short GameObject::GlobalParentFixedX() const
+short Entity::GlobalParentFixedX() const
 {
 	if(_parent == nullptr)
 		return _parentFixedX;
@@ -40,7 +40,7 @@ short GameObject::GlobalParentFixedX() const
 		return _parent->GlobalParentFixedX() + _parentFixedX;
 }
 
-short GameObject::GlobalParentFixedY() const
+short Entity::GlobalParentFixedY() const
 {
 	if (_parent == nullptr)
 		return _parentFixedY;
@@ -48,7 +48,7 @@ short GameObject::GlobalParentFixedY() const
 		return _parent->GlobalParentFixedY() + _parentFixedY;
 }
 
-short GameObject::GlobalSelfFixedX() const
+short Entity::GlobalSelfFixedX() const
 {
 	if (_parent == nullptr)
 		return _selfFixedX;
@@ -56,7 +56,7 @@ short GameObject::GlobalSelfFixedX() const
 		return _parent->GlobalSelfFixedX() + _selfFixedX;
 }
 
-short GameObject::GlobalSelfFixedY() const
+short Entity::GlobalSelfFixedY() const
 {
 	if (_parent == nullptr)
 		return _selfFixedY;
@@ -64,27 +64,27 @@ short GameObject::GlobalSelfFixedY() const
 		return _parent->GlobalSelfFixedY() + _selfFixedY;
 }
 
-short GameObject::GlobalPivotOffsetX() const
+short Entity::GlobalPivotOffsetX() const
 {
 	return GlobalX() + _pivotOffsetX;
 }
 
-short GameObject::GlobalPivotOffsetY() const
+short Entity::GlobalPivotOffsetY() const
 {
 	return GlobalY() + _pivotOffsetY;
 }
 
-short GameObject::RenderingX() const
+short Entity::RenderingX() const
 {
 	return GlobalX() + GlobalParentFixedX() + GlobalSelfFixedX() + _pivotOffsetX;
 }
 
-short GameObject::RenderingY() const
+short Entity::RenderingY() const
 {
 	return GlobalY() + GlobalParentFixedY() + GlobalSelfFixedY() + _pivotOffsetY;
 }
 
-void GameObject::ResetFixedValues()
+void Entity::ResetFixedValues()
 {
 	_parentFixedX = 0;
 	_parentFixedY = 0; 
@@ -94,7 +94,7 @@ void GameObject::ResetFixedValues()
 	_pivotOffsetY = 0;
 }
 
-short GameObject::GlobalX() const
+short Entity::GlobalX() const
 {
 	if (_parent != nullptr)
 		return short(x + _parent->GlobalX());
@@ -102,7 +102,7 @@ short GameObject::GlobalX() const
 		return short(x);
 }
 
-short GameObject::GlobalY() const
+short Entity::GlobalY() const
 {
 	if (_parent != nullptr)
 		return short(y + _parent->GlobalY());
@@ -110,27 +110,27 @@ short GameObject::GlobalY() const
 		return short(y);
 }
 
-short GameObject::PivotX() const
+short Entity::PivotX() const
 {
 	return short(x - _pivotOffsetX);
 }
 
-short GameObject::PivotY() const
+short Entity::PivotY() const
 {
 	return short(y - _pivotOffsetY);
 }
 
-short GameObject::GlobalPivotX() const
+short Entity::GlobalPivotX() const
 {
 	return GlobalX() - _pivotOffsetX;
 }
 
-short GameObject::GlobalPivotY() const
+short Entity::GlobalPivotY() const
 {
 	return GlobalY() - _pivotOffsetY;
 }
 
-float GameObject::GlobalRotation() const
+float Entity::GlobalRotation() const
 {
 	if (_parent == nullptr)
 		return rotation;// % 360;
@@ -138,7 +138,7 @@ float GameObject::GlobalRotation() const
 		return (_parent->GlobalRotation() + rotation);// % 360;
 }
 
-float GameObject::GlobalA() const
+float Entity::GlobalA() const
 {
 	if (a <= 0 || _parent == nullptr)
 		return Clamp01(a);
@@ -146,7 +146,7 @@ float GameObject::GlobalA() const
 		return Clamp01(a * _parent->GlobalA());
 }
 
-float GameObject::GlobalScaleX() const
+float Entity::GlobalScaleX() const
 {
 	float widthScale = 1;
 	if (_image != nullptr)
@@ -158,7 +158,7 @@ float GameObject::GlobalScaleX() const
 		return scaleX * widthScale;
 }
 
-float GameObject::GlobalScaleY() const
+float Entity::GlobalScaleY() const
 {
 	float heightScale = 1;
 	if (_image != nullptr)
@@ -170,7 +170,7 @@ float GameObject::GlobalScaleY() const
 		return scaleY * heightScale;
 }
 
-bool GameObject::IsVisible() const
+bool Entity::IsVisible() const
 {
 	if (_parent != nullptr && a > 0 && scaleX != 0 && scaleY != 0)
 		return _parent->IsVisible();
@@ -180,12 +180,12 @@ bool GameObject::IsVisible() const
 		return false;
 }
 
-void GameObject::SetVisibility(bool isVisible)
+void Entity::SetVisibility(bool isVisible)
 {
 	_visible = isVisible;
 }
 
-bool GameObject::IsActive() const
+bool Entity::IsActive() const
 {
 	if (_parent != nullptr)
 		return _parent->IsActive();
@@ -193,12 +193,12 @@ bool GameObject::IsActive() const
 		return _active;
 }
 
-void GameObject::SetActive(bool isActive)
+void Entity::SetActive(bool isActive)
 {
 	_active = isActive;
 }
 
-void GameObject::AddChild(GameObject* child)
+void Entity::AddChild(Entity* child)
 {
 	if (child != nullptr)
 	{
@@ -211,12 +211,12 @@ void GameObject::AddChild(GameObject* child)
 	}
 }
 
-void GameObject::RemoveChild(GameObject* child)
+void Entity::RemoveChild(Entity* child)
 {
 	if (child != nullptr && _children.size() > 0)
 	{
 		int count = 0;
-		for (GameObject* tempChild : _children)
+		for (Entity* tempChild : _children)
 		{
 			if (tempChild == child)
 			{
@@ -229,7 +229,7 @@ void GameObject::RemoveChild(GameObject* child)
 	}
 }
 
-void GameObject::RemoveChildren()
+void Entity::RemoveChildren()
 {
 	for (Uint8 i = 0; i < _children.size(); i++)
 	{
@@ -238,7 +238,7 @@ void GameObject::RemoveChildren()
 	}
 }
 
-Image* GameObject::GetRenderingImage()
+Image* Entity::GetRenderingImage()
 {
 	return nullptr;
 }

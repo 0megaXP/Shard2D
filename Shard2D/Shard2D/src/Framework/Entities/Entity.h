@@ -7,21 +7,21 @@
 
 #include "../Events/EventDispatcher.h"
 
-class GameObject : public EventDispatcher
+class Entity : public EventDispatcher
 {
 public:
-	GameObject();
-	virtual ~GameObject();
+	Entity();
+	virtual ~Entity();
 
 	friend class GraphicManager;
-	friend class GameObjectsManager;
+	friend class EntitiesManager;
 	friend class GameManager;
 	friend class EventsManager;
 
 private:
 	std::string _name = "";
-	GameObject* _parent = nullptr;
-	std::vector<GameObject*> _children;
+	Entity* _parent = nullptr;
+	std::vector<Entity*> _children;
 
 	bool _visible = true;
 	bool _active = true;
@@ -42,7 +42,7 @@ private:
 
 public:
 	std::string Name() const;
-	GameObject* Parent() const;
+	Entity* Parent() const;
 
 	float x = 0;
 	float y = 0;
@@ -150,33 +150,33 @@ public:
 	virtual float GlobalScaleY() const;
 
 	/*
-	Return true if the GameObject has to be rendered (also takes count of scale and alpha)
+	Return true if the Entity has to be rendered (also takes count of scale and alpha)
 	*/
 	bool IsVisible() const;
 	/*
-	Set if the GameObject has to be rendered (also takes count of scale and alpha)
+	Set if the Entity has to be rendered (also takes count of scale and alpha)
 	*/
 	void SetVisibility(bool isVisible);
 
 	/*
-	Return true if the GameObject has run events and updates
+	Return true if the Entity has run events and updates
 	*/
 	bool IsActive() const;
 	/*
-	Set if the GameObject has to run events and updates
+	Set if the Entity has to run events and updates
 	*/
 	void SetActive(bool isActive);
 
 	/*
-	Set the param GameObject as child of the actual GameObject.
+	Set the param Entity as child of the actual Entity.
 	*/
-	void AddChild(GameObject* child);
+	void AddChild(Entity* child);
 	/*
-	Remove the selected child from the GameObject
+	Remove the selected child from the Entity
 	*/
-	void RemoveChild(GameObject* child);
+	void RemoveChild(Entity* child);
 	/*
-	Remove all the children from the GameObject
+	Remove all the children from the Entity
 	*/
 	void RemoveChildren();
 
@@ -189,7 +189,7 @@ protected:
 	std::shared_ptr<Image> _image;
 
 	/*
-	Function called when the GameObject is initialized
+	Function called when the Entity is initialized
 	*/
 	virtual void Init() {};
 

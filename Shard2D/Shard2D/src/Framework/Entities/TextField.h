@@ -4,9 +4,9 @@
 #include <string>
 #include <SDL_ttf.h>
 
-#include "GameObject.h"
+#include "Entity.h"
 
-class TextField : public GameObject
+class TextField : public Entity
 {
 public:
 	TextField(std::string newText, std::string fontName, int size);

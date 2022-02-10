@@ -7,45 +7,45 @@
 Add "object" to the stage. Every object in the stage will be rendered from the GraphicManager frame by frame. 
 To avoid the rendering, set the object visibility value as false or remove it from the stage.
 */
-#define AddToStage Managers::gameObjectsManager->AddObjectToStage
+#define AddToStage Managers::entitiesManager->AddEntityToStage
 
 /*
 Remove "object" from the stage, avoiding it to be rendered.
 */
-#define RemoveFromStage Managers::gameObjectsManager->RemoveObjectFromStage
+#define RemoveFromStage Managers::entitiesManager->RemoveEntityFromStage
 
-class GameObject;
+class Entity;
 
-class GameObjectsManager
+class EntitiesManager
 {
 public:
-	GameObjectsManager();
-	virtual ~GameObjectsManager();
+	EntitiesManager();
+	virtual ~EntitiesManager();
 
 	friend class GraphicManager;
 	friend class GameManager;
 	friend class EventsManager;
 
 private:
-	std::vector<GameObject*> _stagedObjects;
-	std::vector<std::shared_ptr<GameObject>> _createdObjects;
+	std::vector<Entity*> _stagedEntities;
+	std::vector<std::shared_ptr<Entity>> _createdEntities;
 
 public:
 	/*
 	This function does not have to be called manually.
 	Function called from the GameObject default constructor. Creates the shared ptr for the created GameObject.
 	*/
-	void ObjectCreated(GameObject* object);
+	void EntityCreated(Entity* entity);
 
 	/*
 	Add "object" to the stage. Every object in the stage will be rendered from the GraphicManager frame by frame.
 	To avoid the rendering, set the object visibility value as false or remove it from the stage.
 	*/
-	void AddObjectToStage(GameObject* object);
+	void AddEntityToStage(Entity* entity);
 
 	/*
 	Remove "object" from the stage, avoiding it to be rendered.
 	*/
-	void RemoveObjectFromStage(GameObject* object);
+	void RemoveEntityFromStage(Entity* entity);
 };
 

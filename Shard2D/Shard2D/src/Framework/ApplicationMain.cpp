@@ -34,7 +34,7 @@ ApplicationMain::ApplicationMain()
 
 void ApplicationMain::Start()
 {
-    GameObject* a = new GameObject();
+    Entity* a = new Entity();
     AddToStage(a);
 
 	sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));

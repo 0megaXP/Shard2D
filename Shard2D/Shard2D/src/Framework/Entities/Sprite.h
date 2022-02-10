@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "GameObject.h"
+#include "Entity.h"
 
-class Sprite : public GameObject
+class Sprite : public Entity
 {
 public:
 	Sprite();

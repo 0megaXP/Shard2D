@@ -1,6 +1,6 @@
 #include "EventsManager.h"
 
-#include "../GameObjects/GameObject.h"
+#include "../Entities/Entity.h"
 #include "../Management/Managers.h"
 #include "../Utils/ShardUtils.h"
 
@@ -62,27 +62,27 @@ void EventsManager::CatchInputs()
 
 void EventsManager::DispatchMouseEvents()
 {
-	// If true means that every other overlap with objects will be denied
+	// If true means that every other overlap with entities will be denied
 	bool deadlineReached = false;
-	// Checks all the gameObjects from the end
-	for (int i = M_GameObjectsManager->_stagedObjects.size() - 1; i >= 0; i--)
+	// Checks all the entities from the end
+	for (int i = M_EntitiesManager->_stagedEntities.size() - 1; i >= 0; i--)
 	{
-		GameObject* object = M_GameObjectsManager->_stagedObjects[i];
-		// Checks all the gameObject's children from the end
+		Entity* object = M_EntitiesManager->_stagedEntities[i];
+		// Checks all the entitiy's children from the end
 		if(object->_children.size() > 0)
 			for (int childI = object->_children.size() - 1; childI >= 0; childI--)
-				CheckObjectForMouseEvents(object->_children[childI], deadlineReached);
+				CheckEntitiesForMouseEvents(object->_children[childI], deadlineReached);
 
-		CheckObjectForMouseEvents(object, deadlineReached);
+		CheckEntitiesForMouseEvents(object, deadlineReached);
 	}
 }
 
 void EventsManager::DispatchKeyboardEvents()
 {
-	for (int i = M_GameObjectsManager->_stagedObjects.size() - 1; i >= 0; i--)
+	for (int i = M_EntitiesManager->_stagedEntities.size() - 1; i >= 0; i--)
 	{
-		GameObject* object = M_GameObjectsManager->_stagedObjects[i];
-		// Checks all the gameObject's children from the end
+		Entity* object = M_EntitiesManager->_stagedEntities[i];
+		// Checks all the entitiy's children from the end
 		if (object->_children.size() > 0)
 			for (int childI = object->_children.size() - 1; childI >= 0; childI--)
 				for(KeyboardEvent e : keyboardEventsToDispatch)
@@ -93,41 +93,43 @@ void EventsManager::DispatchKeyboardEvents()
 	}
 }
 
-void EventsManager::CheckObjectForMouseEvents(GameObject* object, bool& deadlineReached)
+void EventsManager::CheckEntitiesForMouseEvents(Entity* entity, bool& deadlineReached)
 {
-	if (object->mouseEnabled && !deadlineReached)
+	if (entity->mouseEnabled && !deadlineReached)
 	{
-		// Checks if the mouse is inside the object 
-		if (PointInsideRect(mousePosition, Vector2(object->_finalFixedX, object->_finalFixedY), object->width * object->GlobalScaleX(), object->height * object->GlobalScaleY(), object->GlobalRotation()))
+		// Checks if the mouse is inside the entity 
+		if (PointInsideRect(mousePosition, Vector2(entity->_finalFixedX, entity->_finalFixedY), entity->width * entity->GlobalScaleX(), entity->height * entity->GlobalScaleY(), entity->GlobalRotation()))
 		{
-			if (!object->mouseOverlapped)
+			if (!entity->mouseOverlapped)
 			{
-				object->mouseOverlapped = true;
-				object->DispatchEvent<MouseEvent>(MouseEvent::BeginOverlap);
+				entity->mouseOverlapped = true;
+				entity->DispatchEvent<MouseEvent>(MouseEvent::BeginOverlap);
 			}
 
 			// Dispatch all the others MouseEvents
 			for (std::string _event : mouseEventsToDispatch)
-				object->DispatchEvent<MouseEvent>(_event);
+				entity->DispatchEvent<MouseEvent>(_event);
 
-			if (object->blockMouseEvents)
+			if (entity->blockMouseEvents)
 				deadlineReached = true;
 		}
+		// Cursor outside the entity, call the EndOverlap event
 		else
 		{
-			if (object->mouseOverlapped)
+			if (entity->mouseOverlapped)
 			{
-				object->mouseOverlapped = false;
-				object->DispatchEvent<MouseEvent>(MouseEvent::EndOverlap);
+				entity->mouseOverlapped = false;
+				entity->DispatchEvent<MouseEvent>(MouseEvent::EndOverlap);
 			}
 		}
 	}
+	// Entity unreachable, call the EndOverlap event
 	else
 	{
-		if (object->mouseOverlapped)
+		if (entity->mouseOverlapped)
 		{
-			object->mouseOverlapped = false;
-			object->DispatchEvent<MouseEvent>(MouseEvent::EndOverlap);
+			entity->mouseOverlapped = false;
+			entity->DispatchEvent<MouseEvent>(MouseEvent::EndOverlap);
 		}
 	}
 }

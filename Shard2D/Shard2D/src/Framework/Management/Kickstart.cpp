@@ -26,7 +26,7 @@ void Shard2D::Init()
     delete M_AssetsManager;
     delete M_ClockManager;
     delete M_GraphicManager;
-    delete M_GameObjectsManager;
+    delete M_EntitiesManager;
     delete M_GameManager;
 
     if (::IsWindowVisible(::GetConsoleWindow()) == FALSE)

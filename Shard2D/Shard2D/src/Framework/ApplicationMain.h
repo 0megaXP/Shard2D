@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Framework/GameObjects/Sprite.h"
-#include "../Framework/GameObjects/TextField.h"
+#include "../Framework/Entities/Sprite.h"
+#include "../Framework/Entities/TextField.h"
 
 class ApplicationMain
 {

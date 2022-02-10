@@ -3,7 +3,7 @@
 #include <SDL2_rotozoom.h>
 #include <SDL_ttf.h>
 
-#include "../GameObjects/GameObject.h"
+#include "../Entities/Entity.h"
 #include "../Utils/ShardUtils.h"
 #include "../Management/Managers.h"
 #include "../Events/Event.h"
@@ -86,131 +86,131 @@ void GraphicManager::Init()
 	return;
 }
 
-void GraphicManager::FixPositionForRotation(SDL_Surface* _rotatedSurface, GameObject* _object, SurfaceImage* _image)
+void GraphicManager::FixPositionForRotation(SDL_Surface* _rotatedSurface, Entity* _entity, SurfaceImage* _image)
 {
 	/*This function is used for fixing the GameObject's position during its rotation. If the centre of the rotation is not the centre of the object, 
 	its position must be fixed to match the surface upper-left corner with the pivot.*/
 	// Saves the original surface width and height (scaled)
-	float surfaceW = _image->_surface->w * _object->GlobalScaleX();
-	float surfaceH = _image->_surface->h * _object->GlobalScaleY();
+	float surfaceW = _image->_surface->w * _entity->GlobalScaleX();
+	float surfaceH = _image->_surface->h * _entity->GlobalScaleY();
 	// Gets a direction from the object rotation (the standard position for the 0° rotation is at 45°)
-	Vector2 normalizedPosition = PositionFromDeg(_object->GlobalRotation() + 45);
+	Vector2 normalizedPosition = PositionFromDeg(_entity->GlobalRotation() + 45);
 	// Saves a standard direction (used during the x and y calculation)
 	Vector2 basePosition = PositionFromDeg(360 - 45);
 	// The central point of the circumference used to create each position for its rotation
-	Vector2 centre = Vector2(float(_object->GlobalX() - _rotatedSurface->w / 2), float(_object->GlobalY() - _rotatedSurface->h / 2));
-	float radius = Distance(Vector2(_object->RenderingX(), _object->RenderingY()), centre);
+	Vector2 centre = Vector2(float(_entity->GlobalX() - _rotatedSurface->w / 2), float(_entity->GlobalY() - _rotatedSurface->h / 2));
+	float radius = Distance(Vector2(_entity->RenderingX(), _entity->RenderingY()), centre);
 	// If the distance between the centre and the rendering position is 0, the object position doesn't need to be fixed
 	if (radius > 0)
 	{
 		// Set the new fixed offset
-		_object->_selfFixedX += short(centre.x + (normalizedPosition.x / basePosition.x) * surfaceW / 2 - _object->RenderingX());
-		_object->_selfFixedY += short(centre.y - (normalizedPosition.y / basePosition.y) * surfaceH / 2 - _object->RenderingY());
+		_entity->_selfFixedX += short(centre.x + (normalizedPosition.x / basePosition.x) * surfaceW / 2 - _entity->RenderingX());
+		_entity->_selfFixedY += short(centre.y - (normalizedPosition.y / basePosition.y) * surfaceH / 2 - _entity->RenderingY());
 	}
 }
 
-void GraphicManager::FixPositionForParentRotation(GameObject* _object)
+void GraphicManager::FixPositionForParentRotation(Entity* _entity)
 {
 	/*This function is used for fixing the GameObject's position during its parent's rotation.*/
-	if (_object->Parent() != nullptr)
+	if (_entity->Parent() != nullptr)
 	{
 		// Now the centre of the circumference is the parent global position
-		Vector2 centre = Vector2(_object->Parent()->GlobalX(), _object->Parent()->GlobalY());
+		Vector2 centre = Vector2(_entity->Parent()->GlobalX(), _entity->Parent()->GlobalY());
 		// Here we must use the global position, because the rendering position is already affected by the selfFixed values
-		float radius = Distance(Vector2(_object->GlobalX(), _object->GlobalY()), centre);
+		float radius = Distance(Vector2(_entity->GlobalX(), _entity->GlobalY()), centre);
 		if (radius > 0)
 		{
-			Vector2 _objectLocalPosition = Vector2(_object->x, _object->y);
+			Vector2 _objectLocalPosition = Vector2(_entity->x, _entity->y);
 
 			int _objectActualRotation = int(DegFromPosition(_objectLocalPosition, Vector2()));
-			Vector2 normalizedPosition = PositionFromDeg(_object->Parent()->GlobalRotation() + _objectActualRotation);
+			Vector2 normalizedPosition = PositionFromDeg(_entity->Parent()->GlobalRotation() + _objectActualRotation);
 			Vector2 basePosition = PositionFromDeg(0);
 
-			_object->_parentFixedX += short(normalizedPosition.x * radius - _object->x);
-			_object->_parentFixedY += short(normalizedPosition.y * radius - _object->y);
+			_entity->_parentFixedX += short(normalizedPosition.x * radius - _entity->x);
+			_entity->_parentFixedY += short(normalizedPosition.y * radius - _entity->y);
 		}
 	}
 }
 
-void GraphicManager::RenderObject(GameObject* _object)
+void GraphicManager::RenderEntity(Entity* _entity)
 {
-	if (_object->IsVisible())
+	if (_entity->IsVisible())
 	{
-		Image* _objectImage = _object->GetRenderingImage();
+		Image* _entityImage = _entity->GetRenderingImage();
 
-		if (_objectImage != nullptr)
+		if (_entityImage != nullptr)
 		{
 #if RENDERING_TYPE == TEXTURE_RENDERING
-			if (_objectImage->type == TEXTURE_TYPE)
+			if (_entityImage->type == TEXTURE_TYPE)
 			{
-				RenderTextureObject(_object, static_cast<TextureImage*>(_objectImage));
+				RenderTextureEntity(_entity, static_cast<TextureImage*>(_entityImage));
 			}
 #else
 			if (_objectImage->type == SURFACE_TYPE)
 			{
-				RenderSurfaceObject(_object, static_cast<SurfaceImage*>(_objectImage));
+				RenderSurfaceEntity(_object, static_cast<SurfaceImage*>(_objectImage));
 			}
 #endif
 		}
 		
 		// Call the RenderObject() function for all the children
-		for (GameObject* child : _object->_children)
+		for (Entity* child : _entity->_children)
 		{
-			RenderObject(child);
+			RenderEntity(child);
 		}
 	}
 }
 
 #if RENDERING_TYPE == TEXTURE_RENDERING
-void GraphicManager::RenderTextureObject(GameObject* _object, TextureImage* _image)
+void GraphicManager::RenderTextureEntity(Entity* _entity, TextureImage* _image)
 {
 	if (_image && _image->_texture)
 	{
-		_object->ResetFixedValues();
+		_entity->ResetFixedValues();
 
 		SDL_Texture* texture = _image->_texture;
 
 		// Managing the pivot
-		if (_object->centerPivot)
+		if (_entity->centerPivot)
 		{
-			_object->_pivotOffsetX = short(_image->_width / -2 * _object->GlobalScaleX());
-			_object->_pivotOffsetY = short(_image->_height / -2 * _object->GlobalScaleY());
+			_entity->_pivotOffsetX = short(_image->_width / -2 * _entity->GlobalScaleX());
+			_entity->_pivotOffsetY = short(_image->_height / -2 * _entity->GlobalScaleY());
 		}
 
 		SDL_Point rotPoint = SDL_Point();
-		rotPoint.x = -_object->_pivotOffsetX;
-		rotPoint.y = -_object->_pivotOffsetY;
+		rotPoint.x = -_entity->_pivotOffsetX;
+		rotPoint.y = -_entity->_pivotOffsetY;
 
-		FixPositionForParentRotation(_object);
+		FixPositionForParentRotation(_entity);
 
 		// Set the final rendering position for future needs
-		if (_object->GlobalRotation() != 0 && _object->centerPivot)
+		if (_entity->GlobalRotation() != 0 && _entity->centerPivot)
 		{
 			// Adjust the position with the rotation of the texture
-			_object->_finalFixedX = _object->RenderingX() - _object->_pivotOffsetX + PositionFromDeg(225 + _object->GlobalRotation()).x * _object->width / 2 * _object->GlobalScaleX() / -PositionFromDeg(225).x;
-			_object->_finalFixedY = _object->RenderingY() - _object->_pivotOffsetY + PositionFromDeg(225 + _object->GlobalRotation()).y * _object->height / 2 * _object->GlobalScaleY() / -PositionFromDeg(225).y;
+			_entity->_finalFixedX = _entity->RenderingX() - _entity->_pivotOffsetX + PositionFromDeg(225 + _entity->GlobalRotation()).x * _entity->width / 2 * _entity->GlobalScaleX() / -PositionFromDeg(225).x;
+			_entity->_finalFixedY = _entity->RenderingY() - _entity->_pivotOffsetY + PositionFromDeg(225 + _entity->GlobalRotation()).y * _entity->height / 2 * _entity->GlobalScaleY() / -PositionFromDeg(225).y;
 		}
 		else
 		{
-			_object->_finalFixedX = _object->RenderingX();
-			_object->_finalFixedY = _object->RenderingY();
+			_entity->_finalFixedX = _entity->RenderingX();
+			_entity->_finalFixedY = _entity->RenderingY();
 		}
 
 		// Setting the rendering rect
 		SDL_Rect _tempRect = SDL_Rect();
-		_tempRect.x = int(_object->RenderingX());
-		_tempRect.y = int(_object->RenderingY());
-		_tempRect.w = int(_image->_width * _object->GlobalScaleX());
-		_tempRect.h = int(_image->_height * _object->GlobalScaleY());
+		_tempRect.x = int(_entity->RenderingX());
+		_tempRect.y = int(_entity->RenderingY());
+		_tempRect.w = int(_image->_width * _entity->GlobalScaleX());
+		_tempRect.h = int(_image->_height * _entity->GlobalScaleY());
 
-		SDL_SetTextureAlphaMod(_image->_texture, Uint8(_object->GlobalA() * 255));
+		SDL_SetTextureAlphaMod(_image->_texture, Uint8(_entity->GlobalA() * 255));
 
-		SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _object->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
-		_object->DispatchEvent<Event>(Event::Rendered);
+		SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _entity->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
+		_entity->DispatchEvent<Event>(Event::Rendered);
 	}
 }
 #else
-void GraphicManager::RenderSurfaceObject(GameObject* _object, SurfaceImage* _image)
+void GraphicManager::RenderSurfaceEntity(Entity* _entity, SurfaceImage* _image)
 {
 	if (_image && _image->_surface)
 	{
@@ -263,9 +263,9 @@ void GraphicManager::RenderScene()
 	SDL_FillRect(_winSurface, NULL, SDL_MapRGB(_winSurface->format, 0, 0, 0));
 #endif
 
-	for (GameObject* object : M_GameObjectsManager->_stagedObjects)
+	for (Entity* entity : M_EntitiesManager->_stagedEntities)
 	{
-		RenderObject(object);
+		RenderEntity(entity);
 	}
 
 #if RENDERING_TYPE == TEXTURE_RENDERING

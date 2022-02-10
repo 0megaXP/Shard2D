@@ -13,7 +13,7 @@
 struct Image;
 struct SurfaceImage;
 struct TextureImage;
-class GameObject;
+class Entity;
 
 class GraphicManager
 {
@@ -41,15 +41,15 @@ public:
 private:
 	void Init();
 
-	void FixPositionForRotation(SDL_Surface* _rotatedSurface, GameObject* _object, SurfaceImage* _image);
-	void FixPositionForParentRotation(GameObject* _object);
+	void FixPositionForRotation(SDL_Surface* _rotatedSurface, Entity* _entity, SurfaceImage* _image);
+	void FixPositionForParentRotation(Entity* _entity);
 
-	void RenderObject(GameObject* object);
+	void RenderEntity(Entity* entity);
 
 #if RENDERING_TYPE == TEXTURE_RENDERING
-	void RenderTextureObject(GameObject* _object, TextureImage* _image);
+	void RenderTextureEntity(Entity* _entity, TextureImage* _image);
 #else
-	void RenderSurfaceObject(GameObject* _object, SurfaceImage* _image);
+	void RenderSurfaceEntity(Entity* _entity, SurfaceImage* _image);
 #endif
 
 	void RenderScene();
