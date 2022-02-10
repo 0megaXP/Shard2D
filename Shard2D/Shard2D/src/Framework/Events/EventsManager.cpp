@@ -49,6 +49,7 @@ void EventsManager::CatchInputs()
 				RunMouseButtonDownEvent(sdlEvent);
 				break;
 			case SDL_MOUSEWHEEL:
+				RunMouseWheelEvent(sdlEvent);
 				break;
 			case SDL_QUIT:
 				Managers::gameManager->ExitGame();
@@ -151,14 +152,26 @@ void EventsManager::RunMouseButtonUpEvent(SDL_Event& sdlEvent)
 {
 	switch (sdlEvent.button.button)
 	{
-	case SDL_BUTTON_LEFT:
-		mouseEventsToDispatch.push_back(MouseEvent::LeftButtonReleased);
-		break;
-	case SDL_BUTTON_RIGHT:
-		mouseEventsToDispatch.push_back(MouseEvent::RightButtonReleased);
-		break;
-	case SDL_BUTTON_MIDDLE:
-		mouseEventsToDispatch.push_back(MouseEvent::ScrollWheelReleased);
-		break;
+		case SDL_BUTTON_LEFT:
+			mouseEventsToDispatch.push_back(MouseEvent::LeftButtonReleased);
+			break;
+		case SDL_BUTTON_RIGHT:
+			mouseEventsToDispatch.push_back(MouseEvent::RightButtonReleased);
+			break;
+		case SDL_BUTTON_MIDDLE:
+			mouseEventsToDispatch.push_back(MouseEvent::ScrollWheelReleased);
+			break;
+	}
+}
+
+void EventsManager::RunMouseWheelEvent(SDL_Event& sdlEvent)
+{
+	if (sdlEvent.wheel.y > 0)
+	{
+		mouseEventsToDispatch.push_back(MouseEvent::ScrollWheelUp);
+	}
+	else if (sdlEvent.wheel.y < 0)
+	{
+		mouseEventsToDispatch.push_back(MouseEvent::ScrollWheelDown);
 	}
 }

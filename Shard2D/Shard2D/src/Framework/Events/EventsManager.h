@@ -50,5 +50,9 @@ private:
 	Checks the mouse button released
 	*/
 	void RunMouseButtonUpEvent(SDL_Event& sdlEvent);
+	/**
+	Checks the mouse wheel movement
+	*/
+	void RunMouseWheelEvent(SDL_Event& sdlEvent);
 };
 
