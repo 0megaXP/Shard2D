@@ -79,17 +79,20 @@ void EventsManager::DispatchMouseEvents()
 
 void EventsManager::DispatchKeyboardEvents()
 {
-	for (int i = M_EntitiesManager->_stagedEntities.size() - 1; i >= 0; i--)
+	if (keyboardEventsToDispatch.size() > 0)
 	{
-		Entity* object = M_EntitiesManager->_stagedEntities[i];
-		// Checks all the entitiy's children from the end
-		if (object->_children.size() > 0)
-			for (int childI = object->_children.size() - 1; childI >= 0; childI--)
-				for(KeyboardEvent e : keyboardEventsToDispatch)
-					object->_children[childI]->DispatchEvent<KeyboardEvent>(e);
+		for (int i = M_EntitiesManager->_stagedEntities.size() - 1; i >= 0; i--)
+		{
+			Entity* object = M_EntitiesManager->_stagedEntities[i];
+			// Checks all the entitiy's children from the end
+			if (object->_children.size() > 0)
+				for (int childI = object->_children.size() - 1; childI >= 0; childI--)
+					for (KeyboardEvent e : keyboardEventsToDispatch)
+						object->_children[childI]->DispatchEvent<KeyboardEvent>(e);
 
-		for (KeyboardEvent e : keyboardEventsToDispatch)
-			object->DispatchEvent<KeyboardEvent>(e);
+			for (KeyboardEvent e : keyboardEventsToDispatch)
+				object->DispatchEvent<KeyboardEvent>(e);
+		}
 	}
 }
 

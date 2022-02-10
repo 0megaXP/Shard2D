@@ -22,6 +22,17 @@ Sprite::~Sprite()
 	std::cout << "Sprite object destroyed! -> ";
 }
 
+void Sprite::SetNewImage(Image* newImage, bool resetProportions = true)
+{
+	this->_image = std::shared_ptr<Image>(newImage);
+
+	if (resetProportions)
+	{
+		width = _image->GetWidth();
+		height = _image->GetHeight();
+	}
+}
+
 Image* Sprite::GetRenderingImage()
 {
 	return _image.get();

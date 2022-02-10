@@ -20,7 +20,7 @@ private:
 
 	float FPS;
 	std::vector<float> fpsSaved;
-	int frameToSave = 60;
+	int frameToSave = 30;
 	int fpsCount = 0;
 
 public:

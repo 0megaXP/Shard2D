@@ -20,5 +20,8 @@ private:
 	Sprite* superChildSprite;
 
 	TextField* fpsCounter;
+	TextField* runtimeText;
+
+	float runtime = 0;
 };
 

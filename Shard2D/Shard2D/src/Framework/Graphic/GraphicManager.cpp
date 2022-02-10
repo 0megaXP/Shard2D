@@ -204,7 +204,7 @@ void GraphicManager::RenderTextureEntity(Entity* _entity, TextureImage* _image)
 		_tempRect.h = int(_image->_height * _entity->GlobalScaleY());
 
 		SDL_SetTextureAlphaMod(_image->_texture, Uint8(_entity->GlobalA() * 255));
-
+		SDL_SetTextureColorMod(_image->_texture, _entity->color.r, _entity->color.g, _entity->color.b);
 		SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _entity->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
 		_entity->DispatchEvent<Event>(Event::Rendered);
 	}

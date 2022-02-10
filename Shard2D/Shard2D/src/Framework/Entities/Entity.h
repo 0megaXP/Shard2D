@@ -62,6 +62,8 @@ public:
 	bool mouseEnabled = true;
 	bool blockMouseEvents = true;
 
+	SDL_Color color = SDL_Color(255, 255, 255);
+
 private:
 	/*
 	Return the GambeObject's global x position using the pivot offset

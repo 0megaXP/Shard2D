@@ -20,7 +20,7 @@ AssetsManager::~AssetsManager()
 
 SurfaceImage* AssetsManager::GetSurfaceImagePNG(const std::string path)
 {
-	SDL_Surface* newSurface = IMG_Load((assetsPrefix + pngPrefix + path + pngSuffix).c_str());
+	SDL_Surface* newSurface = IMG_Load((assetsPrefix + path + pngSuffix).c_str());
 	SurfaceImage* newImage = new SurfaceImage(newSurface);
 	return newImage;
 }
@@ -30,7 +30,7 @@ TextureImage* AssetsManager::GetTextureImagePNG(const std::string path)
 	if (_texturesSaved.Contains(path))
 		return new TextureImage(_texturesSaved.Get(path));
 
-	SDL_Surface* newSurface = IMG_Load((assetsPrefix + pngPrefix + path + pngSuffix).c_str());
+	SDL_Surface* newSurface = IMG_Load((assetsPrefix + path + pngSuffix).c_str());
 	SDL_Texture* newTexture = M_GraphicManager->CreateTexture(newSurface);
 	_texturesSaved.Insert(path, newTexture);
 	TextureImage * newImage = new TextureImage(newTexture);
@@ -44,8 +44,9 @@ TTF_Font* AssetsManager::GetFont(const std::string path)
 
 	if (newFont == nullptr)
 	{
-		newFont = new CustomFont(path, TTF_OpenFont((assetsPrefix + fontPrefix + path + fontSuffix).c_str(), 72));
+		newFont = new CustomFont(path, TTF_OpenFont((assetsPrefix + path + fontSuffix).c_str(), 72));
 		_fontsSaved.push_back(std::shared_ptr<CustomFont>(newFont));
+		Log("New font created", TextColor::Aqua);
 	}
 
 	return newFont->font;

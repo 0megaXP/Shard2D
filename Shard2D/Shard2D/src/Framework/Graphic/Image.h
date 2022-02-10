@@ -7,6 +7,8 @@
 #include <SDL_surface.h>
 #include <SDL.h>
 
+#include "../Utils/ShardUtils.h"
+
 struct Image
 {
 public:

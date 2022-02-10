@@ -21,10 +21,8 @@ public:
 private:
 	std::string assetsPrefix = "Assets/";
 
-	std::string pngPrefix = "PNGs/";
 	std::string pngSuffix = ".png";
 
-	std::string fontPrefix = "Fonts/";
 	std::string fontSuffix = ".ttf";
 	std::vector<std::shared_ptr<CustomFont>> _fontsSaved;
 

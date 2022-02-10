@@ -34,21 +34,26 @@ ApplicationMain::ApplicationMain()
 
 void ApplicationMain::Start()
 {
-    Entity* a = new Entity();
-    AddToStage(a);
+    for (int i = 0; i < 1; i++)
+    {
+        Entity* a = new Entity();
+        AddToStage(a);
+    }
 
-	sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
+    sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Doge"));
     AddToStage(sprite);
-	sprite->SetVisibility(true);
-	sprite->scaleX = 0.5f;
-	sprite->scaleY = 0.5f;
+    sprite->SetVisibility(true);
+    sprite->scaleX = 0.5f;
+    sprite->scaleY = 0.5f;
     sprite->x = 640.f;
     sprite->y = 360.f;
+    sprite->color = SDL_Color(0, 0, 255, 255);
     sprite->a = 1.f;
     sprite->rotation = 45;
     sprite->centerPivot = true;
+    Log("This new sprite is" + std::to_string(sizeof(*sprite)) + "KB");
 
-    childSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Last_Defenders"));
+    childSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Last_Defenders"));
     childSprite->scaleX = 0.5f;
     childSprite->scaleY = 0.5f;
     childSprite->x = 128.f;
@@ -60,7 +65,7 @@ void ApplicationMain::Start()
 
     for (int i = 0; i < 1; i++)
     {
-        superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("Doge"));
+        superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Doge"));
         superChildSprite->scaleX = 0.30f;
         superChildSprite->scaleY = 0.30f;
         superChildSprite->x = 64.f;
@@ -70,19 +75,23 @@ void ApplicationMain::Start()
         superChildSprite->centerPivot = true;
     }
 
-    fpsCounter = new TextField("Test", "arial", 36);
+    fpsCounter = new TextField("", "Fonts/arial", 36);
     fpsCounter->y = 670;
     AddToStage(fpsCounter);
 
+    runtimeText = new TextField("Test", "Fonts/arial", 36);
+    runtimeText->y = 620;
+    AddToStage(runtimeText);
+
     for (int i = 0; i < 1; i++)
     {
-        TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "arial", 36);
+        TextField* b = new TextField("This is a sad day for ulthuan, when Asurs fight Asurs within sight of the white tower!", "Fonts/arial", 36);
         b->scaleX = 1;
         b->scaleY = 1;
         b->centerPivot = true;
         b->x = 640;
         b->y = 50;
-        b->SetColor(SDL_Color(255, 255, 255, 255));
+        b->SetColor(SDL_Color(0, 0, 255, 255));
         AddToStage(b);
     }
 
@@ -106,6 +115,9 @@ void ApplicationMain::Start()
 void ApplicationMain::Update()
 {
     fpsCounter->SetText("FPS: " + std::to_string(int(M_ClockManager->GetFPS())));
+
+    runtime += M_ClockManager->GetDeltaTime();
+    runtimeText->SetText("Runtime: " + std::to_string(runtime) + " seconds");
     //point->x = sprite->RenderingX();
     //point->y = sprite->RenderingY();
 

@@ -14,15 +14,12 @@ public:
 protected:
 	~TextField();
 
-	std::shared_ptr<TextureImage> _image;
-
 public:
 	TTF_Font* font;
 	Uint8 size = 24;
 
 private:
 	std::string _text = "";
-	SDL_Color _color = SDL_Color(255,255,255);
 
 public:
 	float GlobalScaleX() const override;
@@ -34,7 +31,7 @@ public:
 private:
 	float NormalizedSize() const;
 
-	void UpdateSurface();
+	void LoadTexture();
 
 protected:
 	virtual Image* GetRenderingImage() override;

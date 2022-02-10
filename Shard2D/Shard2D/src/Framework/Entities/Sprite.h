@@ -14,6 +14,7 @@ protected:
 	~Sprite();
 
 public:
+	void SetNewImage(Image* newImage, bool resetProportions);
 
 protected:
 	virtual Image* GetRenderingImage() override;

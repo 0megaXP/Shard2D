@@ -9,21 +9,9 @@ TextField::TextField(std::string newText, std::string fontName, int newSize)
     width = 1280;
     font = M_AssetsManager->GetFont(fontName);
 
-    SDL_Surface* textSurface;
+    LoadTexture();
 
-    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
-    if (!textSurface)
-    {
-        Log("Failed to render text", TextColor::Red);
-        _image = std::shared_ptr<TextureImage>(new TextureImage(nullptr));
-    }
-    else
-    {
-        SDL_Texture* textTexture = M_GraphicManager->CreateTexture(textSurface);
-        SDL_FreeSurface(textSurface);
-        _image = std::shared_ptr<TextureImage>(new TextureImage(textTexture));
-        height = _image.get()->GetHeight();
-    }
+    height = _image.get()->GetHeight();
 }
 
 TextField::~TextField()
@@ -49,13 +37,13 @@ float TextField::GlobalScaleY() const
 void TextField::SetText(std::string newText)
 {
     _text = newText;
-    UpdateSurface();
+    LoadTexture();
 }
 
 void TextField::SetColor(SDL_Color newColor)
 {
-    _color = newColor;
-    UpdateSurface();
+    color = newColor;
+    LoadTexture();
 }
 
 float TextField::NormalizedSize() const
@@ -63,15 +51,18 @@ float TextField::NormalizedSize() const
     return ((float)size / 72);
 }
 
-void TextField::UpdateSurface()
+void TextField::LoadTexture()
 {
-    SDL_Surface* textSurface;
+    if (_text == "")
+        _text = " ";
 
-    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
+    SDL_Surface* textSurface;
+    textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
     if (!textSurface)
     {
         Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);
         _image = std::shared_ptr<TextureImage>(new TextureImage(nullptr));
+        SDL_FreeSurface(textSurface);
     }
     else
     {
