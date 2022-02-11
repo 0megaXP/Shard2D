@@ -7,56 +7,59 @@
 #include "../ApplicationMain.h"
 #include "../Events/Event.h"
 
-GameManager::GameManager()
+namespace Shard2D
 {
-    std::cout << "GameManager created!" << std::endl;
-}
-
-GameManager::~GameManager()
-{
-    std::cout << "GameManager destroyed!" << std::endl;
-}
-
-void GameManager::SetupGame()
-{
-    appMain = new ApplicationMain();
-}
-
-void GameManager::ExitGame()
-{
-    _exitGame = true;
-}
-
-bool GameManager::GetExitGame()
-{
-    return _exitGame;
-}
-
-void GameManager::GameUpdate()
-{
-    if (!_updating)
+    GameManager::GameManager()
     {
-        _updating = true;
-        // Clock update
-        M_ClockManager->NewFrame();
+        std::cout << "GameManager created!" << std::endl;
+    }
 
-        // Events update
-        for (Entity* object : M_EntitiesManager->_stagedEntities)
-            object->DispatchEvent<Event>(Event::Update);
+    GameManager::~GameManager()
+    {
+        std::cout << "GameManager destroyed!" << std::endl;
+    }
 
-        M_EventsManager->CatchInputs();
+    void GameManager::SetupGame()
+    {
+        appMain = new ::ApplicationMain();
+    }
 
-        // Logic update
-        appMain->Update();
-        for (Entity* object : M_EntitiesManager->_stagedEntities)
-            object->Update();
+    void GameManager::ExitGame()
+    {
+        _exitGame = true;
+    }
 
-        // Graphic update
-        M_GraphicManager->RenderScene();
+    bool GameManager::GetExitGame()
+    {
+        return _exitGame;
+    }
 
-        M_ClockManager->ManageFramesCap();
-        M_ClockManager->UpdateDeltaTime();
-        //DebugFPS(Managers::clockManager->GetFPS());
-        _updating = false;
+    void GameManager::GameUpdate()
+    {
+        if (!_updating)
+        {
+            _updating = true;
+            // Clock update
+            M_ClockManager->NewFrame();
+
+            // Events update
+            for (Entity* object : M_EntitiesManager->_stagedEntities)
+                object->DispatchEvent<Event>(Event::Update);
+
+            M_EventsManager->CatchInputs();
+
+            // Logic update
+            appMain->Update();
+            for (Entity* object : M_EntitiesManager->_stagedEntities)
+                object->Update();
+
+            // Graphic update
+            M_GraphicManager->RenderScene();
+
+            M_ClockManager->ManageFramesCap();
+            M_ClockManager->UpdateDeltaTime();
+            //DebugFPS(Managers::clockManager->GetFPS());
+            _updating = false;
+        }
     }
 }

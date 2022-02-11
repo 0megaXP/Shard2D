@@ -1,34 +1,37 @@
 #pragma once
 
-class ClockManager;
-class GraphicManager;
 class ApplicationMain;
 
-class GameManager
+namespace Shard2D
 {
-public:
-	GameManager();
-	~GameManager();
+	class ClockManager;
+	class GraphicManager;
 
-private:
-	bool _updating = false;
-	bool _exitGame = false;
+	class GameManager
+	{
+	public:
+		GameManager();
+		~GameManager();
 
-	ApplicationMain* appMain;
+	private:
+		bool _updating = false;
+		bool _exitGame = false;
 
-public:
-	void SetupGame();
+		ApplicationMain* appMain;
 
-	/*
-	Function called to close the application. Use this function for a properly memory deallocation
-	*/
-	void ExitGame();
-	bool GetExitGame();
+	public:
+		void SetupGame();
 
-	/*
-	This function does not have to be called manually.
-	The game main update function.
-	*/
-	void GameUpdate();
-};
+		/*
+		Function called to close the application. Use this function for a properly memory deallocation
+		*/
+		void ExitGame();
+		bool GetExitGame();
 
+		/*
+		This function does not have to be called manually.
+		The game main update function.
+		*/
+		void GameUpdate();
+	};
+}

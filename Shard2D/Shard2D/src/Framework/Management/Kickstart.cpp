@@ -5,30 +5,33 @@
 
 #include "Managers.h"
 
-void Shard2D::Init()
+namespace Shard2D
 {
+    void Init()
+    {
 #if defined _DEBUG
-    if (::IsWindowVisible(::GetConsoleWindow()) == FALSE)
-        ::ShowWindow(::GetConsoleWindow(), SW_SHOW);
+        if (::IsWindowVisible(::GetConsoleWindow()) == FALSE)
+            ::ShowWindow(::GetConsoleWindow(), SW_SHOW);
 #else
-    if (::IsWindowVisible(::GetConsoleWindow()) == TRUE)
-        ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+        if (::IsWindowVisible(::GetConsoleWindow()) == TRUE)
+            ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
 #endif
 
-    M_GameManager->SetupGame();
+        M_GameManager->SetupGame();
 
-    while (!M_GameManager->GetExitGame())
-    {
-        M_GameManager->GameUpdate();
+        while (!M_GameManager->GetExitGame())
+        {
+            M_GameManager->GameUpdate();
+        }
+
+        delete M_EventsManager;
+        delete M_AssetsManager;
+        delete M_ClockManager;
+        delete M_GraphicManager;
+        delete M_EntitiesManager;
+        delete M_GameManager;
+
+        if (::IsWindowVisible(::GetConsoleWindow()) == FALSE)
+            ::ShowWindow(::GetConsoleWindow(), SW_SHOW);
     }
-
-    delete M_EventsManager;
-    delete M_AssetsManager;
-    delete M_ClockManager;
-    delete M_GraphicManager;
-    delete M_EntitiesManager;
-    delete M_GameManager;
-
-    if (::IsWindowVisible(::GetConsoleWindow()) == FALSE)
-        ::ShowWindow(::GetConsoleWindow(), SW_SHOW);
 }

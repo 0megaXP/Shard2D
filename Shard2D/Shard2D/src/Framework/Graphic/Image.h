@@ -1,81 +1,83 @@
 #pragma once
 
-#define SURFACE_TYPE "Surface"
-#define TEXTURE_TYPE "Texture"
-
 #include <string>
 #include <SDL_surface.h>
 #include <SDL.h>
 
 #include "../Utils/ShardUtils.h"
 
-struct Image
+namespace Shard2D
 {
-public:
-	Image() {};
-	~Image() {};
+#define SURFACE_TYPE "Surface"
+#define TEXTURE_TYPE "Texture"
 
-	std::string type;
-
-	virtual float GetWidth() { return 0; };
-
-	virtual float GetHeight() { return 0; };
-
-private:
-	friend class GraphicManager;
-};
-
-struct SurfaceImage : Image
-{
-public:
-	SurfaceImage()
+	struct Image
 	{
-		type = SURFACE_TYPE;
+	public:
+		Image() {};
+		~Image() {};
+
+		std::string type;
+
+		virtual float GetWidth() { return 0; };
+
+		virtual float GetHeight() { return 0; };
+
+	private:
+		friend class GraphicManager;
 	};
 
-	SurfaceImage(SDL_Surface* newSurface)
-		: _surface(newSurface)
+	struct SurfaceImage : Image
 	{
-		type = SURFACE_TYPE;
+	public:
+		SurfaceImage()
+		{
+			type = SURFACE_TYPE;
+		};
+
+		SurfaceImage(SDL_Surface* newSurface)
+			: _surface(newSurface)
+		{
+			type = SURFACE_TYPE;
+		};
+
+		~SurfaceImage() { SDL_FreeSurface(_surface); };
+
+	private:
+		SDL_Surface* _surface;
+
+		friend class GraphicManager;
 	};
 
-	~SurfaceImage() { SDL_FreeSurface(_surface); };
-
-private:
-	SDL_Surface* _surface;
-
-	friend class GraphicManager;
-};
-
-struct TextureImage : Image
-{
-public:
-	TextureImage()
+	struct TextureImage : Image
 	{
-		type = TEXTURE_TYPE;
+	public:
+		TextureImage()
+		{
+			type = TEXTURE_TYPE;
+		};
+
+		TextureImage(SDL_Texture* newTexture)
+			: _texture(newTexture)
+		{
+			type = TEXTURE_TYPE;
+			SDL_QueryTexture(_texture, &_format, &_access, &_width, &_height);
+		};
+
+		~TextureImage() { SDL_DestroyTexture(_texture); };
+
+		float GetWidth() { return float(_width); };
+
+		float GetHeight() { return float(_height); };
+
+	private:
+		SDL_Texture* _texture;
+
+		int _width;
+		int _height;
+		int _access;
+		unsigned int _format;
+
+		friend class GraphicManager;
 	};
-
-	TextureImage(SDL_Texture* newTexture)
-		: _texture(newTexture)
-	{
-		type = TEXTURE_TYPE;
-		SDL_QueryTexture(_texture, &_format, &_access, &_width, &_height);
-	};
-
-	~TextureImage() { SDL_DestroyTexture(_texture); };
-
-	float GetWidth() { return float(_width); };
-
-	float GetHeight() { return float(_height); };
-
-private:
-	SDL_Texture* _texture;
-
-	int _width;
-	int _height;
-	int _access;
-	unsigned int _format;
-
-	friend class GraphicManager;
-};
-
+}

@@ -9,18 +9,18 @@ public:
 	ApplicationMain();
 
 private: 
-	friend class GameManager;
+	friend class Shard2D::GameManager;
 
 	void Start();
 
 	void Update();
 
-	Sprite* sprite;
-	Sprite* childSprite; 
-	Sprite* superChildSprite;
+	Shard2D::Sprite* sprite;
+	Shard2D::Sprite* childSprite; 
+	Shard2D::Sprite* superChildSprite;
 
-	TextField* fpsCounter;
-	TextField* runtimeText;
+	Shard2D::TextField* fpsCounter;
+	Shard2D::TextField* runtimeText;
 
 	float runtime = 0;
 };

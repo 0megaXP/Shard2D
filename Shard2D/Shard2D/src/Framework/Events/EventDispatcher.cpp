@@ -6,16 +6,19 @@
 #include "MouseEvent.h"
 #include "KeyboardEvent.h"
 
-EventDispatcher::~EventDispatcher()
+namespace Shard2D
 {
-	RemoveAllListener();
-}
+	EventDispatcher::~EventDispatcher()
+	{
+		RemoveAllListener();
+	}
 
-void EventDispatcher::RemoveAllListener()
-{
-	// Deallocate all the vector pointers inside the eventMap
-	std::vector<std::vector<std::shared_ptr<Listener>>*> listenerVectors = _eventMap.GetAllValues();
-	for (std::vector<std::shared_ptr<Listener>>* vectorPtr : listenerVectors)
-		delete vectorPtr;
-	_eventMap.Reset();
+	void EventDispatcher::RemoveAllListener()
+	{
+		// Deallocate all the vector pointers inside the eventMap
+		std::vector<std::vector<std::shared_ptr<Listener>>*> listenerVectors = _eventMap.GetAllValues();
+		for (std::vector<std::shared_ptr<Listener>>* vectorPtr : listenerVectors)
+			delete vectorPtr;
+		_eventMap.Reset();
+	}
 }

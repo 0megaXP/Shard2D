@@ -2,35 +2,37 @@
 
 #include <string>
 
-class EventDispatcher;
-
-class Event
+namespace Shard2D
 {
-public:
-	Event() : _type(""), _id("Event") {};
-	Event(std::string type) : _type(type), _id("Event") {};
+	class EventDispatcher;
 
-	static const inline std::string Added = "added";
+	class Event
+	{
+	public:
+		Event() : _type(""), _id("Event") {};
+		Event(std::string type) : _type(type), _id("Event") {};
 
-	static const inline std::string Removed = "removed";
+		static const inline std::string Added = "added";
 
-	static const inline std::string Update = "update";
+		static const inline std::string Removed = "removed";
 
-	static const inline std::string Rendered = "rendered";
+		static const inline std::string Update = "update";
 
-private:
+		static const inline std::string Rendered = "rendered";
 
-	friend class EventDispatcher;
+	private:
+		friend class EventDispatcher;
 
-protected:
-	std::string _type;
-	std::string _id;
+	protected:
+		std::string _type;
+		std::string _id;
 
-	EventDispatcher* _target = nullptr;
+		EventDispatcher* _target = nullptr;
 
-public:
-	std::string GetType() const;
-	EventDispatcher* GetTarget() const;
+	public:
+		std::string GetType() const;
+		EventDispatcher* GetTarget() const;
 
-	virtual std::string GetID() { return _id; };
-};
+		virtual std::string GetID() { return _id; };
+	};
+}

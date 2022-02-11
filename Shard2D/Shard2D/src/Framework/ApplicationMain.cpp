@@ -5,6 +5,7 @@
 #include "Management/Managers.h"
 #include "Utils/ShardUtils.h"
 #include "Management/Managers.h"
+#include "Entities/Entity.h"
 #include "Events/Event.h"
 #include "Events/MouseEvent.h"
 #include "Events/KeyboardEvent.h"
@@ -12,14 +13,16 @@
 import MathUtils;
 import BooleanUtils;
 
+using namespace Shard2D;
+
 void MouseBeginOverlap(MouseEvent* _event)
 {
-    Log("Begin Overlap");
+    Shard2D::Log("Begin Overlap");
 }
 
 void MouseEndOverlap(MouseEvent* _event)
 {
-    Log("End overlap");
+    Shard2D::Log("End overlap");
 }
 
 void LeftButtonClicked(KeyboardEvent* _event)

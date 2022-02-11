@@ -6,19 +6,21 @@
 
 #include "../Utils/ShardUtils.h"
 
-struct CustomFont
+namespace Shard2D
 {
-	CustomFont(std::string newName, TTF_Font* newFont)
-		: fontName(newName), font(newFont)
-	{};
-
-	~CustomFont() 
+	struct CustomFont
 	{
-		Log(fontName + " font deleted succesfully!", TextColor::Purple);
-		TTF_CloseFont(font);
+		CustomFont(std::string newName, TTF_Font* newFont)
+			: fontName(newName), font(newFont)
+		{};
+
+		~CustomFont()
+		{
+			Log(fontName + " font deleted succesfully!", TextColor::Purple);
+			TTF_CloseFont(font);
+		};
+
+		std::string fontName;
+		TTF_Font* font;
 	};
-
-	std::string fontName;
-	TTF_Font* font;
-};
-
+}
