@@ -92,9 +92,6 @@
     <ClInclude Include="src\Framework\Entities\EntitiesManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Entities\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\Management\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -143,5 +140,12 @@
     <ClInclude Include="src\Framework\Events\Keycode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Entities\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Framework\Utils\CustomMap.tpp" />
+    <None Include="src\Framework\Events\EventDispatcher.tpp" />
   </ItemGroup>
 </Project>

@@ -19,7 +19,7 @@ class EventListener : public Listener
 {
 public:
 	EventListener(void (*newCallback)(T* _event), int newPriority = 0) : callback(newCallback), priority(newPriority) { _eventID = T().GetID(); };
-	//~EventListener() { /*Log("EventListener destroyed", TextColor::Purple);*/ };
+	~EventListener() { };
 
 private:
 	void (*callback)(T* _event);

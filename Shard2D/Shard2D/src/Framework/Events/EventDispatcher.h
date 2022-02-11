@@ -78,3 +78,4 @@ public:
 	bool HasEventListener(std::string newEventType, void(*callback)(T* _event));
 };
 
+#include "EventDispatcher.tpp"

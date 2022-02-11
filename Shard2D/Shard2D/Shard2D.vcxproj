@@ -208,6 +208,13 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="src\Framework\Utils\MathVectors.h" />
     <ClInclude Include="src\Framework\ApplicationMain.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Framework\Events\EventDispatcher.tpp" />
+    <None Include="src\Framework\Utils\CustomMap.tpp">
+      <FileType>CppHeader</FileType>
+      <DeploymentContent>false</DeploymentContent>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
