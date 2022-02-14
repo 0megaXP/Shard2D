@@ -1,3 +1,5 @@
+#include "Callback.h"
+
 namespace Shard2D
 {
 	//class EventDispatcher;
@@ -12,7 +14,9 @@ namespace Shard2D
 		if (!_eventMap.Contains(newEventType))
 			_eventMap.Insert(newEventType, new std::vector< std::shared_ptr<Listener>>());
 
-		std::shared_ptr<EventListener<T>> _eventListener = std::shared_ptr<EventListener<T>>(new EventListener<T>(callback, priority));
+		ParamCallback<T> temp = ParamCallback<T>(callback);
+
+		std::shared_ptr<EventListener<T>> _eventListener = std::shared_ptr<EventListener<T>>(new EventListener<T>(temp, priority));
 		_eventMap.Get(newEventType)->push_back(_eventListener);
 	}
 
@@ -31,7 +35,7 @@ namespace Shard2D
 			for (UINT i = 0; i < listenersVectorPtr->size(); i++)
 			{
 				EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(i).get());
-				if (tempListener != nullptr && tempListener->Compare(EventListener<T>(callback)))
+				if (tempListener != nullptr && tempListener->Compare(EventListener<T>(ParamCallback<T>(callback))))
 				{
 					listenersVectorPtr->erase(listenersVectorPtr->begin() + i);
 					return;
@@ -41,7 +45,7 @@ namespace Shard2D
 		else
 		{
 			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(0).get());
-			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(callback)))
+			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(ParamCallback<T>(callback))))
 			{
 				delete(_eventMap.Get(newEventType));
 				_eventMap.Remove(newEventType);
@@ -61,8 +65,19 @@ namespace Shard2D
 			for (std::shared_ptr<Listener> listener : *_eventMap.Get(eventType))
 			{
 				EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
-				if (tempListener != nullptr && tempListener->Compare(EventListener<T>(tempListener->callback)))
-					tempListener->callback(_event);
+				if (tempListener != nullptr && tempListener->Compare(EventListener<T>(tempListener->_callback)))
+				{
+					switch (tempListener->_callback.type)
+					{
+					case CallbackType::Param:
+						/*ParamCallback<T>* tempCallback =*/ static_cast<ParamCallback<T>*>(&(tempListener->_callback))->_callback(_event);
+						//tempCallback->_callback(_event);
+						break;
+					case CallbackType::Full:
+						break;
+					}
+					//tempListener->callback(_event);
+				}
 			}
 
 			delete _event;
@@ -81,8 +96,21 @@ namespace Shard2D
 			for (std::shared_ptr<Listener> listener : *_eventMap.Get(_newEvent.GetType()))
 			{
 				EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
-				if (tempListener != nullptr && tempListener->Compare(EventListener<T>(tempListener->callback)))
-					tempListener->callback(_event);
+				if (tempListener != nullptr && tempListener->Compare(EventListener<T>(tempListener->_callback)))
+				{
+					switch (tempListener->_callback.type)
+					{
+					case CallbackType::Param:
+						/*ParamCallback<T>* tempCallback =*/ static_cast<ParamCallback<T>*>(&(tempListener->_callback))->_callback(_event);
+						//tempCallback->_callback(_event);
+						break;
+					case CallbackType::Full:
+						break;
+					default:
+						break;
+					}
+					//tempListener->callback(_event);
+				}
 			}
 
 			delete _event;
@@ -98,7 +126,7 @@ namespace Shard2D
 		for (std::shared_ptr<Listener> listener : *_eventMap.Get(newEventType))
 		{
 			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
-			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(callback)))
+			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(ParamCallback<T>(callback))))
 				return true;
 		}
 

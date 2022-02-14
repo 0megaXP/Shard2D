@@ -109,7 +109,7 @@ void ApplicationMain::Start()
 
     sprite->AddEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
     sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
-    sprite->AddEventListener<KeyboardEvent>(KeyboardEvent::ButtonPressed, &LeftButtonClicked);
+    //sprite->AddEventListener<KeyboardEvent>(KeyboardEvent::ButtonPressed, &Update);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);

@@ -143,6 +143,9 @@
     <ClInclude Include="src\Framework\Entities\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Events\Callback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Framework\Utils\CustomMap.tpp" />
