@@ -21,11 +21,11 @@ namespace Shard2D
 	class EventListener : public Listener
 	{
 	public:
-		EventListener(CallbackBase newCallback, int newPriority = 0) : _callback(newCallback), priority(newPriority) { _eventID = T().GetID(); };
-		~EventListener() { };
+		EventListener(CallbackBase* newCallback, int newPriority = 0) : _callback(newCallback), priority(newPriority) { _eventID = T().GetID(); };
+		~EventListener() { delete _callback; };
 
 	private:
-		CallbackBase _callback;
+		CallbackBase* _callback;
 		int priority;
 		std::string _eventID;
 
@@ -33,7 +33,7 @@ namespace Shard2D
 		friend class EventListener<T>;
 
 	public:
-		bool Compare(EventListener<T> _eventListener) {	 return _callback.Compare(&_eventListener._callback) &&
+		bool Compare(EventListener<T> _eventListener) {	 return _callback->Compare(&_eventListener._callback) &&
 																_eventID == _eventListener._eventID &&
 																priority == _eventListener.priority; };
 	};

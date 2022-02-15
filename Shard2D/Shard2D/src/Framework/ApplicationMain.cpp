@@ -25,7 +25,7 @@ void MouseEndOverlap(MouseEvent* _event)
     Shard2D::Log("End overlap");
 }
 
-void LeftButtonClicked(KeyboardEvent* _event)
+void KeyPressed(KeyboardEvent* _event)
 {
     std::cout << "Key pressed: " << _event->GetKeycode() << std::endl;
 }
@@ -109,7 +109,7 @@ void ApplicationMain::Start()
 
     sprite->AddEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
     sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
-    //sprite->AddEventListener<KeyboardEvent>(KeyboardEvent::ButtonPressed, &Update);
+    sprite->AddEventListener<KeyboardEvent>(KeyboardEvent::ButtonPressed, &KeyPressed);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
