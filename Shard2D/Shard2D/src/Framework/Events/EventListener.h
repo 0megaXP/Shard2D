@@ -32,9 +32,9 @@ namespace Shard2D
 		friend class EventDispatcher;
 		friend class EventListener<T>;
 
-	public:
-		bool Compare(EventListener<T> _eventListener) {	 return _callback->Compare(&_eventListener._callback) &&
+	/*public:
+		bool Compare(EventListener<T> _eventListener) {	 return _callback->Compare(_eventListener._callback) &&
 																_eventID == _eventListener._eventID &&
-																priority == _eventListener.priority; };
+																priority == _eventListener.priority; };*/
 	};
 }

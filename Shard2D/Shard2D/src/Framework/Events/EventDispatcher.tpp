@@ -18,6 +18,22 @@ namespace Shard2D
 		_eventMap.Get(newEventType)->push_back(_eventListener);
 	}
 
+	template<typename T, typename T2>
+	void EventDispatcher::AddEventListener(std::string newEventType, void(T2::* callback)(T* _event), T2* newObject, int priority)
+	{
+		if (callback == nullptr)
+			throw std::invalid_argument("The callback is an invalid memory adress.");
+
+		// TODO optimize and improvve the event listener management (maybe not using vector pointers)
+		if (!_eventMap.Contains(newEventType))
+			_eventMap.Insert(newEventType, new std::vector< std::shared_ptr<Listener>>());
+
+		MethodsEventCallback<T, T2>* temp = new MethodsEventCallback<T, T2>(callback, newObject);
+
+		std::shared_ptr<EventListener<T>> _eventListener = std::shared_ptr<EventListener<T>>(new EventListener<T>(temp, priority));
+		_eventMap.Get(newEventType)->push_back(_eventListener);
+	}
+
 	template<typename T>
 	void EventDispatcher::RemoveEventListener(std::string newEventType, void(*callback)(T* _event))
 	{
@@ -28,25 +44,40 @@ namespace Shard2D
 			return;
 
 		std::vector<std::shared_ptr<Listener>>* listenersVectorPtr = _eventMap.Get(newEventType);
-		if (listenersVectorPtr->size() > 1)
+		FunctionEventCallback<T> comparingCallback = FunctionEventCallback<T>(callback);
+		for (UINT i = 0; i < listenersVectorPtr->size(); i++)
 		{
-			for (UINT i = 0; i < listenersVectorPtr->size(); i++)
+			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(i).get());
+			if (tempListener != nullptr &&
+				tempListener->_eventID == T(newEventType).GetID() &&
+				tempListener->_callback->Compare(&comparingCallback))
 			{
-				EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(i).get());
-				if (tempListener != nullptr && tempListener->Compare(EventListener<T>(FunctionEventCallback<T>(callback))))
-				{
-					listenersVectorPtr->erase(listenersVectorPtr->begin() + i);
-					return;
-				}
+				listenersVectorPtr->erase(listenersVectorPtr->begin() + i);
+				return;
 			}
 		}
-		else
+	}
+
+	template<typename T, typename T2>
+	void EventDispatcher::RemoveEventListener(std::string newEventType, void(T2::* callback)(T* _event), T2* object)
+	{
+		if (callback == nullptr)
+			return;
+
+		if (!_eventMap.Contains(newEventType))
+			return;
+
+		std::vector<std::shared_ptr<Listener>>* listenersVectorPtr = _eventMap.Get(newEventType);
+		MethodsEventCallback<T, T2> comparingCallback = MethodsEventCallback<T, T2>(callback, object);
+		for (UINT i = 0; i < listenersVectorPtr->size(); i++)
 		{
-			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(0).get());
-			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(FunctionEventCallback<T>(callback))))
+			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listenersVectorPtr->at(i).get());
+			if (tempListener != nullptr &&
+				tempListener->_eventID == T(newEventType).GetID() &&
+				tempListener->_callback->Compare(&comparingCallback))
 			{
-				delete(_eventMap.Get(newEventType));
-				_eventMap.Remove(newEventType);
+				listenersVectorPtr->erase(listenersVectorPtr->begin() + i);
+				return;
 			}
 		}
 	}
@@ -65,7 +96,7 @@ namespace Shard2D
 				EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
 				if (tempListener != nullptr)
 				{
-					static_cast<FunctionEventCallback<T>*>(tempListener->_callback)->RunCallback(_event);
+					tempListener->_callback->RunCallback(_event);
 				}
 			}
 
@@ -87,7 +118,7 @@ namespace Shard2D
 				EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
 				if (tempListener != nullptr)
 				{
-					static_cast<FunctionEventCallback<T>*>(tempListener->_callback)->RunCallback(_event);
+					tempListener->_callback->RunCallback(_event);
 				}
 			}
 
@@ -101,10 +132,32 @@ namespace Shard2D
 		if (!_eventMap.Contains(newEventType))
 			return false;
 
+		FunctionEventCallback<T> comparingCallback = FunctionEventCallback<T>(callback);
 		for (std::shared_ptr<Listener> listener : *_eventMap.Get(newEventType))
 		{
 			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
-			if (tempListener != nullptr && tempListener->Compare(EventListener<T>(ParamCallback<T>(callback))))
+			if (tempListener != nullptr &&
+				tempListener->_eventID == T(newEventType).GetID() &&
+				tempListener->_callback->Compare(&comparingCallback))
+				return true;
+		}
+
+		return false;
+	}
+
+	template<typename T, typename T2>
+	bool EventDispatcher::HasEventListener(std::string newEventType, void(T2::* callback)(T* _event), T2* object)
+	{
+		if (!_eventMap.Contains(newEventType))
+			return false;
+
+		MethodsEventCallback<T, T2> comparingCallback = MethodsEventCallback<T, T2>(callback, object);
+		for (std::shared_ptr<Listener> listener : *_eventMap.Get(newEventType))
+		{
+			EventListener<T>* tempListener = static_cast<EventListener<T>*>(listener.get());
+			if (tempListener != nullptr &&
+				tempListener->_eventID == T(newEventType).GetID() &&
+				tempListener->_callback->Compare(&comparingCallback))
 				return true;
 		}
 

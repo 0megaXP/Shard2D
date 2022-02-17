@@ -6,9 +6,6 @@
 #include "Utils/ShardUtils.h"
 #include "Management/Managers.h"
 #include "Entities/Entity.h"
-#include "Events/Event.h"
-#include "Events/MouseEvent.h"
-#include "Events/KeyboardEvent.h"
 
 import MathUtils;
 import BooleanUtils;
@@ -109,7 +106,7 @@ void ApplicationMain::Start()
 
     sprite->AddEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
     sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
-    sprite->AddEventListener<KeyboardEvent>(KeyboardEvent::ButtonPressed, &KeyPressed);
+    sprite->AddEventListener<KeyboardEvent, ApplicationMain>(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
@@ -117,6 +114,21 @@ void ApplicationMain::Start()
 
 void ApplicationMain::Update()
 {
+
+    if (sprite->HasEventListener<KeyboardEvent, ApplicationMain>(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this))
+    {
+        std::cout << "EventListener Found!" << std::endl;
+        sprite->RemoveEventListener<KeyboardEvent, ApplicationMain>(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
+        std::cout << "EventListener Removed!" << std::endl;
+    }
+
+    if (sprite->HasEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap))
+    {
+        std::cout << "EventListener Found!" << std::endl;
+        sprite->RemoveEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
+        std::cout << "EventListener Removed!" << std::endl;
+    }
+
     fpsCounter->SetText("FPS: " + std::to_string(int(M_ClockManager->GetFPS())));
 
     runtime += M_ClockManager->GetDeltaTime();
@@ -165,4 +177,9 @@ void ApplicationMain::Update()
             break;
         }
     }*/
+}
+
+void ApplicationMain::TestMethod(KeyboardEvent* _event)
+{
+    std::cout << "Method events work!" << std::endl;
 }

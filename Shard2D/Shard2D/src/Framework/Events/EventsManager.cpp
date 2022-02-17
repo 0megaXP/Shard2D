@@ -25,7 +25,7 @@ namespace Shard2D
 		int _actualMouseX = 0;
 		int _actualMouseY = 0;
 		SDL_GetMouseState(&_actualMouseX, &_actualMouseY);
-		mousePosition = Vector2(_actualMouseX, _actualMouseY);
+		mousePosition = Vector2((float)_actualMouseX, (float)_actualMouseY);
 
 		// Setup the arrays
 		eventsToDispatch.clear();

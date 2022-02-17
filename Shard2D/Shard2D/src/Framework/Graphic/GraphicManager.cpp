@@ -189,8 +189,8 @@ namespace Shard2D
 			if (_entity->GlobalRotation() != 0 && _entity->centerPivot)
 			{
 				// Adjust the position with the rotation of the texture
-				_entity->_finalFixedX = _entity->RenderingX() - _entity->_pivotOffsetX + PositionFromDeg(225 + _entity->GlobalRotation()).x * _entity->width / 2 * _entity->GlobalScaleX() / -PositionFromDeg(225).x;
-				_entity->_finalFixedY = _entity->RenderingY() - _entity->_pivotOffsetY + PositionFromDeg(225 + _entity->GlobalRotation()).y * _entity->height / 2 * _entity->GlobalScaleY() / -PositionFromDeg(225).y;
+				_entity->_finalFixedX = (short)(_entity->RenderingX() - _entity->_pivotOffsetX + PositionFromDeg(225 + _entity->GlobalRotation()).x * _entity->width / 2 * _entity->GlobalScaleX() / -PositionFromDeg(225).x);
+				_entity->_finalFixedY = (short)(_entity->RenderingY() - _entity->_pivotOffsetY + PositionFromDeg(225 + _entity->GlobalRotation()).y * _entity->height / 2 * _entity->GlobalScaleY() / -PositionFromDeg(225).y);
 			}
 			else
 			{
