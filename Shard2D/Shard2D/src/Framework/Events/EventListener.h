@@ -3,7 +3,7 @@
 #include "../Utils/ShardUtils.h"
 #include "Event.h"
 #include "MouseEvent.h"
-#include "Callback.h"
+#include "EventCallback.h"
 
 namespace Shard2D
 {
@@ -21,11 +21,11 @@ namespace Shard2D
 	class EventListener : public Listener
 	{
 	public:
-		EventListener(CallbackBase* newCallback, int newPriority = 0) : _callback(newCallback), priority(newPriority) { _eventID = T().GetID(); };
+		EventListener(EventCallback<T>* newCallback, int newPriority = 0) : _callback(newCallback), priority(newPriority) { _eventID = T().GetID(); };
 		~EventListener() { delete _callback; };
 
 	private:
-		CallbackBase* _callback;
+		EventCallback<T>* _callback;
 		int priority;
 		std::string _eventID;
 
