@@ -19,9 +19,11 @@ namespace Shard2D
 
 	class GraphicManager
 	{
-	public:
+	private:
 		GraphicManager();
 		~GraphicManager();
+
+		friend class Managers;
 
 		SDL_Window* _window;
 #if RENDERING_TYPE == TEXTURE_RENDERING

@@ -16,11 +16,12 @@ namespace Shard2D
 {
 	class AssetsManager
 	{
-	public:
+	private:
 		AssetsManager();
 		~AssetsManager();
 
-	private:
+		friend class Managers;
+
 		std::string assetsPrefix = "Assets/";
 
 		std::string pngSuffix = ".png";

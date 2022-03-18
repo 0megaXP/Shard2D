@@ -24,12 +24,12 @@ namespace Shard2D
             M_GameManager->GameUpdate();
         }
 
-        delete M_EventsManager;
-        delete M_AssetsManager;
-        delete M_ClockManager;
-        delete M_GraphicManager;
-        delete M_EntitiesManager;
-        delete M_GameManager;
+        Close();
+    }
+
+    void Close()
+    {
+        Managers::DeleteManagers();
 
         if (::IsWindowVisible(::GetConsoleWindow()) == FALSE)
             ::ShowWindow(::GetConsoleWindow(), SW_SHOW);

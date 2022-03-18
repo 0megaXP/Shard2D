@@ -20,15 +20,15 @@ namespace Shard2D
 
 	class EntitiesManager
 	{
-	public:
+	private:
 		EntitiesManager();
 		virtual ~EntitiesManager();
 
+		friend class Managers;
 		friend class GraphicManager;
 		friend class GameManager;
 		friend class EventsManager;
 
-	private:
 		std::vector<Entity*> _stagedEntities;
 		std::vector<std::shared_ptr<Entity>> _createdEntities;
 

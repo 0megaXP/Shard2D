@@ -9,11 +9,12 @@ namespace Shard2D
 
 	class GameManager
 	{
-	public:
+	private:
 		GameManager();
 		~GameManager();
 
-	private:
+		friend class Managers;
+
 		bool _updating = false;
 		bool _exitGame = false;
 

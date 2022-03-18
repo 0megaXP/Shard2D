@@ -15,14 +15,14 @@ namespace Shard2D
 
 	class EventsManager
 	{
-	public:
+	private:
 		EventsManager();
 
 		~EventsManager();
 
+		friend class Managers;
 		friend class GameManager;
 
-	private:
 		std::vector<std::string> eventsToDispatch;
 		std::vector<KeyboardEvent> keyboardEventsToDispatch;
 		std::vector<std::string> mouseEventsToDispatch;

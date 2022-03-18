@@ -8,6 +8,7 @@
 #include "../Entities/EntitiesManager.h"
 #include "../Clock/ClockManager.h"
 #include "../Events/EventsManager.h"
+#include "../Tweens/TweensManager.h"
 
 namespace Shard2D
 {
@@ -17,6 +18,7 @@ namespace Shard2D
 #define	M_AssetsManager			Managers::assetsManager
 #define	M_EntitiesManager		Managers::entitiesManager
 #define	M_EventsManager			Managers::eventsManager
+#define	M_TweensManager			Managers::tweensManager
 
 	class Managers
 	{
@@ -27,5 +29,8 @@ namespace Shard2D
 		static AssetsManager* const assetsManager;
 		static EntitiesManager* const entitiesManager;
 		static EventsManager* const eventsManager;
+		static TweensManager* const tweensManager;
+
+		static void DeleteManagers();
 	};
 }

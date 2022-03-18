@@ -56,7 +56,7 @@ namespace Shard2D
             // Graphic update
             M_GraphicManager->RenderScene();
 
-            M_ClockManager->ManageFramesCap();
+            //M_ClockManager->ManageFramesCap();
             M_ClockManager->UpdateDeltaTime();
             //DebugFPS(Managers::clockManager->GetFPS());
             _updating = false;

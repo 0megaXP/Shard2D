@@ -8,4 +8,17 @@ namespace Shard2D
 	AssetsManager* const Managers::assetsManager = new AssetsManager();
 	EntitiesManager* const Managers::entitiesManager = new EntitiesManager();
 	EventsManager* const Managers::eventsManager = new EventsManager();
+	TweensManager* const Managers::tweensManager = new TweensManager();
+
+	void Managers::DeleteManagers()
+	{
+		delete M_TweensManager;
+		delete M_EventsManager;
+		delete M_AssetsManager;
+		delete M_ClockManager;
+		delete M_GraphicManager;
+		delete M_EntitiesManager;
+		delete M_GameManager;
+	}
+
 }

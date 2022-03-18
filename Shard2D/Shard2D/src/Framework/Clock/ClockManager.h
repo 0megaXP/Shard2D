@@ -7,13 +7,13 @@ namespace Shard2D
 {
 	class ClockManager
 	{
-	public:
+	private:
 		ClockManager();
 		~ClockManager();
 
+		friend class Managers;
 		friend class GameManager;
 
-	private:
 		float _deltaTime = 0;
 		float _startTick = 0;
 

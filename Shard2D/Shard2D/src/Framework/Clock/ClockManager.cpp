@@ -61,7 +61,7 @@ namespace Shard2D
     {
         float elapsedMS = (SDL_GetPerformanceCounter() - _startFrameCounter) / SDL_GetPerformanceFrequency() * 1000.0f;
 
-        //SDL_Delay(floor((1000 / (_frameRateCap + _frameRateCap / 4)) - elapsedMS));
+        SDL_Delay(floor((1000 / (_frameRateCap)) - elapsedMS));
     }
 
     void ClockManager::UpdateFPS()
