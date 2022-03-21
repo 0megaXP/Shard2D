@@ -72,6 +72,9 @@
     <ClCompile Include="src\Framework\Tweens\TweensManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Tweens\Tween.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\Entities\TextField.h">
@@ -152,9 +155,14 @@
     <ClInclude Include="src\Framework\Tweens\TweensManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Tween.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Framework\Utils\CustomMap.tpp" />
     <None Include="src\Framework\Events\EventDispatcher.tpp" />
+    <None Include="TweensManager.tpp" />
+    <None Include="src\Framework\Tweens\TweensManager.tpp" />
   </ItemGroup>
 </Project>
