@@ -182,7 +182,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="src\Framework\Utils\MathVectors.cpp" />
     <ClCompile Include="Shard2D.cpp" />
     <ClCompile Include="src\Framework\ApplicationMain.cpp" />
-    <ClCompile Include="src\Framework\Tweens\Tween.cpp" />
+    <ClCompile Include="src\Framework\Tweens\ITween.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\Tweens\TweensManager.h" />
@@ -211,10 +211,12 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="src\Framework\Management\Managers.h" />
     <ClInclude Include="src\Framework\Utils\MathVectors.h" />
     <ClInclude Include="src\Framework\ApplicationMain.h" />
-    <ClInclude Include="src\Framework\Tweens\Tween.h" />
+    <ClInclude Include="src\Framework\Tweens\ITween.h" />
+    <ClInclude Include="src\Framework\Tweens\TweenActuator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Framework\Events\EventDispatcher.tpp" />
+    <None Include="src\Framework\Tweens\TweenActuator.tpp" />
     <None Include="src\Framework\Tweens\TweensManager.tpp" />
     <None Include="src\Framework\Utils\CustomMap.tpp">
       <FileType>CppHeader</FileType>

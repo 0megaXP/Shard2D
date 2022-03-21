@@ -72,7 +72,7 @@
     <ClCompile Include="src\Framework\Tweens\TweensManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Tweens\Tween.cpp">
+    <ClCompile Include="src\Framework\Tweens\ITween.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,7 +155,10 @@
     <ClInclude Include="src\Framework\Tweens\TweensManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Tweens\Tween.h">
+    <ClInclude Include="src\Framework\Tweens\ITween.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\TweenActuator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -164,5 +167,6 @@
     <None Include="src\Framework\Events\EventDispatcher.tpp" />
     <None Include="TweensManager.tpp" />
     <None Include="src\Framework\Tweens\TweensManager.tpp" />
+    <None Include="src\Framework\Tweens\TweenActuator.tpp" />
   </ItemGroup>
 </Project>

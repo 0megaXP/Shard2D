@@ -7,7 +7,6 @@
 #include "Management/Managers.h"
 #include "Entities/Entity.h"
 #include "Tweens/TweensManager.h"
-#include "Tweens/Tween.h"
 
 import MathUtils;
 import BooleanUtils;
@@ -110,7 +109,7 @@ void ApplicationMain::Start()
     sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
     sprite->AddEventListener<KeyboardEvent, ApplicationMain>(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
 
-    M_TweensManager->CreateTween(sprite->x);
+    M_TweensManager->CreateTween(sprite->x, sprite->x + 20, 5);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);

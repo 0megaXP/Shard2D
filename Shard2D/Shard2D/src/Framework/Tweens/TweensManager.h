@@ -5,7 +5,7 @@
 
 namespace Shard2D
 {
-	class Tween;
+	class ITween;
 
 	class TweensManager
 	{
@@ -17,12 +17,12 @@ namespace Shard2D
 		friend class Managers;
 
 	private:
-		std::vector<Tween*> _activeTweens;
-		std::vector<Tween*> _createdTweens;
+		std::vector<ITween*> _activeTweens;
+		std::vector<ITween*> _createdTweens;
 		
 	public:
 		template<typename T>
-		Tween* CreateTween(T &value);
+		ITween* CreateTween(T& value, T targetValue, float duration);
 	};
 }
 

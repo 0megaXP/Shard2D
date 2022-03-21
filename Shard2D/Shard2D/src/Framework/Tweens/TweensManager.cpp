@@ -11,7 +11,7 @@ namespace Shard2D
 
 	TweensManager::~TweensManager()
 	{
-		for (Tween* _tween : _createdTweens)
+		for (ITween* _tween : _createdTweens)
 			delete _tween;
 
 		Log("Tweens Manager destroyed!", TextColor::Green);
