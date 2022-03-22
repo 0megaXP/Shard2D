@@ -4,7 +4,7 @@
 #include "../Management/Managers.h"
 #include "../Utils/ShardUtils.h"
 
-#include "KeyboardEvent.h"
+#include "EventTypes/KeyboardEvent.h"
 #include "Keycode.h"
 
 import MathUtils;

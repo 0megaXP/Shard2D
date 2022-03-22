@@ -5,7 +5,7 @@
 
 #include "../Management/Managers.h"
 #include "../ApplicationMain.h"
-#include "../Events/Event.h"
+#include "../Events/EventTypes/Event.h"
 
 namespace Shard2D
 {

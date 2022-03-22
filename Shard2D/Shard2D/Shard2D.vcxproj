@@ -172,7 +172,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="src\Framework\Assets\AssetsManager.cpp" />
     <ClCompile Include="src\Framework\Utils\BooleanUtils.ixx" />
     <ClCompile Include="src\Framework\Clock\ClockManager.cpp" />
-    <ClCompile Include="src\Framework\Events\Event.cpp" />
+    <ClCompile Include="src\Framework\Events\EventTypes\Event.cpp" />
     <ClCompile Include="src\Framework\Events\EventDispatcher.cpp" />
     <ClCompile Include="src\Framework\Management\GameManager.cpp" />
     <ClCompile Include="src\Framework\Graphic\GraphicManager.cpp" />
@@ -185,6 +185,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="src\Framework\Tweens\ITween.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Framework\Events\EventTypes\TweenEvent.h" />
     <ClInclude Include="src\Framework\Tweens\TweensManager.h" />
     <ClInclude Include="src\Framework\Events\EventCallback.h" />
     <ClInclude Include="src\Framework\Entities\EntitiesManager.h" />
@@ -192,9 +193,9 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="src\Framework\Entities\Sprite.h" />
     <ClInclude Include="src\Framework\Entities\TextField.h" />
     <ClInclude Include="src\Framework\Events\Keycode.h" />
-    <ClInclude Include="src\Framework\Events\KeyboardEvent.h" />
+    <ClInclude Include="src\Framework\Events\EventTypes\KeyboardEvent.h" />
     <ClInclude Include="src\Framework\Events\EventsManager.h" />
-    <ClInclude Include="src\Framework\Events\MouseEvent.h" />
+    <ClInclude Include="src\Framework\Events\EventTypes\MouseEvent.h" />
     <ClInclude Include="src\Framework\Events\EventListener.h" />
     <ClInclude Include="src\Framework\Utils\ShardUtils.h" />
     <ClInclude Include="src\Framework\Assets\AssetsManager.h" />
@@ -202,7 +203,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClInclude Include="src\Framework\Assets\CustomFont.h" />
     <ClInclude Include="src\Framework\Utils\CustomIOStream.h" />
     <ClInclude Include="src\Framework\Utils\CustomMap.h" />
-    <ClInclude Include="src\Framework\Events\Event.h" />
+    <ClInclude Include="src\Framework\Events\EventTypes\Event.h" />
     <ClInclude Include="src\Framework\Events\EventDispatcher.h" />
     <ClInclude Include="src\Framework\Management\GameManager.h" />
     <ClInclude Include="src\Framework\Graphic\GraphicManager.h" />

@@ -2,9 +2,9 @@
 
 #include <stdexcept>
 
-#include "Event.h"
-#include "MouseEvent.h"
-#include "KeyboardEvent.h"
+#include "EventTypes/Event.h"
+#include "EventTypes/MouseEvent.h"
+#include "EventTypes/KeyboardEvent.h"
 
 namespace Shard2D
 {

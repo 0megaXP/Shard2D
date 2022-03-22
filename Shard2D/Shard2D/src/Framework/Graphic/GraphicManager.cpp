@@ -6,7 +6,7 @@
 #include "../Entities/Entity.h"
 #include "../Utils/ShardUtils.h"
 #include "../Management/Managers.h"
-#include "../Events/Event.h"
+#include "../Events/EventTypes/Event.h"
 
 import MathUtils;
 

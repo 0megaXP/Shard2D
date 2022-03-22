@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../Utils/ShardUtils.h"
-#include "Event.h"
-#include "MouseEvent.h"
+#include "EventTypes/Event.h"
+#include "EventTypes/MouseEvent.h"
 #include "EventCallback.h"
 
 namespace Shard2D

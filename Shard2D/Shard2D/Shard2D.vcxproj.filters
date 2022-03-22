@@ -48,7 +48,7 @@
     <ClCompile Include="src\Framework\Events\EventDispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Events\Event.cpp">
+    <ClCompile Include="src\Framework\Events\EventTypes\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Framework\Clock\ClockManager.cpp">
@@ -104,7 +104,7 @@
     <ClInclude Include="src\Framework\Events\EventDispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Events\Event.h">
+    <ClInclude Include="src\Framework\Events\EventTypes\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Utils\CustomMap.h">
@@ -134,13 +134,13 @@
     <ClInclude Include="src\Framework\Events\EventListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Events\MouseEvent.h">
+    <ClInclude Include="src\Framework\Events\EventTypes\MouseEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Events\EventsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Events\KeyboardEvent.h">
+    <ClInclude Include="src\Framework\Events\EventTypes\KeyboardEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Events\Keycode.h">
@@ -159,6 +159,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Tweens\TweenActuator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Events\EventTypes\TweenEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

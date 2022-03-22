@@ -2,8 +2,8 @@
 
 #include "../Framework/Entities/Sprite.h"
 #include "../Framework/Entities/TextField.h"
-#include "Events/MouseEvent.h"
-#include "Events/KeyboardEvent.h"
+#include "Events/EventTypes/MouseEvent.h"
+#include "Events/EventTypes/KeyboardEvent.h"
 
 class ApplicationMain
 {

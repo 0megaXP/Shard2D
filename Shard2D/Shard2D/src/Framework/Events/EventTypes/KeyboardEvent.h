@@ -3,7 +3,7 @@
 #include <string>
 
 #include "Event.h"
-#include "Keycode.h"
+#include "../Keycode.h"
 
 namespace Shard2D
 {

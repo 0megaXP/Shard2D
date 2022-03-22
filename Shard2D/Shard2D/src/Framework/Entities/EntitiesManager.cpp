@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "../Management/Managers.h"
 #include "../Utils/ShardUtils.h"
-#include "../Events/Event.h"
+#include "../Events/EventTypes/Event.h"
 
 namespace Shard2D
 {
