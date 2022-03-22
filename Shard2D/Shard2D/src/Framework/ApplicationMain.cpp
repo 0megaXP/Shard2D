@@ -4,7 +4,6 @@
 
 #include "Management/Managers.h"
 #include "Utils/ShardUtils.h"
-#include "Management/Managers.h"
 #include "Entities/Entity.h"
 #include "Tweens/TweensManager.h"
 
@@ -46,7 +45,7 @@ void ApplicationMain::Start()
     sprite->SetVisibility(true);
     sprite->scaleX = 0.5f;
     sprite->scaleY = 0.5f;
-    sprite->x = 640.f;
+    sprite->x = 0.f;
     sprite->y = 360.f;
     sprite->color = SDL_Color(0, 0, 255, 255);
     sprite->a = 1.f;
@@ -109,7 +108,8 @@ void ApplicationMain::Start()
     sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
     sprite->AddEventListener<KeyboardEvent, ApplicationMain>(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
 
-    M_TweensManager->CreateTween(sprite->x, sprite->x + 20, 5);
+    ITween* a = M_TweensManager->CreateTween(sprite->x, 200.f, 10);
+    M_TweensManager->StartTween(a);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);

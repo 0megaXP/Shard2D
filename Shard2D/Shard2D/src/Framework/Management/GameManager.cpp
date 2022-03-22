@@ -48,6 +48,9 @@ namespace Shard2D
 
             M_EventsManager->CatchInputs();
 
+            //Tween Update
+            M_TweensManager->UpdateTweens();
+
             // Logic update
             appMain->Update();
             for (Entity* object : M_EntitiesManager->_stagedEntities)

@@ -19,24 +19,29 @@ namespace Shard2D
 		T _target;
 		float _totalDuration;
 		float _delay = 0;
-		//Ease
+		EaseType::Type _ease = EaseType::Linear;
 		bool _reflect = false;
 		int _repeat = 0;
 
 	private:
+		float _distanceToCover = 0;
 		float _actualDuration = 0;
 		int _repeatCount = 0;
+		bool _reflecting = false;
+		float _deltaDifference = 0;
 
 
 	public:
 		ITween* Delay(float delay);
-		ITween* Ease(/*ease*/);
+		ITween* Ease(EaseType::Type ease);
 		ITween* Reflect(bool reflect);
 		ITween* Repeat(int times);
 
 	protected:
 
-		void UpdateValue();
+		void UpdateValue(float deltaTime);
+
+		void SetupForStart();
 	};
 }
 

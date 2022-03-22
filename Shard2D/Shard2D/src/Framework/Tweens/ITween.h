@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Events/EventDispatcher.h"
+#include "Easing/IEasing.h"
 
 namespace Shard2D
 {
@@ -14,12 +15,14 @@ namespace Shard2D
 
 	public:
 		virtual ITween* Delay(float delay) = 0;
-		virtual ITween* Ease(/*ease*/) = 0;
+		virtual ITween* Ease(EaseType::Type ease) = 0;
 		virtual ITween* Reflect(bool reflect) = 0;
 		virtual ITween* Repeat(int times) = 0;
 
 	protected:
-		virtual void UpdateValue() = 0;
+		virtual void UpdateValue(float deltaTime) = 0;
+
+		virtual void SetupForStart() = 0;
 
 	};
 }
