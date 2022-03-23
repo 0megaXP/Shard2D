@@ -6,10 +6,7 @@ namespace Shard2D
 {
 	template<typename T>
 	TweenActuator<T>::TweenActuator(T& newValue, T newTargetValue, float newDuration)
-		: _value(newValue), _start(newValue), _target(newTargetValue), _totalDuration(newDuration), _actualStart(newValue)
-	{
-
-	}
+		: _value(newValue), _start(newValue), _target(newTargetValue), _totalDuration(newDuration), _actualStart(newValue) {}
 
 	template<typename T>
 	TweenActuator<T>::~TweenActuator() 
@@ -73,6 +70,7 @@ namespace Shard2D
 	template<typename T>
 	void TweenActuator<T>::SetupForStart()
 	{
+		// The delay is applied directly to the duration as negative value
 		_actualDuration = _delay > 0 ? -_delay : 0;
 		_repeatCount = 1;
 		_reflecting = false;

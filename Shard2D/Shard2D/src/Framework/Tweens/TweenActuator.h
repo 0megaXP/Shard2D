@@ -14,9 +14,9 @@ namespace Shard2D
 		friend class TweensManager;
 
 	protected:
-		T& _value;
-		T _start;
-		T _target;
+		T& _value;	// The reference to the value to animate
+		T _start;	// The starting value saved from the reference value
+		T _target;	// The target value of the animation
 		float _totalDuration;
 		float _delay = 0;
 		EaseType::Type _ease = EaseType::Linear;
@@ -26,14 +26,15 @@ namespace Shard2D
 	private:
 		float _distanceToCover = 0;
 		float _actualDuration = 0;
-		T _actualStart;
-		bool _delayOnRepeat = false;
+		T _actualStart;	// The starting point used as placeholder for not changing the real one
+		bool _delayOnRepeat = false;	// If the delay affects the repeated animations
 		int _repeatCount = 0;
-		bool _reflecting = false;
-		float _deltaDifference = 0;
+		bool _reflecting = false;	// If the actual animation is a reflection
+		float _deltaDifference = 0;	// Used for concatenate correctly the repeated animation with the previous delta time
 
 
 	public:
+		// Inteface functions
 		ITween* Delay(float delay, bool onRepeat = false);
 		ITween* Ease(EaseType::Type ease);
 		ITween* Reflect(bool reflect);
@@ -41,12 +42,17 @@ namespace Shard2D
 
 	protected:
 
+		// Inteface functions
 		void UpdateValue(float deltaTime);
-
 		void SetupForStart();
 
+		/*
+			Setup all values for the repeat animations		
+		*/
 		void SetupForRepeat();
-
+		/*
+			When the animation is completed, this function manages the post animation conditions
+		*/
 		void TweenPhaseCompleted();
 	};
 }

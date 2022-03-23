@@ -2,10 +2,7 @@
 
 namespace Shard2D
 {
-	ITween::ITween()
-	{
-
-	}
+	ITween::ITween() {}
 
 	ITween::~ITween()
 	{

@@ -8,10 +8,7 @@
 
 namespace Shard2D
 {
-	TweensManager::TweensManager()
-	{
-
-	}
+	TweensManager::TweensManager() {}
 
 	TweensManager::~TweensManager()
 	{
