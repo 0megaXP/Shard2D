@@ -9,6 +9,6 @@ namespace Shard2D
 
 	ITween::~ITween()
 	{
-
+		Log("Tween destroyed!", TextColor::Aqua);
 	}
 }

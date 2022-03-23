@@ -26,13 +26,15 @@ namespace Shard2D
 	private:
 		float _distanceToCover = 0;
 		float _actualDuration = 0;
+		T _actualStart;
+		bool _delayOnRepeat = false;
 		int _repeatCount = 0;
 		bool _reflecting = false;
 		float _deltaDifference = 0;
 
 
 	public:
-		ITween* Delay(float delay);
+		ITween* Delay(float delay, bool onRepeat = false);
 		ITween* Ease(EaseType::Type ease);
 		ITween* Reflect(bool reflect);
 		ITween* Repeat(int times);
@@ -42,6 +44,10 @@ namespace Shard2D
 		void UpdateValue(float deltaTime);
 
 		void SetupForStart();
+
+		void SetupForRepeat();
+
+		void TweenPhaseCompleted();
 	};
 }
 

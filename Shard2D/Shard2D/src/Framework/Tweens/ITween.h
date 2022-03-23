@@ -14,9 +14,9 @@ namespace Shard2D
 		friend class TweensManager;
 
 	public:
-		virtual ITween* Delay(float delay) = 0;
+		virtual ITween* Delay(float delay, bool onRepeat = false) = 0;
 		virtual ITween* Ease(EaseType::Type ease) = 0;
-		virtual ITween* Reflect(bool reflect) = 0;
+		virtual ITween* Reflect(bool reflect = true) = 0;
 		virtual ITween* Repeat(int times) = 0;
 
 	protected:
