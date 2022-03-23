@@ -9,9 +9,16 @@ namespace Shard2D
 		typedef enum 
 		{
 			Linear,
-			SineIn,
-			SineOut,
-			SineInOut
+			SineIn,		SineOut,	SineInOut,
+			QuadIn,		QuadOut,	QuadInOut,
+			CubicIn,	CubicOut,	CubicInOut,
+			QuartIn,	QuartOut,	QuartInOut,
+			QuintIn,	QuintOut,	QuintInOut,
+			ExpoIn,		ExpoOut,	ExpoInOut,
+			CircIn,		CircOut,	CircInOut,
+			BackIn,		BackOut,	BackInOut,
+			ElasticIn,	ElasticOut,	ElasticInOut,
+			BounceIn,	BounceOut,	BounceInOut
 		} Type;
 	}
 
@@ -22,8 +29,5 @@ namespace Shard2D
 		~IEasing() {};
 
 		virtual double Calculate(double k) = 0;
-
-	protected:
-		virtual void SetupForStart() = 0;
 	};
 }

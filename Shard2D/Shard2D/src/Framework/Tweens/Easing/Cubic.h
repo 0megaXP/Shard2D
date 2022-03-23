@@ -7,36 +7,36 @@
 
 namespace Shard2D
 {
-	class SineIn : public IEasing
+	class CubicIn : public IEasing
 	{
 	public:
-		SineIn() { };
+		CubicIn() { };
 
 		static double Calculate(double k)
 		{
-			return 1 - cos(k * (M_PI / 2));
+			return k * k * k;
 		}
 	};
 
-	class SineOut : public IEasing
+	class CubicOut : public IEasing
 	{
 	public:
-		SineOut() { };
+		CubicOut() { };
 
 		static double Calculate(double k)
 		{
-			return sin(k * (M_PI / 2));
+			return 1 - pow(1 - k, 3);
 		}
 	};
 
-	class SineInOut : public IEasing
+	class CubicInOut : public IEasing
 	{
 	public:
-		SineInOut() { };
+		CubicInOut() { };
 
 		static double Calculate(double k)
 		{
-			return -(cos(M_PI * k) - 1) / 2;
+			return k < 0.5 ? 4 * k * k * k : 1 - pow(-2 * k + 2, 3) / 2;
 		}
 	};
 }

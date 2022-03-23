@@ -173,6 +173,33 @@
     <ClInclude Include="src\Framework\Tweens\Easing\Sine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Elastic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Quad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Cubic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Quart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Quint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Expo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Circ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Back.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Tweens\Easing\Bounce.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Framework\Utils\CustomMap.tpp" />

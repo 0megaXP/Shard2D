@@ -108,7 +108,7 @@ void ApplicationMain::Start()
     sprite->AddEventListener<MouseEvent>(MouseEvent::EndOverlap, &MouseEndOverlap);
     sprite->AddEventListener<KeyboardEvent, ApplicationMain>(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
 
-    ITween* a = M_TweensManager->CreateTween(sprite->x, 200.f, 2)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
+    ITween* a = M_TweensManager->CreateTween(sprite->x, 1000.f, 3)->Ease(EaseType::BounceOut)->Repeat(-1)->Reflect()->Delay(1);
     M_TweensManager->StartTween(a);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
