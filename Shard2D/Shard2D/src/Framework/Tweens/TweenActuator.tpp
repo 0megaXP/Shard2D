@@ -50,10 +50,10 @@ namespace Shard2D
 		_deltaDifference = 0;
 		// k is the time value used during the ease calculation
 		float k = _actualDuration > 0 ? _actualDuration / _totalDuration : 0;
-		if (k > _totalDuration)
+		if (k > 1)
 		{
-			_deltaDifference = k - _totalDuration;
-			k = _totalDuration;
+			_deltaDifference = _totalDuration - _actualDuration;
+			k = 1;
 		}
 
 		double incrementNormalized = Managers::tweensManager->GetEaseCalculation(_ease, k);
