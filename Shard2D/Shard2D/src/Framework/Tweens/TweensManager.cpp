@@ -27,7 +27,7 @@ namespace Shard2D
 		Log("Tweens Manager destroyed!", TextColor::Green);
 	}
 
-	void TweensManager::StartTween(ITween* tween, bool interruptActiveTween)
+	void TweensManager::StartTweenAnimation(ITween* tween, bool interruptActiveTween)
 	{
 		if (!FindTween(tween))
 		{
@@ -40,7 +40,7 @@ namespace Shard2D
 		}
 	}
 
-	void TweensManager::StopTween(ITween* tween, bool runCompleteEvent)
+	void TweensManager::StopTweenAnimation(ITween* tween, bool runCompleteEvent)
 	{
 		if (FindTween(tween))
 		{

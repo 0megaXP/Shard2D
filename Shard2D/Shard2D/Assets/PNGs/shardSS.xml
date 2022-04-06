@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:585a5cc56a34006852ee39a5edcf97c2:eb2de61d627f029236cbe1b007bdd647:a65d31223ddc34d867539035d86ad97a$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="shardSS.png" width="685" height="941">
+    <sprite n="Doge.png" x="1" y="1" w="512" h="512"/>
+    <sprite n="Last_Defenders.png" x="428" y="515" w="256" h="256"/>
+    <sprite n="RedPoint.png" x="1" y="515" w="425" h="425" oX="207" oY="39" oW="840" oH="503"/>
+</TextureAtlas>

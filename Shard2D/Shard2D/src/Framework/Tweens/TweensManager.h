@@ -7,6 +7,32 @@
 
 namespace Shard2D
 {
+	/*
+			Creates and returns a tween value as ITween ptr. You should always create tweens with this function for a better memory management. Once created, you must store the tween inside
+			an ITween ptr value and setup it with its functions. The tween doesn't start with this function. You have to call the StartTween functon from the TweensManager.
+
+			@param value:			The value to animate.
+			@param targetValue:		The target value of the animation.
+			@param duration:		The duration of the animation in seconds.
+		*/
+#define CreateTween Managers::tweensManager->CreateTweenAnimation
+	/*
+		Set the tween as active and start to update its value. If the tween is already running, you can decide if overwrite it or delete the start function and let the previous animation to
+		carry on.
+
+		@param tween:			The tween to start.
+		@param interruptActiveTween:	If the already running tween must be interrupted and restarted from the beginnning (the default value is false).
+	*/
+#define StartTween Managers::tweensManager->StartTweenAnimation
+	/*
+		Stops immediatly the tween animation and removes it from the active tweens. You can decide to still run the complete event.
+
+		@param tween:			The tween to stop.
+		@param runCompleteEvent:	If the complete event must stil be called (the default value is false).
+	*/
+#define StopTween Managers::tweensManager->StopTweenAnimation
+
+
 	class ITween;
 	class TweenEvent;
 
@@ -34,7 +60,7 @@ namespace Shard2D
 			@param duration:		The duration of the animation in seconds.
 		*/
 		template<typename T>
-		ITween* CreateTween(T& value, T targetValue, float duration);
+		ITween* CreateTweenAnimation(T& value, T targetValue, float duration);
 		/*
 			Set the tween as active and start to update its value. If the tween is already running, you can decide if overwrite it or delete the start function and let the previous animation to
 			carry on.
@@ -42,14 +68,14 @@ namespace Shard2D
 			@param tween:			The tween to start.
 			@param interruptActiveTween:	If the already running tween must be interrupted and restarted from the beginnning (the default value is false).
 		*/
-		void StartTween(ITween* tween, bool interruptActiveTween = false);
+		void StartTweenAnimation(ITween* tween, bool interruptActiveTween = false);
 		/*
 			Stops immediatly the tween animation and removes it from the active tweens. You can decide to still run the complete event.
 
 			@param tween:			The tween to stop.
 			@param runCompleteEvent:	If the complete event must stil be called (the default value is false).
 		*/
-		void StopTween(ITween* tween, bool runCompleteEvent = false);
+		void StopTweenAnimation(ITween* tween, bool runCompleteEvent = false);
 		/*
 			Returns the value from the ease calculation based on the easeType and the k value passed.
 		*/
