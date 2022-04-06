@@ -1,10 +1,17 @@
+#define SDL_MAIN_HANDLED
+
 #include <iostream>
 
 #include "src/Framework/Management/Kickstart.h"
+#include "src/Framework/ApplicationMain.h"
 
 int main()
 {
-    Shard2D::Init();
+    ApplicationMain* newMain = new ApplicationMain();
+
+    Shard2D::Init(newMain);
+
+    delete newMain;
 
     std::cout << "Hello World!\n";
 

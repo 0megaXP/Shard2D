@@ -2,7 +2,9 @@
 
 namespace Shard2D
 {
-	void Init();
+	class IMain;
+
+	void Init(IMain* newMain);
 	void Close();
 }
 

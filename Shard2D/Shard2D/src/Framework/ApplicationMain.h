@@ -4,8 +4,9 @@
 #include "../Framework/Entities/TextField.h"
 #include "Events/EventTypes/MouseEvent.h"
 #include "Events/EventTypes/KeyboardEvent.h"
+#include "Management/IMain.h"
 
-class ApplicationMain
+class ApplicationMain : public Shard2D::IMain
 {
 public:
 	ApplicationMain();

@@ -185,6 +185,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
     <ClCompile Include="src\Framework\Tweens\ITween.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Framework\Management\IMain.h" />
     <ClInclude Include="src\Framework\Tweens\Easing\Back.h" />
     <ClInclude Include="src\Framework\Tweens\Easing\Bounce.h" />
     <ClInclude Include="src\Framework\Tweens\Easing\Circ.h" />

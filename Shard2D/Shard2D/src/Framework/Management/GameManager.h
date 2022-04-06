@@ -1,9 +1,8 @@
 #pragma once
 
-class ApplicationMain;
-
 namespace Shard2D
 {
+	class IMain;
 	class ClockManager;
 	class GraphicManager;
 
@@ -18,10 +17,10 @@ namespace Shard2D
 		bool _updating = false;
 		bool _exitGame = false;
 
-		ApplicationMain* appMain;
+		IMain* appMain;
 
 	public:
-		void SetupGame();
+		void SetupGame(IMain* newMain);
 
 		/*
 		Function called to close the application. Use this function for a properly memory deallocation

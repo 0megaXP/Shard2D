@@ -6,6 +6,7 @@
 #include "../Management/Managers.h"
 #include "../ApplicationMain.h"
 #include "../Events/EventTypes/Event.h"
+#include "IMain.h"
 
 namespace Shard2D
 {
@@ -19,9 +20,9 @@ namespace Shard2D
         std::cout << "GameManager destroyed!" << std::endl;
     }
 
-    void GameManager::SetupGame()
+    void GameManager::SetupGame(IMain* newMain)
     {
-        appMain = new ::ApplicationMain();
+        appMain = newMain;
     }
 
     void GameManager::ExitGame()

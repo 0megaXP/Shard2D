@@ -32,8 +32,6 @@ namespace Shard2D
 		SDL_Surface* _winSurface;
 #endif
 
-		int renderingType = TEXTURE_RENDERING;
-
 		friend class GameManager;
 
 	public:
