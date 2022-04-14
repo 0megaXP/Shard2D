@@ -1,5 +1,3 @@
-#define SDL_MAIN_HANDLED
-
 #include <iostream>
 
 #include "src/Framework/Management/Kickstart.h"

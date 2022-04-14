@@ -95,6 +95,15 @@ namespace Shard2D
 		short GlobalSelfFixedY() const;
 
 		/*
+		Return the GambeObject's x offset caused by a parent scaleX
+		*/
+		short GlobalScaleFixedX() const;
+		/*
+		Return the GambeObject's y offset caused by a parent scaleY
+		*/
+		short GlobalScaleFixedY() const;
+
+		/*
 		Reset all the value used for the position fixing during the rendering
 		*/
 		void ResetFixedValues();

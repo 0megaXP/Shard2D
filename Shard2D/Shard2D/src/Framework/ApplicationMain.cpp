@@ -45,19 +45,19 @@ void ApplicationMain::Start()
     sprite->SetVisibility(true);
     sprite->scaleX = 0.5f;
     sprite->scaleY = 0.5f;
-    sprite->x = 0.f;
+    sprite->x = 500.f;
     sprite->y = 360.f;
     sprite->color = SDL_Color(0, 0, 255, 255);
     sprite->a = 1.f;
-    sprite->rotation = 45;
+    sprite->rotation = 0;
     sprite->centerPivot = true;
     Log("This new sprite is" + std::to_string(sizeof(*sprite)) + "KB");
 
-    childSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Last_Defenders"));
+    childSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Doge"));
     childSprite->scaleX = 0.5f;
     childSprite->scaleY = 0.5f;
-    childSprite->x = 128.f;
-    childSprite->y = 128.f;
+    childSprite->x = childSprite->width / 4;
+    childSprite->y = childSprite->height / 4;
     sprite->AddChild(childSprite);
     childSprite->a = 1;
     childSprite->centerPivot = true;
@@ -66,10 +66,10 @@ void ApplicationMain::Start()
     for (int i = 0; i < 1; i++)
     {
         superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Doge"));
-        superChildSprite->scaleX = 0.30f;
-        superChildSprite->scaleY = 0.30f;
-        superChildSprite->x = 64.f;
-        superChildSprite->y = 64.f;
+        superChildSprite->scaleX = 0.5f;
+        superChildSprite->scaleY = 0.5f;
+        superChildSprite->x = -superChildSprite->width / 4;
+        superChildSprite->y = superChildSprite->height / 4;
         childSprite->AddChild(superChildSprite);
         superChildSprite->a = 1.f;
         superChildSprite->centerPivot = true;
@@ -109,13 +109,15 @@ void ApplicationMain::Start()
     sprite->AddEventListener(MouseEvent::EndOverlap, &MouseEndOverlap);
     sprite->AddEventListener(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
 
-    ITween* a = CreateTween(sprite->x, 1280.f, 3)->Ease(EaseType::BounceOut)->Repeat(-1)->Reflect()->Delay(3);
-    StartTween(a);
+    //ITween* a = CreateTween(sprite->x, 1280.f, 3)->Ease(EaseType::BounceOut)->Repeat(-1)->Reflect()->Delay(3);
+    //StartTween(a);
 
-    ITween* b = CreateTween(sprite->scaleX, 1.25f, 0.5f)->Ease(EaseType::SineInOut)->Repeat(4)->Reflect()->Delay(1);
-    ITween* c = CreateTween(sprite->scaleY, 1.25f, 0.5f)->Ease(EaseType::SineInOut)->Repeat(4)->Reflect()->Delay(1);
+    ITween* b = CreateTween(sprite->scaleX, 1.25f, 0.5f)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
+    ITween* c = CreateTween(sprite->scaleY, 1.25f, 0.5f)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
+    ITween* d = CreateTween(sprite->rotation, 360.f, 2.f)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
     StartTween(b);
     StartTween(c);
+    StartTween(d);
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
@@ -130,6 +132,8 @@ void ApplicationMain::Update()
         sprite->RemoveEventListener<KeyboardEvent, ApplicationMain>(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
         std::cout << "EventListener Removed!" << std::endl;
     }*/
+
+    Log(sprite->rotation);
 
     if (sprite->HasEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap))
     {

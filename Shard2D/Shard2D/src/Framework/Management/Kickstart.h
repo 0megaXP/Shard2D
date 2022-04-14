@@ -1,5 +1,7 @@
 #pragma once
 
+#define SDL_MAIN_HANDLED
+
 namespace Shard2D
 {
 	class IMain;

@@ -117,9 +117,9 @@ namespace Shard2D
 		if (_entity->Parent() != nullptr)
 		{
 			// Now the centre of the circumference is the parent global position
-			Vector2 centre = Vector2(_entity->Parent()->GlobalX(), _entity->Parent()->GlobalY());
+			Vector2 centre = Vector2(_entity->Parent()->GlobalX() + _entity->Parent()->GlobalScaleFixedX(), _entity->Parent()->GlobalY() + _entity->Parent()->GlobalScaleFixedY());
 			// Here we must use the global position, because the rendering position is already affected by the selfFixed values
-			float radius = Distance(Vector2(_entity->GlobalX(), _entity->GlobalY()), centre);
+			float radius = Distance(Vector2(_entity->GlobalX() + _entity->GlobalScaleFixedX(), _entity->GlobalY() + _entity->GlobalScaleFixedY()), centre);
 			if (radius > 0)
 			{
 				Vector2 _objectLocalPosition = Vector2(_entity->x, _entity->y);
@@ -186,7 +186,7 @@ namespace Shard2D
 			FixPositionForParentRotation(_entity);
 
 			// Set the final rendering position for future needs
-			if (_entity->GlobalRotation() != 0 && _entity->centerPivot)
+			/*if (_entity->GlobalRotation() != 0 && _entity->centerPivot)
 			{
 				// Adjust the position with the rotation of the texture
 				_entity->_finalFixedX = (short)(_entity->RenderingX() - _entity->_pivotOffsetX + PositionFromDeg(225 + _entity->GlobalRotation()).x * _entity->width / 2 * _entity->GlobalScaleX() / -PositionFromDeg(225).x);
@@ -196,7 +196,7 @@ namespace Shard2D
 			{
 				_entity->_finalFixedX = _entity->RenderingX();
 				_entity->_finalFixedY = _entity->RenderingY();
-			}
+			}*/
 
 			// Setting the rendering rect
 			SDL_Rect _tempRect = SDL_Rect();

@@ -66,6 +66,22 @@ namespace Shard2D
 			return _parent->GlobalSelfFixedY() + _selfFixedY;
 	}
 
+	short Entity::GlobalScaleFixedX() const
+	{
+		if (_parent == nullptr)
+			return 0;
+		else
+			return _parent->GlobalScaleFixedX() + x * (_parent->GlobalScaleX() - 1);
+	}
+
+	short Entity::GlobalScaleFixedY() const
+	{
+		if (_parent == nullptr)
+			return 0;
+		else
+			return _parent->GlobalScaleFixedY() + y * (_parent->GlobalScaleY() - 1);
+	}
+
 	short Entity::GlobalPivotOffsetX() const
 	{
 		return GlobalX() + _pivotOffsetX;
