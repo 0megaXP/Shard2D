@@ -15,11 +15,14 @@ using namespace Shard2D;
 void MouseBeginOverlap(MouseEvent* _event)
 {
     Shard2D::Log("Begin Overlap");
+
+    
 }
 
 void MouseEndOverlap(MouseEvent* _event)
 {
     Shard2D::Log("End overlap");
+    //M_GraphicManager->ResizeWindow(1920, 1080, WindowType::FullScreen);
 }
 
 void KeyPressed(KeyboardEvent* _event)
@@ -135,12 +138,12 @@ void ApplicationMain::Update()
 
     //Log(sprite->rotation);
 
-    if (sprite->HasEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap))
-    {
-        std::cout << "EventListener Found!" << std::endl;
-        sprite->RemoveEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
-        std::cout << "EventListener Removed!" << std::endl;
-    }
+    //if (sprite->HasEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap))
+    //{
+        //std::cout << "EventListener Found!" << std::endl;
+        //sprite->RemoveEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap);
+        //std::cout << "EventListener Removed!" << std::endl;
+    //}
 
     fpsCounter->SetText("FPS: " + std::to_string(int(M_ClockManager->GetFPS())));
 
@@ -195,4 +198,5 @@ void ApplicationMain::Update()
 void ApplicationMain::TestMethod(KeyboardEvent* _event)
 {
     std::cout << "Method events work!" << std::endl;
+    M_GraphicManager->ResizeWindow(1920, 1080, WindowType::FullScreen);
 }

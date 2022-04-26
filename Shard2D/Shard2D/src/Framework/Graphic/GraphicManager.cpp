@@ -33,6 +33,19 @@ namespace Shard2D
 		return SDL_CreateTextureFromSurface(_winRenderer, surface);
 	}
 
+	void GraphicManager::ResizeWindow(Uint16 widthResolution, Uint16 heightResolution, WindowType::Type windowType)
+	{
+		if (widthResolution != _widthResolution ||
+			heightResolution != _heightResolution ||
+			windowType != _windowType)
+		{
+			_widthResolution = widthResolution;
+			_heightResolution = heightResolution;
+			_windowType = windowType;
+			_resizeWindow = true;
+		}
+	}
+
 	void GraphicManager::Init()
 	{
 		if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -42,7 +55,7 @@ namespace Shard2D
 			return;
 		}
 
-		_window = SDL_CreateWindow("Pathfinding Algorithms Evaluation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
+		_window = SDL_CreateWindow(_windowName.c_str() , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _widthResolution, _heightResolution, _windowType);
 		if (!_window)
 		{
 			Log("Error creating window: " + *SDL_GetError(), TextColor::Red);
@@ -162,5 +175,20 @@ namespace Shard2D
 		}
 
 		SDL_RenderPresent(_winRenderer);
+
+		if (_resizeWindow)
+			ApplyResize();
+	}
+
+	void GraphicManager::ApplyResize()
+	{
+		SDL_SetWindowSize(_window, _widthResolution, _heightResolution);
+		SDL_SetWindowFullscreen(_window, _windowType);
+		SDL_SetWindowTitle(_window, _windowName.c_str());
+
+		SDL_SetRenderDrawColor(_winRenderer, 0, 0, 0, 255);
+		SDL_UpdateWindowSurface(_window);
+
+		_resizeWindow = false;
 	}
 }
