@@ -63,7 +63,7 @@ namespace Shard2D
         if (!textSurface)
         {
             Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);
-            _image = std::shared_ptr<TextureImage>(new TextureImage(nullptr));
+            _image = std::shared_ptr<Image>(new Image(nullptr));
             SDL_FreeSurface(textSurface);
         }
         else
@@ -71,7 +71,7 @@ namespace Shard2D
             _image.reset();
             SDL_Texture* textTexture = M_GraphicManager->CreateTexture(textSurface);
             SDL_FreeSurface(textSurface);
-            _image = std::shared_ptr<TextureImage>(new TextureImage(textTexture));
+            _image = std::shared_ptr<Image>(new Image(textTexture));
         }
     }
 

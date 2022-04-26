@@ -57,10 +57,10 @@
     <ClCompile Include="src\Framework\Assets\AssetsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Utils\BooleanUtils.ixx">
+    <ClCompile Include="src\Framework\Modules\BooleanUtils.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Utils\MathUtils.ixx">
+    <ClCompile Include="src\Framework\Modules\MathUtils.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Framework\ApplicationMain.cpp">

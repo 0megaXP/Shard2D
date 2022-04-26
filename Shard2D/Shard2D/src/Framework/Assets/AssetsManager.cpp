@@ -20,22 +20,15 @@ namespace Shard2D
 		Log("AssetsManager destroyed!", TextColor::Purple);
 	}
 
-	SurfaceImage* AssetsManager::GetSurfaceImagePNG(const std::string path)
-	{
-		SDL_Surface* newSurface = IMG_Load((assetsPrefix + path + pngSuffix).c_str());
-		SurfaceImage* newImage = new SurfaceImage(newSurface);
-		return newImage;
-	}
-
-	TextureImage* AssetsManager::GetTextureImagePNG(const std::string path)
+	Image* AssetsManager::GetImageFromPNG(const std::string path)
 	{
 		if (_texturesSaved.Contains(path))
-			return new TextureImage(_texturesSaved.Get(path));
+			return new Image(_texturesSaved.Get(path));
 
 		SDL_Surface* newSurface = IMG_Load((assetsPrefix + path + pngSuffix).c_str());
 		SDL_Texture* newTexture = M_GraphicManager->CreateTexture(newSurface);
 		_texturesSaved.Insert(path, newTexture);
-		TextureImage* newImage = new TextureImage(newTexture);
+		Image* newImage = new Image(newTexture);
 		SDL_FreeSurface(newSurface);
 		return newImage;
 	}

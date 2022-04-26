@@ -8,63 +8,16 @@
 
 namespace Shard2D
 {
-#define SURFACE_TYPE "Surface"
-#define TEXTURE_TYPE "Texture"
-
 	struct Image
 	{
 	public:
 		Image() {};
-		~Image() {};
-
-		std::string type;
-
-		virtual float GetWidth() { return 0; };
-
-		virtual float GetHeight() { return 0; };
-
-	private:
-		friend class GraphicManager;
-	};
-
-	struct SurfaceImage : Image
-	{
-	public:
-		SurfaceImage()
+		Image(SDL_Texture* newTexture)
+			: _texture(newTexture) 
 		{
-			type = SURFACE_TYPE;
-		};
-
-		SurfaceImage(SDL_Surface* newSurface)
-			: _surface(newSurface)
-		{
-			type = SURFACE_TYPE;
-		};
-
-		~SurfaceImage() { SDL_FreeSurface(_surface); };
-
-	private:
-		SDL_Surface* _surface;
-
-		friend class GraphicManager;
-	};
-
-	struct TextureImage : Image
-	{
-	public:
-		TextureImage()
-		{
-			type = TEXTURE_TYPE;
-		};
-
-		TextureImage(SDL_Texture* newTexture)
-			: _texture(newTexture)
-		{
-			type = TEXTURE_TYPE;
 			SDL_QueryTexture(_texture, &_format, &_access, &_width, &_height);
 		};
-
-		~TextureImage() { SDL_DestroyTexture(_texture); };
+		~Image() { SDL_DestroyTexture(_texture); };
 
 		float GetWidth() { return float(_width); };
 

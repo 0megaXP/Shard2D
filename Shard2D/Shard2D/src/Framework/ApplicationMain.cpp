@@ -40,7 +40,7 @@ void ApplicationMain::Start()
         AddToStage(a);
     }
 
-    sprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Doge"));
+    sprite = new Sprite(M_AssetsManager->GetImageFromPNG("PNGs/Doge"));
     AddToStage(sprite);
     sprite->SetVisibility(true);
     sprite->scaleX = 0.5f;
@@ -53,7 +53,7 @@ void ApplicationMain::Start()
     sprite->centerPivot = true;
     Log("This new sprite is" + std::to_string(sizeof(*sprite)) + "KB");
 
-    childSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Doge"));
+    childSprite = new Sprite(M_AssetsManager->GetImageFromPNG("PNGs/Doge"));
     childSprite->scaleX = 0.5f;
     childSprite->scaleY = 0.5f;
     childSprite->x = childSprite->width / 4;
@@ -65,7 +65,7 @@ void ApplicationMain::Start()
 
     for (int i = 0; i < 1; i++)
     {
-        superChildSprite = new Sprite(M_AssetsManager->GetTextureImagePNG("PNGs/Doge"));
+        superChildSprite = new Sprite(M_AssetsManager->GetImageFromPNG("PNGs/Doge"));
         superChildSprite->scaleX = 0.5f;
         superChildSprite->scaleY = 0.5f;
         superChildSprite->x = -superChildSprite->width / 4;

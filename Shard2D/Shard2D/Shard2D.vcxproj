@@ -84,7 +84,8 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)..\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir)..\SDL2\include;$(IncludePath)</IncludePath>
-    <PublicModuleDirectories>$(ProjectDir)..\Shard2D\src\Framework\Utils;$(PublicModuleDirectories)</PublicModuleDirectories>
+    <PublicModuleDirectories>C:\Users\WM_PC\source\repos\Shard2D\Shard2D\Shard2D\src\Framework\Modules;$(PublicModuleDirectories)</PublicModuleDirectories>
+    <AllProjectBMIsArePublic>true</AllProjectBMIsArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -182,7 +183,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClCompile Include="src\Framework\Entities\TextField.cpp" />
     <ClCompile Include="src\Framework\Events\EventsManager.cpp" />
     <ClCompile Include="src\Framework\Assets\AssetsManager.cpp" />
-    <ClCompile Include="src\Framework\Utils\BooleanUtils.ixx" />
+    <ClCompile Include="src\Framework\Modules\BooleanUtils.ixx" />
     <ClCompile Include="src\Framework\Clock\ClockManager.cpp" />
     <ClCompile Include="src\Framework\Events\EventTypes\Event.cpp" />
     <ClCompile Include="src\Framework\Events\EventDispatcher.cpp" />
@@ -190,7 +191,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClCompile Include="src\Framework\Graphic\GraphicManager.cpp" />
     <ClCompile Include="src\Framework\Management\Kickstart.cpp" />
     <ClCompile Include="src\Framework\Management\Managers.cpp" />
-    <ClCompile Include="src\Framework\Utils\MathUtils.ixx" />
+    <ClCompile Include="src\Framework\Modules\MathUtils.ixx" />
     <ClCompile Include="src\Framework\Utils\MathVectors.cpp" />
     <ClCompile Include="Shard2D.cpp" />
     <ClCompile Include="src\Framework\ApplicationMain.cpp" />
