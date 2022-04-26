@@ -133,7 +133,7 @@ void ApplicationMain::Update()
         std::cout << "EventListener Removed!" << std::endl;
     }*/
 
-    Log(sprite->rotation);
+    //Log(sprite->rotation);
 
     if (sprite->HasEventListener<MouseEvent>(MouseEvent::BeginOverlap, &MouseBeginOverlap))
     {
