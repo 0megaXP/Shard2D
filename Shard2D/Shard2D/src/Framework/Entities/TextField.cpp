@@ -23,9 +23,9 @@ namespace Shard2D
     float TextField::GlobalScaleX() const
     {
         if (Parent() != nullptr)
-            return scaleX * ((float)size / 72) * Parent()->GlobalScaleX();
+            return scaleX * NormalizedSize() * Parent()->GlobalScaleX();
         else
-            return scaleX * ((float)size / 72);
+            return scaleX * NormalizedSize() * M_GraphicManager->GetHorizontalResolutionAdapter();
     }
 
     float TextField::GlobalScaleY() const
@@ -33,7 +33,7 @@ namespace Shard2D
         if (Parent() != nullptr)
             return scaleY * NormalizedSize() * Parent()->GlobalScaleY();
         else
-            return scaleY * NormalizedSize();
+            return scaleY * NormalizedSize() * M_GraphicManager->GetVerticalResolutionAdapter();
     }
 
     void TextField::SetText(std::string newText)

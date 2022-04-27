@@ -117,7 +117,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return short(x + _parent->GlobalX());
 		else
-			return short(x);
+			return short(x * M_GraphicManager->GetHorizontalResolutionAdapter());
 	}
 
 	short Entity::GlobalY() const
@@ -125,7 +125,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return short(y + _parent->GlobalY());
 		else
-			return short(y);
+			return short(y * M_GraphicManager->GetVerticalResolutionAdapter());
 	}
 
 	short Entity::PivotX() const
@@ -173,7 +173,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return scaleX * _parent->GlobalScaleX() * widthScale;
 		else
-			return scaleX * widthScale;
+			return scaleX * widthScale * M_GraphicManager->GetHorizontalResolutionAdapter();
 	}
 
 	float Entity::GlobalScaleY() const
@@ -185,7 +185,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return scaleY * _parent->GlobalScaleY() * heightScale;
 		else
-			return scaleY * heightScale;
+			return scaleY * heightScale * M_GraphicManager->GetVerticalResolutionAdapter();
 	}
 
 	bool Entity::IsVisible() const

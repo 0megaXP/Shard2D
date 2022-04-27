@@ -23,6 +23,7 @@ namespace Shard2D
     void GameManager::SetupGame(IMain* newMain)
     {
         appMain = newMain;
+        appMain->Init();
     }
 
     void GameManager::ExitGame()

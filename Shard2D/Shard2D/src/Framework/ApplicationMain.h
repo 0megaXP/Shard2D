@@ -14,7 +14,7 @@ public:
 private: 
 	friend class Shard2D::GameManager;
 
-	void Start();
+	void Init();
 
 	void Update();
 

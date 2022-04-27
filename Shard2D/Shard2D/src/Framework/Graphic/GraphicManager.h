@@ -27,10 +27,16 @@ namespace Shard2D
 		SDL_Renderer* _winRenderer;
 
 		bool _resizeWindow = false;
-		Uint16 _widthResolution = 1920;
-		Uint16 _heightResolution = 1080;
+		Uint16 _widthResolution = 1280;
+		Uint16 _heightResolution = 720;
 		std::string _windowName = "Application Name";
 		WindowType::Type _windowType = WindowType::Window;
+
+		Uint16 _defaultWidthResolution = 1280;
+		Uint16 _defaultHeightResolution = 720;
+		float _horizontalAdaptationMultiplier = 1;
+		float _verticalAdaptationMultiplier = 1;
+		bool _adaptToResolution = false;
 
 		friend class GameManager;
 
@@ -41,6 +47,12 @@ namespace Shard2D
 		SDL_Texture* CreateTexture(SDL_Surface* surface);
 
 		void ResizeWindow(Uint16 widthResolution, Uint16 heightResolution, WindowType::Type windowType);
+
+		void SetDefaultResolution(Uint16 defaultWidthResolution, Uint16 defaultHeightResolution, bool adaptToResolution);
+
+		float GetHorizontalResolutionAdapter();
+
+		float GetVerticalResolutionAdapter();
 
 	private:
 		void Init();
@@ -54,5 +66,7 @@ namespace Shard2D
 		void RenderScene();
 
 		void ApplyResize();
+
+		void UpdateResolutionAdapters();
 	};
 }

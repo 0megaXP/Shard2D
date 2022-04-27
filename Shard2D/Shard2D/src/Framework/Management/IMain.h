@@ -10,7 +10,7 @@ namespace Shard2D
 	protected:
 		friend class GameManager;
 
-		virtual void Start() = 0;
+		virtual void Init() = 0;
 
 		virtual void Update() = 0;
 	};

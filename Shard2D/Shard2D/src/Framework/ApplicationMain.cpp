@@ -22,7 +22,7 @@ void MouseBeginOverlap(MouseEvent* _event)
 void MouseEndOverlap(MouseEvent* _event)
 {
     Shard2D::Log("End overlap");
-    //M_GraphicManager->ResizeWindow(1920, 1080, WindowType::FullScreen);
+    M_GraphicManager->ResizeWindow(1280, 720, WindowType::Window);
 }
 
 void KeyPressed(KeyboardEvent* _event)
@@ -32,11 +32,13 @@ void KeyPressed(KeyboardEvent* _event)
 
 ApplicationMain::ApplicationMain()
 {
-	Start();
+
 }
 
-void ApplicationMain::Start()
+void ApplicationMain::Init()
 {
+    M_GraphicManager->SetDefaultResolution(1280, 720, true);
+
     for (int i = 0; i < 1; i++)
     {
         Entity* a = new Entity();
@@ -48,7 +50,7 @@ void ApplicationMain::Start()
     sprite->SetVisibility(true);
     sprite->scaleX = 0.5f;
     sprite->scaleY = 0.5f;
-    sprite->x = 500.f;
+    sprite->x = 640.f;
     sprite->y = 360.f;
     sprite->color = SDL_Color(0, 0, 255, 255);
     sprite->a = 1.f;
@@ -121,6 +123,8 @@ void ApplicationMain::Start()
     StartTween(b);
     StartTween(c);
     StartTween(d);
+
+    sprite->rotation = 0;
 
     //sprite->AddEventListener<Event>("TestEvent", &EventDispatched);
     //sprite->AddEventListener<MouseEvent>("TestEvent", &SecondEventDispatched);
@@ -198,5 +202,5 @@ void ApplicationMain::Update()
 void ApplicationMain::TestMethod(KeyboardEvent* _event)
 {
     std::cout << "Method events work!" << std::endl;
-    M_GraphicManager->ResizeWindow(1920, 1080, WindowType::FullScreen);
+    M_GraphicManager->ResizeWindow(640, 360, WindowType::Window);
 }

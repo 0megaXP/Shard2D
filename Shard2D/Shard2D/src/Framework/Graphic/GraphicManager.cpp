@@ -46,6 +46,29 @@ namespace Shard2D
 		}
 	}
 
+	void GraphicManager::SetDefaultResolution(Uint16 defaultWidthResolution, Uint16 defaultHeightResolution, bool adaptToResolution)
+	{
+		if (defaultWidthResolution > 0 &&
+			defaultHeightResolution > 0)
+		{
+			_defaultWidthResolution = defaultWidthResolution;
+			_defaultHeightResolution = defaultHeightResolution;
+			_adaptToResolution = adaptToResolution;
+		}
+
+		UpdateResolutionAdapters();
+	}
+
+	float GraphicManager::GetHorizontalResolutionAdapter()
+	{
+		return _horizontalAdaptationMultiplier;
+	}
+
+	float GraphicManager::GetVerticalResolutionAdapter()
+	{
+		return _verticalAdaptationMultiplier;
+	}
+
 	void GraphicManager::Init()
 	{
 		if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -166,6 +189,9 @@ namespace Shard2D
 
 	void GraphicManager::RenderScene()
 	{
+		if (_resizeWindow)
+			ApplyResize();
+
 		SDL_SetRenderDrawColor(_winRenderer, 0, 0, 0, 255);
 		SDL_RenderClear(_winRenderer);
 
@@ -175,9 +201,6 @@ namespace Shard2D
 		}
 
 		SDL_RenderPresent(_winRenderer);
-
-		if (_resizeWindow)
-			ApplyResize();
 	}
 
 	void GraphicManager::ApplyResize()
@@ -190,5 +213,21 @@ namespace Shard2D
 		SDL_UpdateWindowSurface(_window);
 
 		_resizeWindow = false;
+		UpdateResolutionAdapters();
+	}
+
+	void GraphicManager::UpdateResolutionAdapters()
+	{
+		if (_adaptToResolution)
+		{
+			_horizontalAdaptationMultiplier = (float)_widthResolution / (float)_defaultWidthResolution;
+			_verticalAdaptationMultiplier = (float)_heightResolution / (float)_defaultHeightResolution;
+		}
+		else
+		{
+			_horizontalAdaptationMultiplier = 1;
+			_verticalAdaptationMultiplier = 1;
+		}
+		Log(_horizontalAdaptationMultiplier, TextColor::Yellow);
 	}
 }
