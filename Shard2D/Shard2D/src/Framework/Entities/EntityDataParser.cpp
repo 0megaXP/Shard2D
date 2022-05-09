@@ -1,0 +1,101 @@
+#include "EntityDataParser.h"
+
+#include "Entity.h"
+#include "../Management/Managers.h"
+
+#include "../Graphic/Image.h"
+
+import MathUtils;
+
+namespace Shard2D
+{
+	SDL_Rect EntityDataParser::GetRenderingRect(Entity* entity, Image* image)
+	{
+		SDL_Rect rect = SDL_Rect();
+
+		int pivotOffsetX = 0;
+		int pivotOffsetY = 0;
+		if (entity->centerPivot)
+		{
+			pivotOffsetX = GetPivotOffsetX(entity, image);
+			pivotOffsetY = GetPivotOffsetY(entity, image);
+		}
+
+		Vector2 parentRotationFixedOffset = GetPositionOffsetForParentRotation(entity);
+		entity->_parentFixedX = parentRotationFixedOffset.x;
+		entity->_parentFixedY = parentRotationFixedOffset.y;
+
+		int globalX = entity->AdaptedGlobalX();
+		int globalY = entity->AdaptedGlobalY();
+		
+		int renderingX = globalX + pivotOffsetX + entity->GlobalParentFixedX();
+		int renderingY = globalY + pivotOffsetY + entity->GlobalParentFixedY();
+
+		float width = entity->AdaptedGlobalScaleX() * image->GetWidth();
+		float height = entity->AdaptedGlobalScaleY() * image->GetHeight();
+
+		rect.x = renderingX;
+		rect.y = renderingY;
+		rect.w = width;
+		rect.h = height;
+
+		return rect;
+	}
+
+	SDL_Point EntityDataParser::GetRotationPoint(Entity* entity, Image* image)
+	{
+		SDL_Point rotPoint = SDL_Point();
+
+		rotPoint.x = 0;
+		rotPoint.y = 0;
+		if (entity->centerPivot)
+		{
+			rotPoint.x = -GetPivotOffsetX(entity, image);
+			rotPoint.y = -GetPivotOffsetY(entity, image);
+		}
+
+		return rotPoint;
+	}
+
+	Uint8 EntityDataParser::GetRenderingAlpha(Entity* entity)
+	{
+		return Uint8(entity->GlobalA() * 255);
+	}
+
+	Vector2 EntityDataParser::GetPositionOffsetForParentRotation(Entity* _entity)
+	{
+		/*This function is used for fixing the GameObject's position during its parent's rotation.*/
+		if (_entity->Parent() != nullptr)
+		{
+			// Now the centre of the circumference is the parent global position
+			Vector2 centre = Vector2(_entity->Parent()->AdaptedGlobalX() + _entity->Parent()->GlobalScaleFixedX(), _entity->Parent()->AdaptedGlobalY() + _entity->Parent()->GlobalScaleFixedY());
+			// Here we must use the global position, because the rendering position is already affected by the selfFixed values
+			float radius = Distance(Vector2(_entity->AdaptedGlobalX() + _entity->GlobalScaleFixedX(), _entity->AdaptedGlobalY() + _entity->GlobalScaleFixedY()), centre);
+			if (radius > 0)
+			{
+				Vector2 _objectLocalPosition = Vector2(_entity->x, _entity->y);
+
+				int _objectActualRotation = int(DegFromPosition(_objectLocalPosition, Vector2()));
+				Vector2 normalizedPosition = PositionFromDeg(_entity->Parent()->GlobalRotation() + _objectActualRotation);
+				Vector2 basePosition = PositionFromDeg(0);
+
+				int fixedX = int(normalizedPosition.x * radius - _entity->x);
+				int fixedY = int(normalizedPosition.y * radius - _entity->y);
+				return Vector2(fixedX, fixedY);
+			}
+		}
+
+		return Vector2();
+	}
+
+	int EntityDataParser::GetPivotOffsetX(Entity* entity, Image* image)
+	{
+		return -image->GetWidth() / 2 * entity->GlobalScaleX();
+	}
+
+	int EntityDataParser::GetPivotOffsetY(Entity* entity, Image* image)
+	{
+		return -image->GetHeight() / 2 * entity->GlobalScaleY();
+	}
+
+}

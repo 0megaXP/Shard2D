@@ -73,8 +73,8 @@ void ApplicationMain::Init()
         superChildSprite = new Sprite(M_AssetsManager->GetImageFromPNG("PNGs/Doge"));
         superChildSprite->scaleX = 0.5f;
         superChildSprite->scaleY = 0.5f;
-        superChildSprite->x = -superChildSprite->width / 4;
-        superChildSprite->y = superChildSprite->height / 4;
+        superChildSprite->x = -childSprite->width / 4;
+        superChildSprite->y = childSprite->height / 4;
         childSprite->AddChild(superChildSprite);
         superChildSprite->a = 1.f;
         superChildSprite->centerPivot = true;

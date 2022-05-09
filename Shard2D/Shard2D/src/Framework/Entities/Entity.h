@@ -19,6 +19,9 @@ namespace Shard2D
 		friend class EntitiesManager;
 		friend class GameManager;
 		friend class EventsManager;
+		friend class EntityDataParser;
+
+		friend class TextField;
 
 	private:
 		std::string _name = "";
@@ -30,9 +33,6 @@ namespace Shard2D
 
 		short _parentFixedX = 0;
 		short _parentFixedY = 0;
-
-		short _selfFixedX = 0;
-		short _selfFixedY = 0;
 
 		short _pivotOffsetX = 0;
 		short _pivotOffsetY = 0;
@@ -66,15 +66,14 @@ namespace Shard2D
 
 		SDL_Color color = SDL_Color(255, 255, 255);
 
-	private:
-		/*
-		Return the GambeObject's global x position using the pivot offset
-		*/
-		short GlobalPivotOffsetX() const;
-		/*
-		Return the GambeObject's global y position using the pivot offset
-		*/
-		short GlobalPivotOffsetY() const;
+	protected:
+		short AdaptedGlobalX() const;
+
+		short AdaptedGlobalY() const;
+
+		virtual float AdaptedGlobalScaleX() const;
+
+		virtual float AdaptedGlobalScaleY() const;
 
 		/*
 		Return the GambeObject's global x position using the parent fixed position
@@ -86,15 +85,6 @@ namespace Shard2D
 		short GlobalParentFixedY() const;
 
 		/*
-		Return the GambeObject's global x position using the self fixed position
-		*/
-		short GlobalSelfFixedX() const;
-		/*
-		Return the GambeObject's global y position using the self fixed position
-		*/
-		short GlobalSelfFixedY() const;
-
-		/*
 		Return the GambeObject's x offset caused by a parent scaleX
 		*/
 		short GlobalScaleFixedX() const;
@@ -102,6 +92,15 @@ namespace Shard2D
 		Return the GambeObject's y offset caused by a parent scaleY
 		*/
 		short GlobalScaleFixedY() const;
+
+		/*
+		Return the GambeObject's x rendering position (using all the fixed positions and offsets)
+		*/
+		short RenderingX() const;
+		/*
+		Return the GambeObject's y rendering position (using all the fixed positions and offsets)
+		*/
+		short RenderingY() const;
 
 		/*
 		Reset all the value used for the position fixing during the rendering
@@ -119,32 +118,6 @@ namespace Shard2D
 		short GlobalY() const;
 
 		/*
-		Return the GambeObject's x rendering position (using all the fixed positions and offsets)
-		*/
-		short RenderingX() const;
-		/*
-		Return the GambeObject's y rendering position (using all the fixed positions and offsets)
-		*/
-		short RenderingY() const;
-
-		/*
-		Return the GambeObject's local pivot x position
-		*/
-		short PivotX() const;
-		/*
-		Return the GambeObject's local pivot y position
-		*/
-		short PivotY() const;
-		/*
-		Return the GambeObject's global pivot x position
-		*/
-		short GlobalPivotX() const;
-		/*
-		Return the GambeObject's global pivot y position
-		*/
-		short GlobalPivotY() const;
-
-		/*
 		Return the GambeObject's rotation (counting all the parents' rotations)
 		*/
 		float GlobalRotation() const;
@@ -156,11 +129,11 @@ namespace Shard2D
 		/*
 		Return the GambeObject's x scale on the screen (counting all the parents' x)
 		*/
-		virtual float GlobalScaleX() const;
+		float GlobalScaleX() const;
 		/*
 		Return the GambeObject's y scale on the screen (counting all the parents' y)
 		*/
-		virtual float GlobalScaleY() const;
+		float GlobalScaleY() const;
 
 		/*
 		Return true if the Entity has to be rendered (also takes count of scale and alpha)

@@ -23,10 +23,11 @@ namespace Shard2D
 	private:
 		std::string _text = "";
 
-	public:
-		float GlobalScaleX() const override;
-		float GlobalScaleY() const override;
+	protected:
+		float AdaptedGlobalScaleX() const override;
+		float AdaptedGlobalScaleY() const override;
 
+	public:
 		void SetText(std::string newText);
 		void SetColor(SDL_Color newColor);
 

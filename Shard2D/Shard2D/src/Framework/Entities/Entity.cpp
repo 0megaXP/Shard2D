@@ -34,6 +34,46 @@ namespace Shard2D
 		return _parent;
 	}
 
+	short Entity::AdaptedGlobalX() const
+	{
+		if (_parent != nullptr)
+			return short(x + _parent->AdaptedGlobalX());
+		else
+			return short(x * M_GraphicManager->GetHorizontalResolutionAdapter());
+	}
+
+	short Entity::AdaptedGlobalY() const
+	{
+		if (_parent != nullptr)
+			return short(y + _parent->AdaptedGlobalY());
+		else
+			return short(y * M_GraphicManager->GetVerticalResolutionAdapter());
+	}
+
+	float Entity::AdaptedGlobalScaleX() const
+	{
+		float widthScale = 1;
+		if (_image != nullptr)
+			widthScale = width / _image.get()->GetWidth();
+
+		if (_parent != nullptr)
+			return scaleX * _parent->AdaptedGlobalScaleX() * widthScale;
+		else
+			return scaleX * widthScale * M_GraphicManager->GetHorizontalResolutionAdapter();
+	}
+
+	float Entity::AdaptedGlobalScaleY() const
+	{
+		float heightScale = 1;
+		if (_image != nullptr)
+			heightScale = height / _image.get()->GetHeight();
+
+		if (_parent != nullptr)
+			return scaleY * _parent->AdaptedGlobalScaleY() * heightScale;
+		else
+			return scaleY * heightScale * M_GraphicManager->GetVerticalResolutionAdapter();
+	}
+
 	short Entity::GlobalParentFixedX() const
 	{
 		if (_parent == nullptr)
@@ -48,22 +88,6 @@ namespace Shard2D
 			return _parentFixedY;
 		else
 			return _parent->GlobalParentFixedY() + _parentFixedY;
-	}
-
-	short Entity::GlobalSelfFixedX() const
-	{
-		if (_parent == nullptr)
-			return _selfFixedX;
-		else
-			return _parent->GlobalSelfFixedX() + _selfFixedX;
-	}
-
-	short Entity::GlobalSelfFixedY() const
-	{
-		if (_parent == nullptr)
-			return _selfFixedY;
-		else
-			return _parent->GlobalSelfFixedY() + _selfFixedY;
 	}
 
 	short Entity::GlobalScaleFixedX() const
@@ -82,32 +106,20 @@ namespace Shard2D
 			return _parent->GlobalScaleFixedY() + y * (_parent->GlobalScaleY() - 1);
 	}
 
-	short Entity::GlobalPivotOffsetX() const
-	{
-		return GlobalX() + _pivotOffsetX;
-	}
-
-	short Entity::GlobalPivotOffsetY() const
-	{
-		return GlobalY() + _pivotOffsetY;
-	}
-
 	short Entity::RenderingX() const
 	{
-		return GlobalX() + GlobalParentFixedX() + GlobalSelfFixedX() + _pivotOffsetX;
+		return GlobalX() + GlobalParentFixedX() + _pivotOffsetX;
 	}
 
 	short Entity::RenderingY() const
 	{
-		return GlobalY() + GlobalParentFixedY() + GlobalSelfFixedY() + _pivotOffsetY;
+		return GlobalY() + GlobalParentFixedY() + _pivotOffsetY;
 	}
 
 	void Entity::ResetFixedValues()
 	{
 		_parentFixedX = 0;
 		_parentFixedY = 0;
-		_selfFixedX = 0;
-		_selfFixedY = 0;
 		_pivotOffsetX = 0;
 		_pivotOffsetY = 0;
 	}
@@ -117,7 +129,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return short(x + _parent->GlobalX());
 		else
-			return short(x * M_GraphicManager->GetHorizontalResolutionAdapter());
+			return short(x);
 	}
 
 	short Entity::GlobalY() const
@@ -125,27 +137,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return short(y + _parent->GlobalY());
 		else
-			return short(y * M_GraphicManager->GetVerticalResolutionAdapter());
-	}
-
-	short Entity::PivotX() const
-	{
-		return short(x - _pivotOffsetX);
-	}
-
-	short Entity::PivotY() const
-	{
-		return short(y - _pivotOffsetY);
-	}
-
-	short Entity::GlobalPivotX() const
-	{
-		return GlobalX() - _pivotOffsetX;
-	}
-
-	short Entity::GlobalPivotY() const
-	{
-		return GlobalY() - _pivotOffsetY;
+			return short(y);
 	}
 
 	float Entity::GlobalRotation() const
@@ -166,26 +158,18 @@ namespace Shard2D
 
 	float Entity::GlobalScaleX() const
 	{
-		float widthScale = 1;
-		if (_image != nullptr)
-			widthScale = width / _image.get()->GetWidth();
-
 		if (_parent != nullptr)
-			return scaleX * _parent->GlobalScaleX() * widthScale;
+			return scaleX * _parent->GlobalScaleX();
 		else
-			return scaleX * widthScale * M_GraphicManager->GetHorizontalResolutionAdapter();
+			return scaleX;
 	}
 
 	float Entity::GlobalScaleY() const
 	{
-		float heightScale = 1;
-		if (_image != nullptr)
-			heightScale = height / _image.get()->GetHeight();
-
 		if (_parent != nullptr)
-			return scaleY * _parent->GlobalScaleY() * heightScale;
+			return scaleY * _parent->GlobalScaleY();
 		else
-			return scaleY * heightScale * M_GraphicManager->GetVerticalResolutionAdapter();
+			return scaleY;
 	}
 
 	bool Entity::IsVisible() const

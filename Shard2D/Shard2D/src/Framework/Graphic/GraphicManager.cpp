@@ -4,6 +4,7 @@
 #include <SDL_ttf.h>
 
 #include "../Entities/Entity.h"
+#include "../Entities/EntityDataParser.h"
 #include "../Utils/ShardUtils.h"
 #include "../Management/Managers.h"
 #include "../Events/EventTypes/Event.h"
@@ -156,31 +157,18 @@ namespace Shard2D
 	{
 		if (_image && _image->_texture)
 		{
-			_entity->ResetFixedValues();
+			//_entity->ResetFixedValues();
 
 			SDL_Texture* texture = _image->_texture;
 
-			// Managing the pivot
-			if (_entity->centerPivot)
-			{
-				_entity->_pivotOffsetX = short(_image->_width / -2 * _entity->GlobalScaleX());
-				_entity->_pivotOffsetY = short(_image->_height / -2 * _entity->GlobalScaleY());
-			}
-
-			SDL_Point rotPoint = SDL_Point();
-			rotPoint.x = -_entity->_pivotOffsetX;
-			rotPoint.y = -_entity->_pivotOffsetY;
-
-			FixPositionForParentRotation(_entity);
+			SDL_Point rotPoint = EntityDataParser::GetRotationPoint(_entity, _image);
 
 			// Setting the rendering rect
-			SDL_Rect _tempRect = SDL_Rect();
-			_tempRect.x = int(_entity->RenderingX());
-			_tempRect.y = int(_entity->RenderingY());
-			_tempRect.w = int(_image->_width * _entity->GlobalScaleX());
-			_tempRect.h = int(_image->_height * _entity->GlobalScaleY());
+			SDL_Rect _tempRect = EntityDataParser::GetRenderingRect(_entity, _image);
 
-			SDL_SetTextureAlphaMod(_image->_texture, Uint8(_entity->GlobalA() * 255));
+			Uint8 alpha = EntityDataParser::GetRenderingAlpha(_entity);
+
+			SDL_SetTextureAlphaMod(_image->_texture, alpha);
 			SDL_SetTextureColorMod(_image->_texture, _entity->color.r, _entity->color.g, _entity->color.b);
 			SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _entity->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
 			_entity->DispatchEvent<Event>(Event::Rendered);

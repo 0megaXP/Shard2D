@@ -75,6 +75,9 @@
     <ClCompile Include="src\Framework\Tweens\ITween.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Entities\EntityDataParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\Entities\TextField.h">
@@ -204,6 +207,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Graphic\WindowType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Entities\EntityDataParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

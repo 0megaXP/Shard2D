@@ -176,6 +176,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Framework\Entities\EntityDataParser.cpp" />
     <ClCompile Include="src\Framework\Tweens\TweensManager.cpp" />
     <ClCompile Include="src\Framework\Entities\EntitiesManager.cpp" />
     <ClCompile Include="src\Framework\Entities\Entity.cpp" />
@@ -198,6 +199,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClCompile Include="src\Framework\Tweens\ITween.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Framework\Entities\EntityDataParser.h" />
     <ClInclude Include="src\Framework\Graphic\WindowType.h" />
     <ClInclude Include="src\Framework\Management\IMain.h" />
     <ClInclude Include="src\Framework\Tweens\Easing\Back.h" />

@@ -20,18 +20,18 @@ namespace Shard2D
     {
     }
 
-    float TextField::GlobalScaleX() const
+    float TextField::AdaptedGlobalScaleX() const
     {
         if (Parent() != nullptr)
-            return scaleX * NormalizedSize() * Parent()->GlobalScaleX();
+            return scaleX * NormalizedSize() * Parent()->AdaptedGlobalScaleX();
         else
             return scaleX * NormalizedSize() * M_GraphicManager->GetHorizontalResolutionAdapter();
     }
 
-    float TextField::GlobalScaleY() const
+    float TextField::AdaptedGlobalScaleY() const
     {
         if (Parent() != nullptr)
-            return scaleY * NormalizedSize() * Parent()->GlobalScaleY();
+            return scaleY * NormalizedSize() * Parent()->AdaptedGlobalScaleY();
         else
             return scaleY * NormalizedSize() * M_GraphicManager->GetVerticalResolutionAdapter();
     }
