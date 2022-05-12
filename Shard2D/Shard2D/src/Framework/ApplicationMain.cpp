@@ -22,7 +22,6 @@ void MouseBeginOverlap(MouseEvent* _event)
 void MouseEndOverlap(MouseEvent* _event)
 {
     Shard2D::Log("End overlap");
-    M_GraphicManager->ResizeWindow(1280, 720, WindowType::Window);
 }
 
 void KeyPressed(KeyboardEvent* _event)
@@ -113,6 +112,7 @@ void ApplicationMain::Init()
     sprite->AddEventListener(MouseEvent::BeginOverlap, &MouseBeginOverlap);
     sprite->AddEventListener(MouseEvent::EndOverlap, &MouseEndOverlap);
     sprite->AddEventListener(KeyboardEvent::ButtonPressed, &ApplicationMain::TestMethod, this);
+    sprite->AddEventListener(KeyboardEvent::ButtonReleased, &ApplicationMain::TestMethod2, this);
 
     //ITween* a = CreateTween(sprite->x, 1280.f, 3)->Ease(EaseType::BounceOut)->Repeat(-1)->Reflect()->Delay(3);
     //StartTween(a);
@@ -201,6 +201,10 @@ void ApplicationMain::Update()
 
 void ApplicationMain::TestMethod(KeyboardEvent* _event)
 {
-    std::cout << "Method events work!" << std::endl;
     M_GraphicManager->ResizeWindow(640, 360, WindowType::Window);
+}
+
+void ApplicationMain::TestMethod2(KeyboardEvent* _event)
+{
+    M_GraphicManager->ResizeWindow(1280, 720, WindowType::Window);
 }

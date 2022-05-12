@@ -57,8 +57,6 @@ namespace Shard2D
 	private:
 		void Init();
 
-		void FixPositionForParentRotation(Entity* _entity);
-
 		void RenderEntity(Entity* entity);
 
 		void RenderTextureEntity(Entity* _entity, Image* _image);

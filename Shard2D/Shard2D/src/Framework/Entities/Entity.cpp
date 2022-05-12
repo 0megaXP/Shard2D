@@ -39,7 +39,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return short(x + _parent->AdaptedGlobalX());
 		else
-			return short(x * M_GraphicManager->GetHorizontalResolutionAdapter());
+			return short(x);
 	}
 
 	short Entity::AdaptedGlobalY() const
@@ -47,7 +47,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return short(y + _parent->AdaptedGlobalY());
 		else
-			return short(y * M_GraphicManager->GetVerticalResolutionAdapter());
+			return short(y);
 	}
 
 	float Entity::AdaptedGlobalScaleX() const
@@ -59,7 +59,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return scaleX * _parent->AdaptedGlobalScaleX() * widthScale;
 		else
-			return scaleX * widthScale * M_GraphicManager->GetHorizontalResolutionAdapter();
+			return scaleX * widthScale;
 	}
 
 	float Entity::AdaptedGlobalScaleY() const
@@ -71,7 +71,7 @@ namespace Shard2D
 		if (_parent != nullptr)
 			return scaleY * _parent->AdaptedGlobalScaleY() * heightScale;
 		else
-			return scaleY * heightScale * M_GraphicManager->GetVerticalResolutionAdapter();
+			return scaleY * heightScale;
 	}
 
 	short Entity::GlobalParentFixedX() const

@@ -34,10 +34,10 @@ namespace Shard2D
 		float width = entity->AdaptedGlobalScaleX() * image->GetWidth();
 		float height = entity->AdaptedGlobalScaleY() * image->GetHeight();
 
-		rect.x = renderingX;
-		rect.y = renderingY;
-		rect.w = width;
-		rect.h = height;
+		rect.x = renderingX * M_GraphicManager->GetHorizontalResolutionAdapter();
+		rect.y = renderingY * M_GraphicManager->GetVerticalResolutionAdapter();
+		rect.w = width * M_GraphicManager->GetHorizontalResolutionAdapter();
+		rect.h = height * M_GraphicManager->GetVerticalResolutionAdapter();
 
 		return rect;
 	}
@@ -50,8 +50,8 @@ namespace Shard2D
 		rotPoint.y = 0;
 		if (entity->centerPivot)
 		{
-			rotPoint.x = -GetPivotOffsetX(entity, image);
-			rotPoint.y = -GetPivotOffsetY(entity, image);
+			rotPoint.x = -GetPivotOffsetX(entity, image) * M_GraphicManager->GetHorizontalResolutionAdapter();
+			rotPoint.y = -GetPivotOffsetY(entity, image) * M_GraphicManager->GetVerticalResolutionAdapter();
 		}
 
 		return rotPoint;
@@ -90,12 +90,12 @@ namespace Shard2D
 
 	int EntityDataParser::GetPivotOffsetX(Entity* entity, Image* image)
 	{
-		return -image->GetWidth() / 2 * entity->GlobalScaleX();
+		return -image->GetWidth() / 2 * entity->AdaptedGlobalScaleX();
 	}
 
 	int EntityDataParser::GetPivotOffsetY(Entity* entity, Image* image)
 	{
-		return -image->GetHeight() / 2 * entity->GlobalScaleY();
+		return -image->GetHeight() / 2 * entity->AdaptedGlobalScaleY();
 	}
 
 }

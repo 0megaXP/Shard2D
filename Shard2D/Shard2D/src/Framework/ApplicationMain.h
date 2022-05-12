@@ -19,6 +19,7 @@ private:
 	void Update();
 
 	void TestMethod(Shard2D::KeyboardEvent* _event);
+	void TestMethod2(Shard2D::KeyboardEvent* _event);
 
 	Shard2D::Sprite* sprite;
 	Shard2D::Sprite* childSprite; 

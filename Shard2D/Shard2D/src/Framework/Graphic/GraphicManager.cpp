@@ -111,9 +111,9 @@ namespace Shard2D
 		return;
 	}
 
-	void GraphicManager::FixPositionForParentRotation(Entity* _entity)
+	/*void GraphicManager::FixPositionForParentRotation(Entity* _entity)
 	{
-		/*This function is used for fixing the GameObject's position during its parent's rotation.*/
+		// This function is used for fixing the GameObject's position during its parent's rotation.
 		if (_entity->Parent() != nullptr)
 		{
 			// Now the centre of the circumference is the parent global position
@@ -132,7 +132,7 @@ namespace Shard2D
 				_entity->_parentFixedY += short(normalizedPosition.y * radius - _entity->y);
 			}
 		}
-	}
+	}*/
 
 	void GraphicManager::RenderEntity(Entity* _entity)
 	{
