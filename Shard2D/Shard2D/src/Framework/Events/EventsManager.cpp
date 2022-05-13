@@ -103,7 +103,10 @@ namespace Shard2D
 		if (entity->mouseEnabled && !deadlineReached)
 		{
 			// Checks if the mouse is inside the entity 
-			if (PointInsideRect(mousePosition, Vector2(entity->_finalFixedX, entity->_finalFixedY), entity->width * entity->GlobalScaleX(), entity->height * entity->GlobalScaleY(), entity->GlobalRotation()))
+			if (PointInsideRect(mousePosition, Vector2(	entity->_finalFixedX, entity->_finalFixedY),
+														entity->_finalFixedWidth,
+														entity->_finalFixedHeight,
+														entity->GlobalRotation()))
 			{
 				if (!entity->mouseOverlapped)
 				{

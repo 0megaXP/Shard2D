@@ -13,6 +13,7 @@ namespace Shard2D
 	{
 		SDL_Rect rect = SDL_Rect();
 
+		// Set the offset for the entity pivot
 		int pivotOffsetX = 0;
 		int pivotOffsetY = 0;
 		if (entity->centerPivot)
@@ -21,6 +22,7 @@ namespace Shard2D
 			pivotOffsetY = GetPivotOffsetY(entity, image);
 		}
 
+		// Apply the fix for the parent rotation
 		Vector2 parentRotationFixedOffset = GetPositionOffsetForParentRotation(entity);
 		entity->_parentFixedX = parentRotationFixedOffset.x;
 		entity->_parentFixedY = parentRotationFixedOffset.y;
@@ -28,12 +30,21 @@ namespace Shard2D
 		int globalX = entity->AdaptedGlobalX();
 		int globalY = entity->AdaptedGlobalY();
 		
+		// Set the x position where the entity need to be rendered
 		int renderingX = globalX + pivotOffsetX + entity->GlobalParentFixedX();
 		int renderingY = globalY + pivotOffsetY + entity->GlobalParentFixedY();
 
+		entity->_finalFixedX = renderingX;
+		entity->_finalFixedY = renderingY;
+
+		// Set the width and the height of the rect where the entity will be printed
 		float width = entity->AdaptedGlobalScaleX() * image->GetWidth();
 		float height = entity->AdaptedGlobalScaleY() * image->GetHeight();
 
+		entity->_finalFixedWidth = width * M_GraphicManager->GetHorizontalResolutionAdapter();
+		entity->_finalFixedHeight = height * M_GraphicManager->GetVerticalResolutionAdapter();
+
+		// Set the rect values using the horizontal and vertical adapter
 		rect.x = renderingX * M_GraphicManager->GetHorizontalResolutionAdapter();
 		rect.y = renderingY * M_GraphicManager->GetVerticalResolutionAdapter();
 		rect.w = width * M_GraphicManager->GetHorizontalResolutionAdapter();
@@ -64,7 +75,7 @@ namespace Shard2D
 
 	Vector2 EntityDataParser::GetPositionOffsetForParentRotation(Entity* _entity)
 	{
-		/*This function is used for fixing the GameObject's position during its parent's rotation.*/
+		// This function is used for fixing the Entity's position during its parent's rotation.
 		if (_entity->Parent() != nullptr)
 		{
 			// Now the centre of the circumference is the parent global position

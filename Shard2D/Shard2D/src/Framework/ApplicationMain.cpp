@@ -77,6 +77,7 @@ void ApplicationMain::Init()
         childSprite->AddChild(superChildSprite);
         superChildSprite->a = 1.f;
         superChildSprite->centerPivot = true;
+        superChildSprite->blockMouseEvents = false;
     }
 
     fpsCounter = new TextField("", "Fonts/arial", 36);
@@ -119,9 +120,9 @@ void ApplicationMain::Init()
 
     ITween* b = CreateTween(sprite->scaleX, 1.25f, 0.5f)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
     ITween* c = CreateTween(sprite->scaleY, 1.25f, 0.5f)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
-    ITween* d = CreateTween(sprite->rotation, 360.f, 2.f)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
-    StartTween(b);
-    StartTween(c);
+    ITween* d = CreateTween(sprite->rotation, 360.f, 20.f)->Ease(EaseType::SineInOut)->Repeat(-1)->Reflect()->Delay(2);
+    //StartTween(b);
+    //StartTween(c);
     StartTween(d);
 
     sprite->rotation = 0;

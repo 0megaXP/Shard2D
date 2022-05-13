@@ -70,6 +70,43 @@ namespace Shard2D
 		return _verticalAdaptationMultiplier;
 	}
 
+	void GraphicManager::DrawDebugRect(Entity* entity)
+	{
+		float rotation = entity->GlobalRotation();
+		float width = entity->_finalFixedWidth * GetHorizontalResolutionAdapter();
+		float height = entity->_finalFixedHeight * GetVerticalResolutionAdapter();
+		Vector2 origin = Vector2(entity->_finalFixedX, entity->_finalFixedY);
+		Vector2 rectPoints[4];
+
+		rectPoints[0] = origin;
+		rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
+		rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
+		rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
+
+		SDL_SetRenderDrawColor(_winRenderer, 255, 0, 0, 255);
+
+		for (Vector2 p : rectPoints)
+		{
+			SDL_Rect rect;
+			rect.w = 5;
+			rect.h = 5;
+			rect.x = p.x;
+			rect.y = p.y;
+
+			SDL_RenderFillRect(_winRenderer, &rect);
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			int j = i + 1;
+			if (j == 4)
+				j = 0;
+
+			SDL_RenderDrawLine(_winRenderer, rectPoints[i].x, rectPoints[i].y, rectPoints[j].x, rectPoints[j].y);
+		}
+
+	}
+
 	void GraphicManager::Init()
 	{
 		if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -111,29 +148,6 @@ namespace Shard2D
 		return;
 	}
 
-	/*void GraphicManager::FixPositionForParentRotation(Entity* _entity)
-	{
-		// This function is used for fixing the GameObject's position during its parent's rotation.
-		if (_entity->Parent() != nullptr)
-		{
-			// Now the centre of the circumference is the parent global position
-			Vector2 centre = Vector2(_entity->Parent()->GlobalX() + _entity->Parent()->GlobalScaleFixedX(), _entity->Parent()->GlobalY() + _entity->Parent()->GlobalScaleFixedY());
-			// Here we must use the global position, because the rendering position is already affected by the selfFixed values
-			float radius = Distance(Vector2(_entity->GlobalX() + _entity->GlobalScaleFixedX(), _entity->GlobalY() + _entity->GlobalScaleFixedY()), centre);
-			if (radius > 0)
-			{
-				Vector2 _objectLocalPosition = Vector2(_entity->x, _entity->y);
-
-				int _objectActualRotation = int(DegFromPosition(_objectLocalPosition, Vector2()));
-				Vector2 normalizedPosition = PositionFromDeg(_entity->Parent()->GlobalRotation() + _objectActualRotation);
-				Vector2 basePosition = PositionFromDeg(0);
-
-				_entity->_parentFixedX += short(normalizedPosition.x * radius - _entity->x);
-				_entity->_parentFixedY += short(normalizedPosition.y * radius - _entity->y);
-			}
-		}
-	}*/
-
 	void GraphicManager::RenderEntity(Entity* _entity)
 	{
 		if (_entity->IsVisible())
@@ -143,6 +157,7 @@ namespace Shard2D
 			if (_entityImage != nullptr)
 			{
 				RenderTextureEntity(_entity, _entityImage);
+				M_GraphicManager->DrawDebugRect(_entity);
 			}
 
 			// Call the RenderObject() function for all the children
@@ -171,7 +186,6 @@ namespace Shard2D
 			SDL_SetTextureAlphaMod(_image->_texture, alpha);
 			SDL_SetTextureColorMod(_image->_texture, _entity->color.r, _entity->color.g, _entity->color.b);
 			SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _entity->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
-			_entity->DispatchEvent<Event>(Event::Rendered);
 		}
 	}
 

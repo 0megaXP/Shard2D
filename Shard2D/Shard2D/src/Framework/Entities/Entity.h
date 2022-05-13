@@ -42,6 +42,9 @@ namespace Shard2D
 		short _finalFixedX = 0;
 		short _finalFixedY = 0;
 
+		short _finalFixedWidth = 0;
+		short _finalFixedHeight = 0;
+
 	public:
 		std::string Name() const;
 		Entity* Parent() const;
@@ -157,6 +160,11 @@ namespace Shard2D
 		Set the param Entity as child of the actual Entity.
 		*/
 		void AddChild(Entity* child);
+		/*
+		Set the param Entity as child of the actual Entity at a specific position (if position < 0 
+		the position will be 0, if position > children number the position will be the last index).
+		*/
+		void AddChildAt(Entity* child, int position);
 		/*
 		Remove the selected child from the Entity
 		*/

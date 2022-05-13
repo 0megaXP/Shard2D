@@ -46,13 +46,26 @@ namespace Shard2D
 		*/
 		SDL_Texture* CreateTexture(SDL_Surface* surface);
 
+		/*
+		Modify the size of the application window (all the objects will be scale in comparison of the default resolution)
+		*/
 		void ResizeWindow(Uint16 widthResolution, Uint16 heightResolution, WindowType::Type windowType);
-
+		/*
+		Set the default resolution for the window.
+		@param adaptToResolution: If true, all the entities in the scene will be scaled and moved if the resolution is
+		different from the default one, adapting to the new resolution.
+		*/
 		void SetDefaultResolution(Uint16 defaultWidthResolution, Uint16 defaultHeightResolution, bool adaptToResolution);
-
+		/*
+		Return the Horizontal multiplier for the resolution adaptation.
+		*/
 		float GetHorizontalResolutionAdapter();
-
+		/*
+		Return the Vertical multiplier for the resolution adaptation.
+		*/
 		float GetVerticalResolutionAdapter();
+
+		void DrawDebugRect(Entity* entity);
 
 	private:
 		void Init();

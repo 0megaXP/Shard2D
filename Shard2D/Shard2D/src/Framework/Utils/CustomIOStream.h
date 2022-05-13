@@ -20,7 +20,7 @@ namespace Shard2D
 
 	static void inline Log(const auto text, int textColor = 7)
 	{
-		HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 		//std::cout << std::endl;
 		SetConsoleTextAttribute(hConsole, textColor);
@@ -30,7 +30,7 @@ namespace Shard2D
 
 	static void DebugFPS(float FPS, int textColor = 7)
 	{
-		HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 		std::cout << "\r";
 		for (int a = 0; a < 20; a++)

@@ -213,6 +213,26 @@ namespace Shard2D
 		}
 	}
 
+	void Entity::AddChildAt(Entity* child, int position)
+	{
+		if (position < 0)
+			position = 0;
+
+
+		if (child != nullptr)
+		{
+			if (child->Parent() != nullptr)
+			{
+				child->Parent()->RemoveChild(child);
+			}
+			if(position > _children.size())
+				_children.push_back(child);
+			else
+			_children.insert(_children.begin() + position, child);
+			child->_parent = this;
+		}
+	}
+
 	void Entity::RemoveChild(Entity* child)
 	{
 		if (child != nullptr && _children.size() > 0)
