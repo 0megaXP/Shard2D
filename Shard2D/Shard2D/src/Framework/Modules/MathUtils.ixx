@@ -15,9 +15,9 @@ namespace Shard2D
 {
     /**
     Returns a value clamped between the min and max values.
-        \param The value to clamp
-        \param The min value
-        \param The max value
+        \param value: The value to clamp.
+        \param min: The min value.
+        \param max: The max value.
     */
     export float Clamp(float value, float min, float max)
     {
@@ -31,7 +31,7 @@ namespace Shard2D
 
     /**
     Returns a value clamped between 0 and 1. If lower than 0, returns 0. If greater than 1, returns 1.
-        \param The value to clamp
+        \param value: The value to clamp.
     */
     export float Clamp01(float value)
     {
@@ -39,7 +39,7 @@ namespace Shard2D
     }
 
     /**
-    Returns a value rounded to zero if it is lower than 0.0001 or higher than -0.0001
+    Returns a value rounded to zero if it is lower than 0.0001 or higher than -0.0001.
     */
     export float RoundToZero(float value)
     {
@@ -56,7 +56,7 @@ namespace Shard2D
     }
 
     /**
-    Returns the legnth of the distance between 2 Vector2
+    Returns the legnth of the distance between 2 Vector2.
     */
     export float Distance(const Vector2& a, const Vector2& b)
     {
@@ -66,7 +66,7 @@ namespace Shard2D
     }
 
     /**
-    Returns the position inside a circumference of the given rotation as radians
+    Returns the position inside a circumference of the given rotation as radians.
     */
     export Vector2 PositionFromRad(float rotation)
     {
@@ -76,7 +76,7 @@ namespace Shard2D
     }
 
     /**
-    Returns the position inside a circumference of the given rotation as degrees
+    Returns the position inside a circumference of the given rotation as degrees.
     */
     export Vector2 PositionFromDeg(float rotation)
     {
@@ -85,7 +85,7 @@ namespace Shard2D
     }
 
     /**
-    Returns the rotation as degree at a certain position of a circumference with the given centre
+    Returns the rotation as degree at a certain position of a circumference with the given centre.
     */
     export float DegFromPosition(Vector2 position, Vector2 centre)
     {
@@ -97,16 +97,37 @@ namespace Shard2D
     }
 
     /**
-    Checks if the given point is inside the rect created with the given origin point, width, height and rotation
+    Generate a rect with the given informations.
     */
-    export bool PointInsideRect(Vector2 point, Vector2 origin, float width, float height, float rotation)
+    export void GenerateRect(Vector2* rectPoints, Vector2 origin, float width, float height, float rotation, bool centerPivot)
+    {
+        if (!centerPivot)
+        {
+            rectPoints[0] = origin;
+            rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
+            rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
+            rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
+        }
+        else
+        {
+            origin.x += width / 2;
+            origin.y += height / 2;
+
+            rectPoints[0] = origin + (PositionFromDeg(rotation) * (width / 2)) + (PositionFromDeg(rotation + 270) * (height / 2));
+            rectPoints[1] = origin + (PositionFromDeg(rotation + 180) * (width / 2)) + (PositionFromDeg(rotation + 270) * (height / 2));
+            rectPoints[3] = origin + (PositionFromDeg(rotation) * (width / 2)) + (PositionFromDeg(rotation + 90) * (height / 2));
+            rectPoints[2] = origin + (PositionFromDeg(rotation + 180) * (width / 2)) + (PositionFromDeg(rotation + 90) * (height / 2));
+        }
+    }
+
+    /**
+    Checks if the given point is inside the rect created with the given origin point, width, height and rotation.
+    */
+    export bool PointInsideRect(Vector2 point, Vector2 origin, float width, float height, float rotation, bool centerPivot)
     {
         Vector2 rectPoints[4];
 
-        rectPoints[0] = origin;
-        rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
-        rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
-        rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
+        GenerateRect(rectPoints, origin, width, height, rotation, centerPivot);
 
         int i, j, c = 0;
         for (i = 0, j = 4 - 1; i < 4; j = i++) {

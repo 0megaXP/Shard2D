@@ -69,6 +69,8 @@ namespace Shard2D
 
 		SDL_Color color = SDL_Color(255, 255, 255);
 
+		bool showDebugRect = false;
+
 	protected:
 		short AdaptedGlobalX() const;
 

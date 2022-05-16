@@ -75,26 +75,28 @@ namespace Shard2D
 		float rotation = entity->GlobalRotation();
 		float width = entity->_finalFixedWidth * GetHorizontalResolutionAdapter();
 		float height = entity->_finalFixedHeight * GetVerticalResolutionAdapter();
-		Vector2 origin = Vector2(entity->_finalFixedX, entity->_finalFixedY);
+		Vector2 origin = Vector2(entity->_finalFixedX * GetHorizontalResolutionAdapter(), entity->_finalFixedY * GetVerticalResolutionAdapter());
 		Vector2 rectPoints[4];
 
-		rectPoints[0] = origin;
-		rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
-		rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
-		rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
+		if (!entity->centerPivot)
+		{
+			rectPoints[0] = origin;
+			rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
+			rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
+			rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
+		}
+		else
+		{
+			origin.x += width / 2;
+			origin.y += height / 2;
+
+			rectPoints[0] = origin + (PositionFromDeg(rotation) * (width / 2)) + (PositionFromDeg(rotation + 270) * (height / 2));
+			rectPoints[1] = origin + (PositionFromDeg(rotation + 180) * (width / 2)) + (PositionFromDeg(rotation + 270) * (height / 2));
+			rectPoints[3] = origin + (PositionFromDeg(rotation) * (width / 2)) + (PositionFromDeg(rotation + 90) * (height / 2));
+			rectPoints[2] = origin + (PositionFromDeg(rotation + 180) * (width / 2)) + (PositionFromDeg(rotation + 90) * (height / 2));
+		}
 
 		SDL_SetRenderDrawColor(_winRenderer, 255, 0, 0, 255);
-
-		for (Vector2 p : rectPoints)
-		{
-			SDL_Rect rect;
-			rect.w = 5;
-			rect.h = 5;
-			rect.x = p.x;
-			rect.y = p.y;
-
-			SDL_RenderFillRect(_winRenderer, &rect);
-		}
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -157,7 +159,8 @@ namespace Shard2D
 			if (_entityImage != nullptr)
 			{
 				RenderTextureEntity(_entity, _entityImage);
-				M_GraphicManager->DrawDebugRect(_entity);
+				if(_entity->showDebugRect)
+					M_GraphicManager->DrawDebugRect(_entity);
 			}
 
 			// Call the RenderObject() function for all the children

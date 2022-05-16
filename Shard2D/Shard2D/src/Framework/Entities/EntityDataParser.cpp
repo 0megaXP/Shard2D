@@ -41,8 +41,8 @@ namespace Shard2D
 		float width = entity->AdaptedGlobalScaleX() * image->GetWidth();
 		float height = entity->AdaptedGlobalScaleY() * image->GetHeight();
 
-		entity->_finalFixedWidth = width * M_GraphicManager->GetHorizontalResolutionAdapter();
-		entity->_finalFixedHeight = height * M_GraphicManager->GetVerticalResolutionAdapter();
+		entity->_finalFixedWidth = width;
+		entity->_finalFixedHeight = height;
 
 		// Set the rect values using the horizontal and vertical adapter
 		rect.x = renderingX * M_GraphicManager->GetHorizontalResolutionAdapter();

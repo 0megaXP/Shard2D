@@ -26,6 +26,7 @@ namespace Shard2D
 		int _actualMouseY = 0;
 		SDL_GetMouseState(&_actualMouseX, &_actualMouseY);
 		mousePosition = Vector2((float)_actualMouseX, (float)_actualMouseY);
+		//std::cout << "Mouse position: " << mousePosition.x << " - " << mousePosition.y << std::endl;
 
 		// Setup the arrays
 		eventsToDispatch.clear();
@@ -60,6 +61,14 @@ namespace Shard2D
 
 		DispatchKeyboardEvents();
 		DispatchMouseEvents();
+	}
+
+	Vector2 EventsManager::GetMousePosition(bool fixedWithResolution)
+	{
+		if (fixedWithResolution)
+			return Vector2(mousePosition.x / M_GraphicManager->GetHorizontalResolutionAdapter(), mousePosition.y / M_GraphicManager->GetVerticalResolutionAdapter());
+		else
+			return mousePosition;
 	}
 
 	void EventsManager::DispatchMouseEvents()
@@ -103,10 +112,11 @@ namespace Shard2D
 		if (entity->mouseEnabled && !deadlineReached)
 		{
 			// Checks if the mouse is inside the entity 
-			if (PointInsideRect(mousePosition, Vector2(	entity->_finalFixedX, entity->_finalFixedY),
+			if (PointInsideRect(GetMousePosition(true), Vector2(entity->_finalFixedX, entity->_finalFixedY),
 														entity->_finalFixedWidth,
 														entity->_finalFixedHeight,
-														entity->GlobalRotation()))
+														entity->GlobalRotation(),
+														entity->centerPivot))
 			{
 				if (!entity->mouseOverlapped)
 				{

@@ -30,15 +30,15 @@ namespace Shard2D
 		Vector2 mousePosition;
 
 		/**
-		Catches all the inputs from the SDL_PollEvent and fill the events lists for the dispatch
+		Catches all the inputs from the SDL_PollEvent and fill the events lists for the dispatch.
 		*/
 		void CatchInputs();
 		/**
-		Dispatch all the catched MouseEvents from the CatchInputs function. The MouseEvents will stop if they find a GameObject capable of getting a mouse event and with blockMouseEvents set to false
+		Dispatch all the catched MouseEvents from the CatchInputs function. The MouseEvents will stop if they find a GameObject capable of getting a mouse event and with blockMouseEvents set to false.
 		*/
 		void DispatchMouseEvents();
 		/**
-		Dispatch all the catched KeyboardEvents from the CatchInputs function
+		Dispatch all the catched KeyboardEvents from the CatchInputs function.
 		*/
 		void DispatchKeyboardEvents();
 		/**
@@ -46,16 +46,23 @@ namespace Shard2D
 		*/
 		void CheckEntitiesForMouseEvents(Entity* entity, bool& deadlineReached);
 		/**
-		Checks the mouse button pressed
+		Checks the mouse button pressed.
 		*/
 		void RunMouseButtonDownEvent(SDL_Event& sdlEvent);
 		/**
-		Checks the mouse button released
+		Checks the mouse button released.
 		*/
 		void RunMouseButtonUpEvent(SDL_Event& sdlEvent);
 		/**
 		Checks the mouse wheel movement
 		*/
 		void RunMouseWheelEvent(SDL_Event& sdlEvent);
+
+	public:
+		/**
+		Return the actual mouse position.
+		@param fixedWithResolution: return the position with the default resolution adaptation (check the SetDefaultResolution in GraphicManager.h)
+		*/
+		Vector2 GetMousePosition(bool fixedWithResolution);
 	};
 }

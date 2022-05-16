@@ -15,8 +15,6 @@ using namespace Shard2D;
 void MouseBeginOverlap(MouseEvent* _event)
 {
     Shard2D::Log("Begin Overlap");
-
-    
 }
 
 void MouseEndOverlap(MouseEvent* _event)
@@ -37,6 +35,7 @@ ApplicationMain::ApplicationMain()
 void ApplicationMain::Init()
 {
     M_GraphicManager->SetDefaultResolution(1280, 720, true);
+    M_GraphicManager->ResizeWindow(640, 360, WindowType::Window);
 
     for (int i = 0; i < 1; i++)
     {
@@ -202,10 +201,10 @@ void ApplicationMain::Update()
 
 void ApplicationMain::TestMethod(KeyboardEvent* _event)
 {
-    M_GraphicManager->ResizeWindow(640, 360, WindowType::Window);
+    //M_GraphicManager->ResizeWindow(640, 360, WindowType::Window);
 }
 
 void ApplicationMain::TestMethod2(KeyboardEvent* _event)
 {
-    M_GraphicManager->ResizeWindow(1280, 720, WindowType::Window);
+    //M_GraphicManager->ResizeWindow(1280, 720, WindowType::Window);
 }
