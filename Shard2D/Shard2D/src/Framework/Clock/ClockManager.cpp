@@ -19,9 +19,6 @@ namespace Shard2D
         Log("ClockManager destroyed!", TextColor::Yellow);
     }
 
-    /**
-    Return the actual frame's delta time
-    */
     float ClockManager::GetDeltaTime()
     {
         return _deltaTime / 1000;
@@ -37,31 +34,54 @@ namespace Shard2D
         return FPS;
     }
 
-    /**
-     Called frame by frame from the GameManager for the delta time update
-     */
-    void ClockManager::UpdateDeltaTime()
+    void ClockManager::EnableFrameRateCap(int newFrameRate)
     {
-        _deltaTime = SDL_GetTicks() - _startTick;
-        UpdateFPS();
+        if (newFrameRate > 0)
+        {
+            _frameRateCapEnabled = true;
+            _frameRateCap = newFrameRate;
+        }
+        else
+        {
+            _frameRateCapEnabled = false;
+        }
+    }
 
-        //std::cout << "FPS: " << ((1 / _deltaTime) * 1000) << "\n";
-        //std::cout << "Previous time: " << _previousTick << "\n";
-        //std::cout << "Current time: " << _currentTick << "\n";
-        //std::cout << "Delta time: " << GetDeltaTimeMS() << "\n";
+    void ClockManager::DisableFrameRateCap()
+    {
+        _frameRateCapEnabled = false;
     }
 
     void ClockManager::NewFrame()
     {
-        _startTick = float(SDL_GetTicks());
-        _startFrameCounter = SDL_GetPerformanceCounter();
+        ManageFramesCap();
+        _startFrameCounter = std::chrono::system_clock::now();
     }
 
     void ClockManager::ManageFramesCap()
     {
-        float elapsedMS = (SDL_GetPerformanceCounter() - _startFrameCounter) / SDL_GetPerformanceFrequency() * 1000.0f;
+        // Save the end frame time
+        std::chrono::system_clock::time_point _endFrameCounter = std::chrono::system_clock::now();
+        // Get the frame duration
+        std::chrono::duration<double, std::milli> timeElapsed = _endFrameCounter - _startFrameCounter;
 
-        SDL_Delay(floor((1000 / (_frameRateCap)) - elapsedMS));
+        // Get the delta time as ms for the frame duration
+        std::chrono::duration<double, std::milli> deltaMs(1000 / _frameRateCap - timeElapsed.count());
+        auto deltaMsDuration = std::chrono::duration_cast<std::chrono::milliseconds>(deltaMs);
+
+        // If the frame duration is too low and the frame rate cap is enable, slow down the frame duration
+        if (timeElapsed.count() < 1000 / _frameRateCap && _frameRateCapEnabled)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(deltaMsDuration.count()));
+        }
+
+        // Get the sleep time and the new frame duration after the delay
+        std::chrono::system_clock::time_point _endSleepCounter = std::chrono::system_clock::now();
+        std::chrono::duration<double, std::milli> timeSlept = _endSleepCounter - _endFrameCounter;
+
+        // Set the complete delta time and update the FPS
+        _deltaTime = (timeElapsed + timeSlept).count();
+        UpdateFPS();
     }
 
     void ClockManager::UpdateFPS()
