@@ -78,23 +78,7 @@ namespace Shard2D
 		Vector2 origin = Vector2(entity->_finalFixedX * GetHorizontalResolutionAdapter(), entity->_finalFixedY * GetVerticalResolutionAdapter());
 		Vector2 rectPoints[4];
 
-		if (!entity->centerPivot)
-		{
-			rectPoints[0] = origin;
-			rectPoints[1] = origin + (PositionFromDeg(rotation) * width);
-			rectPoints[3] = origin + (PositionFromDeg(rotation + 90) * height);
-			rectPoints[2] = origin + (rectPoints[1] - origin) + (rectPoints[3] - origin);
-		}
-		else
-		{
-			origin.x += width / 2;
-			origin.y += height / 2;
-
-			rectPoints[0] = origin + (PositionFromDeg(rotation) * (width / 2)) + (PositionFromDeg(rotation + 270) * (height / 2));
-			rectPoints[1] = origin + (PositionFromDeg(rotation + 180) * (width / 2)) + (PositionFromDeg(rotation + 270) * (height / 2));
-			rectPoints[3] = origin + (PositionFromDeg(rotation) * (width / 2)) + (PositionFromDeg(rotation + 90) * (height / 2));
-			rectPoints[2] = origin + (PositionFromDeg(rotation + 180) * (width / 2)) + (PositionFromDeg(rotation + 90) * (height / 2));
-		}
+		GenerateRect(rectPoints, origin, width, height, rotation, entity->centerPivot);
 
 		SDL_SetRenderDrawColor(_winRenderer, 255, 0, 0, 255);
 

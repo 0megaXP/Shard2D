@@ -39,6 +39,12 @@ namespace Shard2D
 			@param reflect:			If the reflection is active.
 		*/
 		virtual ITween* Reflect(bool reflect = true) = 0;
+		/*
+			Automatically deallocate the tween at the end of the animation (if the repeat is infinite, it will auto delete at the stop).
+
+			@param selfDelete:		If the tween have to be auto deleted.
+		*/
+		virtual ITween* SelfDelete(bool selfDelete = true) = 0;
 
 	protected:
 		/*
@@ -47,6 +53,8 @@ namespace Shard2D
 		virtual void UpdateValue(float deltaTime) = 0;
 
 		virtual void SetupForStart() = 0;
+
+		virtual bool GetSelfDelete() = 0;
 
 	};
 }

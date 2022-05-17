@@ -31,6 +31,12 @@ namespace Shard2D
 		@param runCompleteEvent:	If the complete event must stil be called (the default value is false).
 	*/
 #define StopTween Managers::tweensManager->StopTweenAnimation
+	/*
+		Delete the reference of an ITween ptr. If you are sure to never use a tween anymore, call this function to deallocate its memory.
+
+		@param tween:			The tween to delete.
+	*/
+#define DeleteTween Managers::tweensManager->DeleteTweenAnimation
 
 
 	class ITween;
@@ -69,6 +75,12 @@ namespace Shard2D
 			@param interruptActiveTween:	If the already running tween must be interrupted and restarted from the beginnning (the default value is false).
 		*/
 		void StartTweenAnimation(ITween* tween, bool interruptActiveTween = false);
+		/*
+			Delete the reference of an ITween ptr. If you are sure to never use a tween anymore, call this function to deallocate its memory.
+
+			@param tween:			The tween to delete.
+		*/
+		void DeleteTweenAnimation(ITween* tween);
 		/*
 			Stops immediatly the tween animation and removes it from the active tweens. You can decide to still run the complete event.
 

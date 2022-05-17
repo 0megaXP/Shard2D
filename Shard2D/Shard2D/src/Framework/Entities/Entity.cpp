@@ -124,6 +124,11 @@ namespace Shard2D
 		_pivotOffsetY = 0;
 	}
 
+	bool Entity::GetMouseOverlapped()
+	{
+		return mouseOverlapped;
+	}
+
 	short Entity::GlobalX() const
 	{
 		if (_parent != nullptr)

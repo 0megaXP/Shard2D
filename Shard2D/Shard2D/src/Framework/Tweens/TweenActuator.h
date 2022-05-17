@@ -22,6 +22,7 @@ namespace Shard2D
 		EaseType::Type _ease = EaseType::Linear;
 		bool _reflect = false;
 		int _repeat = 0;
+		bool _selfDelete = false;
 
 	private:
 		float _distanceToCover = 0;
@@ -39,12 +40,14 @@ namespace Shard2D
 		ITween* Ease(EaseType::Type ease);
 		ITween* Reflect(bool reflect);
 		ITween* Repeat(int times);
+		ITween* SelfDelete(bool selfDelete = true);
 
 	protected:
 
 		// Inteface functions
 		void UpdateValue(float deltaTime);
 		void SetupForStart();
+		bool GetSelfDelete();
 
 		/*
 			Setup all values for the repeat animations		

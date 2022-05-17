@@ -45,6 +45,8 @@ namespace Shard2D
 		short _finalFixedWidth = 0;
 		short _finalFixedHeight = 0;
 
+	protected:
+
 	public:
 		std::string Name() const;
 		Entity* Parent() const;
@@ -111,6 +113,11 @@ namespace Shard2D
 		Reset all the value used for the position fixing during the rendering
 		*/
 		void ResetFixedValues();
+
+		/*
+		Returne true if the object is overlapped with the mouse
+		*/
+		bool GetMouseOverlapped();
 
 	public:
 		/*

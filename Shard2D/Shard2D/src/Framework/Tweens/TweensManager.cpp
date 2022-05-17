@@ -40,6 +40,21 @@ namespace Shard2D
 		}
 	}
 
+	void TweensManager::DeleteTweenAnimation(ITween* tween)
+	{
+		int count = 0;
+		for (ITween* _tween : _createdTweens)
+		{
+			if (tween == _tween)
+			{
+				_createdTweens.erase(_createdTweens.begin() + count);
+				delete _tween;
+				return;
+			}
+			count++;
+		}
+	}
+
 	void TweensManager::StopTweenAnimation(ITween* tween, bool runCompleteEvent)
 	{
 		if (FindTween(tween))
@@ -109,6 +124,8 @@ namespace Shard2D
 			if (actualTween == tween)
 			{
 				_activeTweens.erase(_activeTweens.begin() + count);
+				if (tween->GetSelfDelete())
+					DeleteTween(tween);
 				return;
 			}
 			count++;

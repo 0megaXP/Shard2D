@@ -44,6 +44,13 @@ namespace Shard2D
 	}
 
 	template<typename T>
+	ITween* TweenActuator<T>::SelfDelete(bool selfDelete)
+	{
+		_selfDelete = selfDelete;
+		return this;
+	}
+
+	template<typename T>
 	void TweenActuator<T>::UpdateValue(float deltaTime)
 	{
 		_actualDuration += deltaTime + _deltaDifference;
@@ -77,6 +84,12 @@ namespace Shard2D
 		_start = _value;
 		_actualStart = _value;
 		_distanceToCover = _target - _start;
+	}
+
+	template<typename T>
+	bool TweenActuator<T>::GetSelfDelete()
+	{
+		return _selfDelete;
 	}
 
 	template<typename T>
