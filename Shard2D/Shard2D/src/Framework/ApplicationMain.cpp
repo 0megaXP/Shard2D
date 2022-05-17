@@ -37,7 +37,7 @@ void ApplicationMain::Init()
     M_GraphicManager->SetDefaultResolution(1280, 720, true);
     M_GraphicManager->ResizeWindow(1280, 720, WindowType::Window);
 
-    M_ClockManager->EnableFrameRateCap(30);
+    M_ClockManager->EnableFrameRateCap(144);
 
     for (int i = 0; i < 1; i++)
     {

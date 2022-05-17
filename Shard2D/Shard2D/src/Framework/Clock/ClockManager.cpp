@@ -66,13 +66,19 @@ namespace Shard2D
         std::chrono::duration<double, std::milli> timeElapsed = _endFrameCounter - _startFrameCounter;
 
         // Get the delta time as ms for the frame duration
-        std::chrono::duration<double, std::milli> deltaMs(1000 / _frameRateCap - timeElapsed.count());
+        std::chrono::duration<double, std::milli> deltaMs(float(1000 / _frameRateCap) - timeElapsed.count());
         auto deltaMsDuration = std::chrono::duration_cast<std::chrono::milliseconds>(deltaMs);
+
+        // Set an adjuster value if the delay is too short/long
+        if (GetFPS() > _frameRateCap + 5)
+            _adjuster = 1;
+        else if (GetFPS() < _frameRateCap - 5)
+            _adjuster = -1;
 
         // If the frame duration is too low and the frame rate cap is enable, slow down the frame duration
         if (timeElapsed.count() < 1000 / _frameRateCap && _frameRateCapEnabled)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(deltaMsDuration.count()));
+            std::this_thread::sleep_for(std::chrono::milliseconds(deltaMsDuration.count() + _adjuster));
         }
 
         // Get the sleep time and the new frame duration after the delay

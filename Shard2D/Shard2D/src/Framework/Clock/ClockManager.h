@@ -21,10 +21,11 @@ namespace Shard2D
 		bool _frameRateCapEnabled = false;
 		int _frameRateCap = 60;
 		std::chrono::system_clock::time_point _startFrameCounter = std::chrono::system_clock::now();
+		int _adjuster = 0;
 
 		float FPS;
 		std::vector<float> fpsSaved;
-		int frameToSave = 10;
+		int frameToSave = 60;
 		int fpsCount = 0;
 
 	public:
