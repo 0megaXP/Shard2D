@@ -36,7 +36,7 @@ namespace Shard2D
 
 		@param tween:			The tween to delete.
 	*/
-#define DeleteTween Managers::tweensManager->DeleteTweenAnimation
+#define DeleteTween Managers::tweensManager->AddTweenToDeletionList
 
 
 	class ITween;
@@ -55,6 +55,7 @@ namespace Shard2D
 	private:
 		std::vector<ITween*> _activeTweens;
 		std::vector<ITween*> _createdTweens;	// Contains all the created tweens and deallocate all of them in the destructor
+		std::vector<ITween*> _destroyableTweens;
 		
 	public:
 		/*
@@ -80,7 +81,7 @@ namespace Shard2D
 
 			@param tween:			The tween to delete.
 		*/
-		void DeleteTweenAnimation(ITween* tween);
+		void AddTweenToDeletionList(ITween* tween);
 		/*
 			Stops immediatly the tween animation and removes it from the active tweens. You can decide to still run the complete event.
 
@@ -99,7 +100,9 @@ namespace Shard2D
 		void TweenCompleted(TweenEvent* _event);
 
 		void RemoveTween(ITween* tween);
+		void DeleteTweenAnimation(ITween* tween);
 		bool FindTween(ITween* tween);
+		void CheckOverridableTweens(ITween* tween);
 	};
 }
 

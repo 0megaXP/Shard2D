@@ -46,6 +46,9 @@ namespace Shard2D
 		*/
 		virtual ITween* SelfDelete(bool selfDelete = true) = 0;
 
+		virtual bool IsEqual(ITween* otherTween) = 0;
+		virtual bool IsOverridable(ITween* otherTween) = 0;
+
 	protected:
 		/*
 			Called each frame to update the tween if active.

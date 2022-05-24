@@ -15,8 +15,8 @@ using namespace Shard2D;
 void MouseBeginOverlap(MouseEvent* _event)
 {
     Shard2D::Log("Begin Overlap");
-    ITween* scalingXTween = CreateTween(static_cast<Entity*>(_event->GetTarget())->scaleX, 0.65f, 0.25f)->Ease(EaseType::SineOut)->SelfDelete();
-    ITween* scalingYTween = CreateTween(static_cast<Entity*>(_event->GetTarget())->scaleY, 0.65f, 0.25f)->Ease(EaseType::SineOut)->SelfDelete();
+    ITween* scalingXTween = CreateTween(static_cast<Entity*>(_event->GetTarget())->scaleX, 0.6f, 0.25f)->Ease(EaseType::SineOut)->SelfDelete();
+    ITween* scalingYTween = CreateTween(static_cast<Entity*>(_event->GetTarget())->scaleY, 0.6f, 0.25f)->Ease(EaseType::SineOut)->SelfDelete();
     StartTween(scalingXTween, true);
     StartTween(scalingYTween, true);
 }
@@ -28,11 +28,6 @@ void MouseEndOverlap(MouseEvent* _event)
     ITween* scalingYTween = CreateTween(static_cast<Entity*>(_event->GetTarget())->scaleY, 0.5f, 0.25f)->Ease(EaseType::SineOut)->SelfDelete();
     StartTween(scalingXTween, true);
     StartTween(scalingYTween, true);
-}
-
-void KeyPressed(KeyboardEvent* _event)
-{
-    std::cout << "Key pressed: " << _event->GetKeycode() << std::endl;
 }
 
 ApplicationMain::ApplicationMain()
@@ -73,14 +68,4 @@ void ApplicationMain::Update()
 
     runtime += M_ClockManager->GetDeltaTime();
     runtimeText->SetText("Runtime: " + std::to_string(runtime) + " seconds");
-}
-
-void ApplicationMain::TestMethod(KeyboardEvent* _event)
-{
-    //M_GraphicManager->ResizeWindow(640, 360, WindowType::Window);
-}
-
-void ApplicationMain::TestMethod2(KeyboardEvent* _event)
-{
-    //M_GraphicManager->ResizeWindow(1280, 720, WindowType::Window);
 }

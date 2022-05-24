@@ -41,6 +41,10 @@ namespace Shard2D
 		ITween* Reflect(bool reflect);
 		ITween* Repeat(int times);
 		ITween* SelfDelete(bool selfDelete = true);
+		
+		bool operator==(TweenActuator<T>& otherTween);
+		bool IsEqual(ITween* otherTween);
+		bool IsOverridable(ITween* otherTween);
 
 	protected:
 

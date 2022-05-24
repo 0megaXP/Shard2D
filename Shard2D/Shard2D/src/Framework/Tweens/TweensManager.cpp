@@ -29,6 +29,9 @@ namespace Shard2D
 
 	void TweensManager::StartTweenAnimation(ITween* tween, bool interruptActiveTween)
 	{
+		if (interruptActiveTween)
+			CheckOverridableTweens(tween);
+
 		if (!FindTween(tween))
 		{
 			_activeTweens.push_back(tween);
@@ -38,6 +41,11 @@ namespace Shard2D
 		{
 			tween->SetupForStart();
 		}
+	}
+
+	void TweensManager::AddTweenToDeletionList(ITween* tween)
+	{
+		_destroyableTweens.push_back(tween);
 	}
 
 	void TweensManager::DeleteTweenAnimation(ITween* tween)
@@ -59,16 +67,24 @@ namespace Shard2D
 	{
 		if (FindTween(tween))
 		{
-			RemoveTween(tween);
 			if (runCompleteEvent)
 				tween->DispatchEvent<TweenEvent>(TweenEvent::OnComplete);
+			RemoveTween(tween);
 		}
 	}
 
 	void TweensManager::UpdateTweens()
 	{
 		for (ITween* actualTween : _activeTweens)
-			actualTween->UpdateValue(M_ClockManager->GetDeltaTime());
+			if(actualTween != nullptr)
+				actualTween->UpdateValue(M_ClockManager->GetDeltaTime());
+
+		for (ITween* tween : _destroyableTweens)
+		{
+			if (tween != nullptr)
+				DeleteTweenAnimation(tween);
+		}
+		_destroyableTweens.clear();
 	}
 
 	void TweensManager::TweenCompleted(TweenEvent* _event)
@@ -143,5 +159,15 @@ namespace Shard2D
 		}
 
 		return false;
+	}
+	void TweensManager::CheckOverridableTweens(ITween* tween)
+	{
+		for (ITween* actualTween : _activeTweens)
+		{
+			if (actualTween->IsOverridable(tween))
+			{
+				RemoveTween(actualTween);
+			}
+		}
 	}
 }

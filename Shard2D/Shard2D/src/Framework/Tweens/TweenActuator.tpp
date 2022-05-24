@@ -51,6 +51,39 @@ namespace Shard2D
 	}
 
 	template<typename T>
+	bool TweenActuator<T>::operator==(TweenActuator<T>& otherTween)
+	{
+		return	&_value == &(otherTween._value) &&
+				_target == otherTween._target &&
+				_totalDuration == otherTween._totalDuration &&
+				_delay == otherTween._delay &&
+				_ease == otherTween._ease && 
+				_reflect == otherTween._reflect && 
+				_repeat == otherTween._repeat &&
+				_selfDelete == otherTween._selfDelete;
+	}
+
+	template<typename T>
+	bool TweenActuator<T>::IsEqual(ITween* otherTween)
+	{
+		TweenActuator<T>* castedTween = static_cast<TweenActuator<T>*>(otherTween);
+		if (castedTween != nullptr)
+			return *this == *castedTween;
+		else
+			return false;
+	}
+
+	template<typename T>
+	bool TweenActuator<T>::IsOverridable(ITween* otherTween)
+	{
+		TweenActuator<T>* castedTween = static_cast<TweenActuator<T>*>(otherTween);
+		if (castedTween != nullptr)
+			return this == castedTween || (&_value == &(castedTween->_value));
+		else
+			return false;
+	}
+
+	template<typename T>
 	void TweenActuator<T>::UpdateValue(float deltaTime)
 	{
 		_actualDuration += deltaTime + _deltaDifference;

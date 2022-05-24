@@ -78,6 +78,9 @@
     <ClCompile Include="src\Framework\Entities\EntityDataParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Tweens\TweenActuator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\Entities\TextField.h">
