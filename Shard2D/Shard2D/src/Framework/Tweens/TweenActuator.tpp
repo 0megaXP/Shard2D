@@ -88,6 +88,18 @@ namespace Shard2D
 	{
 		_actualDuration += deltaTime + _deltaDifference;
 		_deltaDifference = 0;
+		// If the tween has a delay, set the start at the end of it
+		if (_onDelay)
+		{
+			if (_actualDuration > 0)
+			{
+				_onDelay = false;
+				_start = _value;
+				_actualStart = _value;
+				_distanceToCover = _target - _start;
+			}
+		}
+
 		// k is the time value used during the ease calculation
 		float k = _actualDuration > 0 ? _actualDuration / _totalDuration : 0;
 		if (k > 1)
@@ -112,6 +124,7 @@ namespace Shard2D
 	{
 		// The delay is applied directly to the duration as negative value
 		_actualDuration = _delay > 0 ? -_delay : 0;
+		_onDelay = _actualDuration < 0;
 		_repeatCount = 1;
 		_reflecting = false;
 		_start = _value;

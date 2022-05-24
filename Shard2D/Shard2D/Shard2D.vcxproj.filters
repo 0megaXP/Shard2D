@@ -63,7 +63,7 @@
     <ClCompile Include="src\Framework\Modules\MathUtils.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\ApplicationMain.cpp">
+    <ClCompile Include="src\ApplicationMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Framework\Events\EventsManager.cpp">
@@ -76,9 +76,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Framework\Entities\EntityDataParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\Tweens\TweenActuator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,7 +128,7 @@
     <ClInclude Include="src\Framework\Management\Kickstart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\ApplicationMain.h">
+    <ClInclude Include="src\ApplicationMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Utils\ShardUtils.h">
@@ -219,7 +216,6 @@
   <ItemGroup>
     <None Include="src\Framework\Utils\CustomMap.tpp" />
     <None Include="src\Framework\Events\EventDispatcher.tpp" />
-    <None Include="TweensManager.tpp" />
     <None Include="src\Framework\Tweens\TweensManager.tpp" />
     <None Include="src\Framework\Tweens\TweenActuator.tpp" />
   </ItemGroup>

@@ -4,8 +4,8 @@
 #include <memory>
 
 #include "../Management/Managers.h"
-#include "../ApplicationMain.h"
 #include "../Events/EventTypes/Event.h"
+#include "../Entities/Entity.h"
 #include "IMain.h"
 
 namespace Shard2D

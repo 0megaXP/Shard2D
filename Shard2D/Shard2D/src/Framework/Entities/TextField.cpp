@@ -5,11 +5,11 @@
 
 namespace Shard2D
 {
-    TextField::TextField(std::string newText, std::string fontName, int newSize)
+    TextField::TextField(std::string newText, std::string fontPath, int newSize)
         : _text(newText), size(newSize)
     {
         width = 1280;
-        font = M_AssetsManager->GetFont(fontName);
+        font = M_AssetsManager->GetFont(fontPath);
 
         LoadTexture();
 

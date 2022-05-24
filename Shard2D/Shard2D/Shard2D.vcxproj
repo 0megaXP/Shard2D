@@ -74,6 +74,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)..\SDL2\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
+    <PublicModuleDirectories>C:\Users\WM_PC\source\repos\Shard2D\Shard2D\Shard2D\src\Framework\Modules;$(PublicModuleDirectories)</PublicModuleDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -195,7 +196,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClCompile Include="src\Framework\Modules\MathUtils.ixx" />
     <ClCompile Include="src\Framework\Utils\MathVectors.cpp" />
     <ClCompile Include="Shard2D.cpp" />
-    <ClCompile Include="src\Framework\ApplicationMain.cpp" />
+    <ClCompile Include="src\ApplicationMain.cpp" />
     <ClCompile Include="src\Framework\Tweens\ITween.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +241,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClInclude Include="src\Framework\Management\Kickstart.h" />
     <ClInclude Include="src\Framework\Management\Managers.h" />
     <ClInclude Include="src\Framework\Utils\MathVectors.h" />
-    <ClInclude Include="src\Framework\ApplicationMain.h" />
+    <ClInclude Include="src\ApplicationMain.h" />
     <ClInclude Include="src\Framework\Tweens\ITween.h" />
     <ClInclude Include="src\Framework\Tweens\TweenActuator.h" />
   </ItemGroup>
@@ -252,7 +253,6 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
       <FileType>CppHeader</FileType>
       <DeploymentContent>false</DeploymentContent>
     </None>
-    <None Include="TweensManager.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

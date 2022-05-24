@@ -29,6 +29,7 @@ namespace Shard2D
 		float _actualDuration = 0;
 		T _actualStart;	// The starting point used as placeholder for not changing the real one
 		bool _delayOnRepeat = false;	// If the delay affects the repeated animations
+		bool _onDelay = false;	// If the actual tween is on delay
 		int _repeatCount = 0;
 		bool _reflecting = false;	// If the actual animation is a reflection
 		float _deltaDifference = 0;	// Used for concatenate correctly the repeated animation with the previous delta time

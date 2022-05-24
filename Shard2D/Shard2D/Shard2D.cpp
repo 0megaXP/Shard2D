@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "src/Framework/Management/Kickstart.h"
-#include "src/Framework/ApplicationMain.h"
+#include "src/ApplicationMain.h"
 
 int main()
 {

@@ -11,7 +11,7 @@ namespace Shard2D
 	class TextField : public Entity
 	{
 	public:
-		TextField(std::string newText, std::string fontName, int size);
+		TextField(std::string newText, std::string fontPath, int size);
 
 	protected:
 		~TextField();
