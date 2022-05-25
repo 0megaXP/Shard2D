@@ -88,7 +88,6 @@ namespace Shard2D
 
 				int _objectActualRotation = int(DegFromPosition(_objectLocalPosition, Vector2()));
 				Vector2 normalizedPosition = PositionFromDeg(_entity->Parent()->GlobalRotation() + _objectActualRotation);
-				Vector2 basePosition = PositionFromDeg(0);
 
 				int fixedX = int(normalizedPosition.x * radius - _entity->x);
 				int fixedY = int(normalizedPosition.y * radius - _entity->y);

@@ -20,7 +20,7 @@ namespace Shard2D
 		Log("AssetsManager destroyed!", TextColor::Purple);
 	}
 
-	Image* AssetsManager::GetImageFromPNG(const std::string path)
+	Image* AssetsManager::GetImageFromPNG(const std::string &path)
 	{
 		if (_texturesSaved.Contains(path))
 			return new Image(_texturesSaved.Get(path));
@@ -33,7 +33,7 @@ namespace Shard2D
 		return newImage;
 	}
 
-	TTF_Font* AssetsManager::GetFont(const std::string path)
+	TTF_Font* AssetsManager::GetFont(const std::string &path)
 	{
 		CustomFont* newFont = SearchFont(path);
 
@@ -47,7 +47,7 @@ namespace Shard2D
 		return newFont->font;
 	}
 
-	CustomFont* AssetsManager::SearchFont(std::string fontName)
+	CustomFont* AssetsManager::SearchFont(const std::string &fontName)
 	{
 		for (Uint8 i = 0; i < _fontsSaved.size(); i++)
 		{

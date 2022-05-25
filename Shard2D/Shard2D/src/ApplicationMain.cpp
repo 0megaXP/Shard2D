@@ -22,11 +22,6 @@ void MouseEndOverlap(MouseEvent* _event)
 
 }
 
-ApplicationMain::ApplicationMain()
-{
-
-}
-
 void ApplicationMain::Init()
 {
     M_GraphicManager->SetDefaultResolution(1280, 720, true);

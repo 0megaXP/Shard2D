@@ -8,9 +8,6 @@
 
 class ApplicationMain : public Shard2D::IMain
 {
-public:
-	ApplicationMain();
-
 private:
 	void Init();
 

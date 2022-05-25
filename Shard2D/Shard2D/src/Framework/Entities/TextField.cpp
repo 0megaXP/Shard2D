@@ -5,7 +5,7 @@
 
 namespace Shard2D
 {
-    TextField::TextField(std::string newText, std::string fontPath, int newSize)
+    TextField::TextField(const std::string &newText, const std::string &fontPath, int newSize)
         : _text(newText), size(newSize)
     {
         width = 1280;

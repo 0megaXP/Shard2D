@@ -36,15 +36,15 @@ namespace Shard2D
 		/*
 		Creates and returns an Image containing the texture created from the .png found at the path given
 		*/
-		Image* GetImageFromPNG(const std::string path);
+		Image* GetImageFromPNG(const std::string &path);
 
 		/*
 		Creates and returns an Image containing the font created from the .ttf found at the path given
 		*/
-		TTF_Font* GetFont(const std::string path);
+		TTF_Font* GetFont(const std::string &path);
 
 	private:
-		CustomFont* SearchFont(std::string fontName);
+		CustomFont* SearchFont(const std::string &fontName);
 
 	};
 }

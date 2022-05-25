@@ -159,10 +159,6 @@ namespace Shard2D
 	{
 		if (_image && _image->_texture)
 		{
-			//_entity->ResetFixedValues();
-
-			SDL_Texture* texture = _image->_texture;
-
 			SDL_Point rotPoint = EntityDataParser::GetRotationPoint(_entity, _image);
 
 			// Setting the rendering rect
