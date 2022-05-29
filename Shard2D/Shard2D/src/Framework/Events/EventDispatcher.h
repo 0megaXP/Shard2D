@@ -29,7 +29,7 @@ SOFTWARE.
 #include <memory>
 
 #include "EventListener.h"
-#include "../Utils/ShardUtils.h"
+#include "../ShardUtils.h"
 
 namespace Shard2D
 {

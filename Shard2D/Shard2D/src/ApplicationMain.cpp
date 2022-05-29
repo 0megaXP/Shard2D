@@ -3,12 +3,12 @@
 #include <SDL.h>
 
 #include "Framework/Management/Managers.h"
-#include "Framework/Utils/ShardUtils.h"
+#include "Framework/ShardUtils.h"
 #include "Framework/Entities/Entity.h"
 #include "Framework/Tweens/TweensManager.h"
 
-import MathUtils;
-import BooleanUtils;
+//import MathUtils;
+//import BooleanUtils;
 
 using namespace Shard2D;
 
@@ -33,7 +33,7 @@ void ApplicationMain::Init()
     logoContainer->a = 0;
     AddToStage(logoContainer);
 
-    logoText = new TextField("Welcome to Shard2D", "Fonts/FiveBoroughsHandwriting", 72);
+    logoText = new TextField("Welcome to Shard2D", "Assets/Fonts/FiveBoroughsHandwriting.ttf", 72);
     logoContainer->AddChild(logoText);
     logoText->centerPivot = true;
     logoText->x = 640;
@@ -43,11 +43,11 @@ void ApplicationMain::Init()
     demoContainer->a = 0;
     AddToStage(demoContainer);
 
-    fpsCounter = new TextField("", "Fonts/arial", 36);
+    fpsCounter = new TextField("", "Assets/Fonts/arial.ttf", 36);
     fpsCounter->y = 670;
     demoContainer->AddChild(fpsCounter);
 
-    runtimeText = new TextField("Test", "Fonts/arial", 36);
+    runtimeText = new TextField("Test", "Assets/Fonts/arial.ttf", 36);
     runtimeText->y = 620;
     demoContainer->AddChild(runtimeText);
 

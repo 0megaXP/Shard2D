@@ -29,11 +29,11 @@ SOFTWARE.
 
 #include "../Entities/Entity.h"
 #include "../Entities/EntityDataParser.h"
-#include "../Utils/ShardUtils.h"
 #include "../Management/Managers.h"
 #include "../Events/EventTypes/Event.h"
+#include "../ShardUtils.h"
 
-import MathUtils;
+//import MathUtils;
 
 namespace Shard2D
 {
@@ -102,7 +102,7 @@ namespace Shard2D
 		Vector2 origin = Vector2(entity->_finalFixedX * GetHorizontalResolutionAdapter(), entity->_finalFixedY * GetVerticalResolutionAdapter());
 		Vector2 rectPoints[4];
 
-		GenerateRect(rectPoints, origin, width, height, rotation, entity->centerPivot);
+		MathUtils::GenerateRect(rectPoints, origin, width, height, rotation, entity->centerPivot);
 
 		SDL_SetRenderDrawColor(_winRenderer, 255, 0, 0, 255);
 

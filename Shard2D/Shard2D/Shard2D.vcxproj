@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -146,6 +146,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x86\*.dll" "$(ProjectDir)..\Rele
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>false</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -177,6 +178,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Framework\Utils\MathUtils.cpp" />
     <ClCompile Include="src\Framework\Entities\EntityDataParser.cpp" />
     <ClCompile Include="src\Framework\Tweens\TweensManager.cpp" />
     <ClCompile Include="src\Framework\Entities\EntitiesManager.cpp" />
@@ -185,7 +187,6 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClCompile Include="src\Framework\Entities\TextField.cpp" />
     <ClCompile Include="src\Framework\Events\EventsManager.cpp" />
     <ClCompile Include="src\Framework\Assets\AssetsManager.cpp" />
-    <ClCompile Include="src\Framework\Modules\BooleanUtils.ixx" />
     <ClCompile Include="src\Framework\Clock\ClockManager.cpp" />
     <ClCompile Include="src\Framework\Events\EventTypes\Event.cpp" />
     <ClCompile Include="src\Framework\Events\EventDispatcher.cpp" />
@@ -193,13 +194,16 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClCompile Include="src\Framework\Graphic\GraphicManager.cpp" />
     <ClCompile Include="src\Framework\Management\Kickstart.cpp" />
     <ClCompile Include="src\Framework\Management\Managers.cpp" />
-    <ClCompile Include="src\Framework\Modules\MathUtils.ixx" />
     <ClCompile Include="src\Framework\Utils\MathVectors.cpp" />
     <ClCompile Include="Shard2D.cpp" />
     <ClCompile Include="src\ApplicationMain.cpp" />
     <ClCompile Include="src\Framework\Tweens\ITween.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Framework\ShardEntities.h" />
+    <ClInclude Include="src\Framework\ShardEvents.h" />
+    <ClInclude Include="src\Framework\ShardTweens.h" />
+    <ClInclude Include="src\Framework\Utils\MathUtils.h" />
     <ClInclude Include="src\Framework\Entities\EntityDataParser.h" />
     <ClInclude Include="src\Framework\Graphic\WindowType.h" />
     <ClInclude Include="src\Framework\Management\IMain.h" />
@@ -227,7 +231,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
     <ClInclude Include="src\Framework\Events\EventsManager.h" />
     <ClInclude Include="src\Framework\Events\EventTypes\MouseEvent.h" />
     <ClInclude Include="src\Framework\Events\EventListener.h" />
-    <ClInclude Include="src\Framework\Utils\ShardUtils.h" />
+    <ClInclude Include="src\Framework\ShardUtils.h" />
     <ClInclude Include="src\Framework\Assets\AssetsManager.h" />
     <ClInclude Include="src\Framework\Clock\ClockManager.h" />
     <ClInclude Include="src\Framework\Assets\CustomFont.h" />

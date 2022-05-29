@@ -24,37 +24,19 @@ SOFTWARE.
 
 #pragma once
 
-#include <string>
-#include <SDL_surface.h>
-#include <SDL.h>
+#include "Tweens/ITween.h"
+#include "Tweens/TweenActuator.h"
+#include "Tweens/Easing/Linear.h"
+#include "Tweens/Easing/Sine.h"
+#include "Tweens/Easing/Quad.h"
+#include "Tweens/Easing/Cubic.h"
+#include "Tweens/Easing/Quart.h"
+#include "Tweens/Easing/Quint.h"
+#include "Tweens/Easing/Expo.h"
+#include "Tweens/Easing/Circ.h"
+#include "Tweens/Easing/Back.h"
+#include "Tweens/Easing/Elastic.h"
+#include "Tweens/Easing/Bounce.h"
+#include "Events/EventTypes/TweenEvent.h"
 
-#include "../ShardUtils.h"
-
-namespace Shard2D
-{
-	struct Image
-	{
-	public:
-		Image() {};
-		Image(SDL_Texture* newTexture)
-			: _texture(newTexture) 
-		{
-			SDL_QueryTexture(_texture, &_format, &_access, &_width, &_height);
-		};
-		~Image() { SDL_DestroyTexture(_texture); };
-
-		float GetWidth() { return float(_width); };
-
-		float GetHeight() { return float(_height); };
-
-	private:
-		SDL_Texture* _texture;
-
-		int _width;
-		int _height;
-		int _access;
-		unsigned int _format;
-
-		friend class GraphicManager;
-	};
-}
+#include "Management/Managers.h"

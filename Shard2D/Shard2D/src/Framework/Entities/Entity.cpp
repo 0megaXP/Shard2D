@@ -29,7 +29,9 @@ SOFTWARE.
 #include "../Graphic/Image.h"
 #include "../Management/Managers.h"
 
-import MathUtils;
+#include "../ShardUtils.h"
+
+//import MathUtils;
 
 namespace Shard2D
 {
@@ -180,9 +182,9 @@ namespace Shard2D
 	float Entity::GlobalA() const
 	{
 		if (a <= 0 || _parent == nullptr)
-			return Clamp01(a);
+			return MathUtils::Clamp01(a);
 		else
-			return Clamp01(a * _parent->GlobalA());
+			return MathUtils::Clamp01(a * _parent->GlobalA());
 	}
 
 	float Entity::GlobalScaleX() const

@@ -26,12 +26,12 @@ SOFTWARE.
 
 #include "../Entities/Entity.h"
 #include "../Management/Managers.h"
-#include "../Utils/ShardUtils.h"
+#include "../ShardUtils.h"
 
 #include "EventTypes/KeyboardEvent.h"
 #include "Keycode.h"
 
-import MathUtils;
+//import MathUtils;
 
 namespace Shard2D
 {
@@ -136,7 +136,7 @@ namespace Shard2D
 		if (entity->mouseEnabled && !deadlineReached)
 		{
 			// Checks if the mouse is inside the entity 
-			if (PointInsideRect(GetMousePosition(true), Vector2(entity->_finalFixedX, entity->_finalFixedY),
+			if (MathUtils::PointInsideRect(GetMousePosition(true), Vector2(entity->_finalFixedX, entity->_finalFixedY),
 														entity->_finalFixedWidth,
 														entity->_finalFixedHeight,
 														entity->GlobalRotation(),

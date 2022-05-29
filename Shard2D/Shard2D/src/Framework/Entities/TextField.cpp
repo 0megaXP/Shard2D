@@ -25,7 +25,7 @@ SOFTWARE.
 #include "TextField.h"
 
 #include "../Management/Managers.h"
-#include "../Utils/ShardUtils.h"
+#include "../ShardUtils.h"
 
 namespace Shard2D
 {

@@ -24,6 +24,8 @@ SOFTWARE.
 
 #pragma once
 
+#include <stdexcept>
+
 namespace Shard2D
 {
 	template<typename T>

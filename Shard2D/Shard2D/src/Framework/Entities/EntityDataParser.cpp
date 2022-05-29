@@ -29,7 +29,9 @@ SOFTWARE.
 
 #include "../Graphic/Image.h"
 
-import MathUtils;
+#include "../ShardUtils.h"
+
+//import MathUtils;
 
 namespace Shard2D
 {
@@ -105,13 +107,13 @@ namespace Shard2D
 			// Now the centre of the circumference is the parent global position
 			Vector2 centre = Vector2(_entity->Parent()->AdaptedGlobalX() + _entity->Parent()->GlobalScaleFixedX(), _entity->Parent()->AdaptedGlobalY() + _entity->Parent()->GlobalScaleFixedY());
 			// Here we must use the global position, because the rendering position is already affected by the selfFixed values
-			float radius = Distance(Vector2(_entity->AdaptedGlobalX() + _entity->GlobalScaleFixedX(), _entity->AdaptedGlobalY() + _entity->GlobalScaleFixedY()), centre);
+			float radius = MathUtils::Distance(Vector2(_entity->AdaptedGlobalX() + _entity->GlobalScaleFixedX(), _entity->AdaptedGlobalY() + _entity->GlobalScaleFixedY()), centre);
 			if (radius > 0)
 			{
 				Vector2 _objectLocalPosition = Vector2(_entity->x, _entity->y);
 
-				int _objectActualRotation = int(DegFromPosition(_objectLocalPosition, Vector2()));
-				Vector2 normalizedPosition = PositionFromDeg(_entity->Parent()->GlobalRotation() + _objectActualRotation);
+				int _objectActualRotation = int(MathUtils::DegFromPosition(_objectLocalPosition, Vector2()));
+				Vector2 normalizedPosition = MathUtils::PositionFromDeg(_entity->Parent()->GlobalRotation() + _objectActualRotation);
 
 				int fixedX = int(normalizedPosition.x * radius - _entity->x);
 				int fixedY = int(normalizedPosition.y * radius - _entity->y);

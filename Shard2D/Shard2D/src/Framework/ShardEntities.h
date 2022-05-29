@@ -24,9 +24,8 @@ SOFTWARE.
 
 #pragma once
 
-#include "CustomIOStream.h"
-#include "CustomMap.h"
-#include "MathVectors.h"
+#include "Entities/Entity.h"
+#include "Entities/Sprite.h"
+#include "Entities/TextField.h"
 
-import MathUtils;
-import BooleanUtils;
+#include "Management/Managers.h"

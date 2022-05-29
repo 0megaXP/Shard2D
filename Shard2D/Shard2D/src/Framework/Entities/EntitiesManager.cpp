@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include "Entity.h"
 #include "../Management/Managers.h"
-#include "../Utils/ShardUtils.h"
+#include "../ShardUtils.h"
 #include "../Events/EventTypes/Event.h"
 
 namespace Shard2D

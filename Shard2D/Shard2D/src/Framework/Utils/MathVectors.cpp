@@ -27,7 +27,7 @@ SOFTWARE.
 #include <iostream>
 #include <math.h>
 
-import MathUtils;
+//import MathUtils;
 
 namespace Shard2D
 {

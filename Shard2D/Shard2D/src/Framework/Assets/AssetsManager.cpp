@@ -49,7 +49,7 @@ namespace Shard2D
 		if (_texturesSaved.Contains(path))
 			return new Image(_texturesSaved.Get(path));
 
-		SDL_Surface* newSurface = IMG_Load((assetsPrefix + path + pngSuffix).c_str());
+		SDL_Surface* newSurface = IMG_Load((path).c_str());
 		SDL_Texture* newTexture = M_GraphicManager->CreateTexture(newSurface);
 		_texturesSaved.Insert(path, newTexture);
 		Image* newImage = new Image(newTexture);
@@ -63,7 +63,7 @@ namespace Shard2D
 
 		if (newFont == nullptr)
 		{
-			newFont = new CustomFont(path, TTF_OpenFont((assetsPrefix + path + fontSuffix).c_str(), 72));
+			newFont = new CustomFont(path, TTF_OpenFont((path).c_str(), 72));
 			_fontsSaved.push_back(std::shared_ptr<CustomFont>(newFont));
 			Log("New font created", TextColor::Aqua);
 		}

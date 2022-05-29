@@ -24,10 +24,10 @@ SOFTWARE.
 
 #pragma once
 
-#include "../Utils/ShardUtils.h"
 #include "EventTypes/Event.h"
 #include "EventTypes/MouseEvent.h"
 #include "EventCallback.h"
+#include "../ShardUtils.h"
 
 namespace Shard2D
 {

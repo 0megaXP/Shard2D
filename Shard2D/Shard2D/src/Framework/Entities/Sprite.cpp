@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "Sprite.h"
 
-#include "../Utils/ShardUtils.h"
+#include "../ShardUtils.h"
 
 namespace Shard2D
 {

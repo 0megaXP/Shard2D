@@ -46,11 +46,6 @@ namespace Shard2D
 
 		friend class Managers;
 
-		std::string assetsPrefix = "Assets/";
-
-		std::string pngSuffix = ".png";
-
-		std::string fontSuffix = ".ttf";
 		std::vector<std::shared_ptr<CustomFont>> _fontsSaved;
 
 		CustomMap<std::string, SDL_Texture*> _texturesSaved;
