@@ -83,7 +83,7 @@ namespace Shard2D
 
     float MathUtils::DegFromPosition(Vector2 position, Vector2 centre)
     {
-        Vector2 normalizedPosition = (position - centre).Normalize();
+        Vector2 normalizedPosition = (position - centre).SquareNormalize();
         float rotation = (normalizedPosition.x * -1 + 1) / 2 * 180;
         if (normalizedPosition.y < 0)
             rotation = 360 - rotation;

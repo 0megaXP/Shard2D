@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #include "MathVectors.h"
+#include "MathUtils.h"
 
 #include <iostream>
 #include <math.h>
@@ -38,6 +39,11 @@ namespace Shard2D
         : x(newX), y(newY) { }
 
     Vector2 const Vector2::Normalize()
+    {
+        return Vector2(x / MathUtils::Distance(Vector2(), *this), y / MathUtils::Distance(Vector2(), *this));
+    }
+
+    const Vector2 Vector2::SquareNormalize()
     {
         return Vector2(x / (abs(x) + abs(y)), y / (abs(x) + abs(y)));
     }

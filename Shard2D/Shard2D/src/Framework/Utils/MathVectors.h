@@ -41,6 +41,10 @@ namespace Shard2D
         Normalize the vector with a magnitude of 1.
         */
         const Vector2 Normalize();
+        /**
+        Normalize the vector with the sum of its x and y as 1.
+        */
+        const Vector2 SquareNormalize();
 
         Vector2 operator+(const Vector2& other);
 
