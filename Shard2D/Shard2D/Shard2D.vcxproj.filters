@@ -221,6 +221,9 @@
     <ClInclude Include="src\Framework\ShardTweens.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\ShardKickstart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Framework\Utils\CustomMap.tpp" />

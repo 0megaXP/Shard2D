@@ -61,6 +61,10 @@ namespace Shard2D
         */
         static Vector2 PositionFromDeg(float rotation);
         /**
+        Returns the rotation as radians at a certain position of a circumference with the given centre.
+        */
+        static float RadFromPosition(Vector2 position, Vector2 centre);
+        /**
         Returns the rotation as degree at a certain position of a circumference with the given centre.
         */
         static float DegFromPosition(Vector2 position, Vector2 centre);

@@ -31,6 +31,8 @@ SOFTWARE.
 
 #include "../ShardUtils.h"
 
+#include <math.h>
+
 //import MathUtils;
 
 namespace Shard2D
@@ -55,10 +57,12 @@ namespace Shard2D
 
 		int globalX = entity->AdaptedGlobalX();
 		int globalY = entity->AdaptedGlobalY();
+
+		Vector2 scaleFixedMultipliers = GetScaleFixedMultipliers(entity);
 		
 		// Set the x position where the entity need to be rendered
-		int renderingX = globalX + pivotOffsetX + entity->GlobalParentFixedX();
-		int renderingY = globalY + pivotOffsetY + entity->GlobalParentFixedY();
+		int renderingX = globalX + pivotOffsetX + entity->GlobalParentFixedX() + (entity->GlobalScaleFixedX() * scaleFixedMultipliers.x);
+		int renderingY = globalY + pivotOffsetY + entity->GlobalParentFixedY() + (entity->GlobalScaleFixedY() * scaleFixedMultipliers.y);
 
 		entity->_finalFixedX = renderingX;
 		entity->_finalFixedY = renderingY;
@@ -105,9 +109,9 @@ namespace Shard2D
 		if (_entity->Parent() != nullptr)
 		{
 			// Now the centre of the circumference is the parent global position
-			Vector2 centre = Vector2(_entity->Parent()->AdaptedGlobalX() + _entity->Parent()->GlobalScaleFixedX(), _entity->Parent()->AdaptedGlobalY() + _entity->Parent()->GlobalScaleFixedY());
+			Vector2 centre = Vector2(_entity->Parent()->AdaptedGlobalX(), _entity->Parent()->AdaptedGlobalY());
 			// Here we must use the global position, because the rendering position is already affected by the selfFixed values
-			float radius = MathUtils::Distance(Vector2(_entity->AdaptedGlobalX() + _entity->GlobalScaleFixedX(), _entity->AdaptedGlobalY() + _entity->GlobalScaleFixedY()), centre);
+			float radius = MathUtils::Distance(Vector2(_entity->AdaptedGlobalX(), _entity->AdaptedGlobalY()), centre);
 			if (radius > 0)
 			{
 				Vector2 _objectLocalPosition = Vector2(_entity->x, _entity->y);
@@ -132,6 +136,17 @@ namespace Shard2D
 	int EntityDataParser::GetPivotOffsetY(Entity* entity, Image* image)
 	{
 		return -image->GetHeight() / 2 * entity->AdaptedGlobalScaleY();
+	}
+
+	Vector2 EntityDataParser::GetScaleFixedMultipliers(Entity* entity)
+	{
+		// Standard position is 180° + 45°, but we keep the sign for the 45°
+		int rotation = entity->GlobalRotation() + 45;
+		Vector2 posFromDeg = MathUtils::PositionFromDeg(rotation);
+		// Secant of 45°
+		float radius = 1 / cos(M_PI / 4);
+		// x and y are swapped due to the standard position as 180° + 45° and the clockwise rotation
+		return Vector2(radius * posFromDeg.y,  radius * posFromDeg.x);	
 	}
 
 }

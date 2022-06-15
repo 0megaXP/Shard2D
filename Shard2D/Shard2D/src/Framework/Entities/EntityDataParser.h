@@ -47,6 +47,7 @@ namespace Shard2D
 
 		static int GetPivotOffsetY(Entity* entity, Image* image);
 
+		static Vector2 GetScaleFixedMultipliers(Entity* entity);
 	};
 }
 

@@ -81,12 +81,18 @@ namespace Shard2D
         return PositionFromRad(radRotation);
     }
 
+    float MathUtils::RadFromPosition(Vector2 position, Vector2 centre)
+    {
+        Vector2 normalizedPosition = (position - centre).Normalize();
+        float rotation = acos(normalizedPosition.x);
+        if (normalizedPosition.y < 0)
+            rotation = 2 * M_PI - rotation;
+        return rotation;
+    }
+
     float MathUtils::DegFromPosition(Vector2 position, Vector2 centre)
     {
-        Vector2 normalizedPosition = (position - centre).SquareNormalize();
-        float rotation = (normalizedPosition.x * -1 + 1) / 2 * 180;
-        if (normalizedPosition.y < 0)
-            rotation = 360 - rotation;
+        float rotation = RadFromPosition(position, centre) / (2 * M_PI) * 360;
         return rotation;
     }
 

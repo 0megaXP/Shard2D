@@ -121,7 +121,7 @@ namespace Shard2D
 		if (_parent == nullptr)
 			return 0;
 		else
-			return _parent->GlobalScaleFixedX() + x * (_parent->GlobalScaleX() - 1);
+			return _parent->GlobalScaleFixedX() + x * (_parent->GlobalScaleX()) - x;
 	}
 
 	short Entity::GlobalScaleFixedY() const
@@ -129,7 +129,7 @@ namespace Shard2D
 		if (_parent == nullptr)
 			return 0;
 		else
-			return _parent->GlobalScaleFixedY() + y * (_parent->GlobalScaleY() - 1);
+			return _parent->GlobalScaleFixedY() + y * (_parent->GlobalScaleY()) - y;
 	}
 
 	short Entity::RenderingX() const

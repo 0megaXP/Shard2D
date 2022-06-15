@@ -202,6 +202,7 @@ start xcopy /E /Y /R  "$(ProjectDir)..\SDL2\lib\x64\*.dll" "$(ProjectDir)..\x64\
   <ItemGroup>
     <ClInclude Include="src\Framework\ShardEntities.h" />
     <ClInclude Include="src\Framework\ShardEvents.h" />
+    <ClInclude Include="src\Framework\ShardKickstart.h" />
     <ClInclude Include="src\Framework\ShardTweens.h" />
     <ClInclude Include="src\Framework\Utils\MathUtils.h" />
     <ClInclude Include="src\Framework\Entities\EntityDataParser.h" />
