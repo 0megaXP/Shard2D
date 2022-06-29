@@ -36,13 +36,13 @@ SOFTWARE.
 
 namespace Shard2D
 {
-#define M_GameManager			Managers::gameManager
-#define	M_GraphicManager		Managers::graphicManager
-#define	M_ClockManager			Managers::clockManager
-#define	M_AssetsManager			Managers::assetsManager
-#define	M_EntitiesManager		Managers::entitiesManager
-#define	M_EventsManager			Managers::eventsManager
-#define	M_TweensManager			Managers::tweensManager
+#define ShardManager			Managers::gameManager
+#define	ShardGraphic			Managers::graphicManager
+#define	ShardClock				Managers::clockManager
+#define	ShardAssets				Managers::assetsManager
+#define	ShardEntities			Managers::entitiesManager
+#define	ShardEvents				Managers::eventsManager
+#define	ShardTweens				Managers::tweensManager
 
 	class Managers
 	{

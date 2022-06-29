@@ -168,7 +168,7 @@ namespace Shard2D
 			{
 				RenderTextureEntity(_entity, _entityImage);
 				if(_entity->showDebugRect)
-					M_GraphicManager->DrawDebugRect(_entity);
+					ShardGraphic->DrawDebugRect(_entity);
 			}
 
 			// Call the RenderObject() function for all the children
@@ -204,7 +204,7 @@ namespace Shard2D
 		SDL_SetRenderDrawColor(_winRenderer, 0, 0, 0, 255);
 		SDL_RenderClear(_winRenderer);
 
-		for (Entity* entity : M_EntitiesManager->_stagedEntities)
+		for (Entity* entity : ShardEntities->_stagedEntities)
 		{
 			RenderEntity(entity);
 		}

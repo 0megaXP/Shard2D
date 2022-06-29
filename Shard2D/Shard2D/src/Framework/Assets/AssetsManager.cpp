@@ -50,7 +50,7 @@ namespace Shard2D
 			return new Image(_texturesSaved.Get(path));
 
 		SDL_Surface* newSurface = IMG_Load((path).c_str());
-		SDL_Texture* newTexture = M_GraphicManager->CreateTexture(newSurface);
+		SDL_Texture* newTexture = ShardGraphic->CreateTexture(newSurface);
 		_texturesSaved.Insert(path, newTexture);
 		Image* newImage = new Image(newTexture);
 		SDL_FreeSurface(newSurface);

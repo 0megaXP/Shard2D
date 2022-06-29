@@ -90,7 +90,7 @@ namespace Shard2D
 	{
 		for (ITween* actualTween : _activeTweens)
 			if(actualTween != nullptr)
-				actualTween->UpdateValue(M_ClockManager->GetDeltaTime());
+				actualTween->UpdateValue(ShardClock->GetDeltaTime());
 
 		for (ITween* tween : _remotionTweens)
 		{

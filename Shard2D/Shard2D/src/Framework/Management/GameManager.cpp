@@ -66,24 +66,24 @@ namespace Shard2D
         {
             _updating = true;
             // Clock update
-            M_ClockManager->NewFrame();
+            ShardClock->NewFrame();
 
             // Events update
-            for (Entity* object : M_EntitiesManager->_stagedEntities)
+            for (Entity* object : ShardEntities->_stagedEntities)
                 object->DispatchEvent<Event>(Event::Update);
 
-            M_EventsManager->CatchInputs();
+            ShardEvents->CatchInputs();
 
             //Tween Update
-            M_TweensManager->UpdateTweens();
+            ShardTweens->UpdateTweens();
 
             // Logic update
             appMain->Update();
-            for (Entity* object : M_EntitiesManager->_stagedEntities)
+            for (Entity* object : ShardEntities->_stagedEntities)
                 object->Update();
 
             // Graphic update
-            M_GraphicManager->RenderScene();
+            ShardGraphic->RenderScene();
 
             _updating = false;
         }

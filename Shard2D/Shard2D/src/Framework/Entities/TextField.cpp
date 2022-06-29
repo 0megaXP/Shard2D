@@ -33,7 +33,7 @@ namespace Shard2D
         : _text(newText), size(newSize)
     {
         width = 1280;
-        font = M_AssetsManager->GetFont(fontPath);
+        font = ShardAssets->GetFont(fontPath);
 
         LoadTexture();
 
@@ -93,7 +93,7 @@ namespace Shard2D
         else
         {
             _image.reset();
-            SDL_Texture* textTexture = M_GraphicManager->CreateTexture(textSurface);
+            SDL_Texture* textTexture = ShardGraphic->CreateTexture(textSurface);
             SDL_FreeSurface(textSurface);
             _image = std::shared_ptr<Image>(new Image(textTexture));
         }

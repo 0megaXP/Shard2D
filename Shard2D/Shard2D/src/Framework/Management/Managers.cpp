@@ -36,13 +36,13 @@ namespace Shard2D
 
 	void Managers::DeleteManagers()
 	{
-		delete M_TweensManager;
-		delete M_EventsManager;
-		delete M_AssetsManager;
-		delete M_ClockManager;
-		delete M_GraphicManager;
-		delete M_EntitiesManager;
-		delete M_GameManager;
+		delete ShardTweens;
+		delete ShardEvents;
+		delete ShardAssets;
+		delete ShardClock;
+		delete ShardGraphic;
+		delete ShardEntities;
+		delete ShardManager;
 	}
 
 }

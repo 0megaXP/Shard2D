@@ -38,7 +38,7 @@ namespace Shard2D
 	Entity::Entity()
 		: _name("New Entity")
 	{
-		M_EntitiesManager->EntityCreated(this);
+		ShardEntities->EntityCreated(this);
 
 		Init();
 

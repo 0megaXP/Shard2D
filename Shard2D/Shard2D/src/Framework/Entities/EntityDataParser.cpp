@@ -75,10 +75,10 @@ namespace Shard2D
 		entity->_finalFixedHeight = height;
 
 		// Set the rect values using the horizontal and vertical adapter
-		rect.x = renderingX * M_GraphicManager->GetHorizontalResolutionAdapter();
-		rect.y = renderingY * M_GraphicManager->GetVerticalResolutionAdapter();
-		rect.w = width * M_GraphicManager->GetHorizontalResolutionAdapter();
-		rect.h = height * M_GraphicManager->GetVerticalResolutionAdapter();
+		rect.x = renderingX * ShardGraphic->GetHorizontalResolutionAdapter();
+		rect.y = renderingY * ShardGraphic->GetVerticalResolutionAdapter();
+		rect.w = width * ShardGraphic->GetHorizontalResolutionAdapter();
+		rect.h = height * ShardGraphic->GetVerticalResolutionAdapter();
 
 		return rect;
 	}
@@ -91,8 +91,8 @@ namespace Shard2D
 		rotPoint.y = 0;
 		if (entity->centerPivot)
 		{
-			rotPoint.x = -GetPivotOffsetX(entity, image) * M_GraphicManager->GetHorizontalResolutionAdapter();
-			rotPoint.y = -GetPivotOffsetY(entity, image) * M_GraphicManager->GetVerticalResolutionAdapter();
+			rotPoint.x = -GetPivotOffsetX(entity, image) * ShardGraphic->GetHorizontalResolutionAdapter();
+			rotPoint.y = -GetPivotOffsetY(entity, image) * ShardGraphic->GetVerticalResolutionAdapter();
 		}
 
 		return rotPoint;

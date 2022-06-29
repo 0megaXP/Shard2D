@@ -42,11 +42,11 @@ namespace Shard2D
             ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
 #endif
 
-        M_GameManager->SetupGame(newMain);
+        ShardManager->SetupGame(newMain);
 
-        while (!M_GameManager->GetExitGame())
+        while (!ShardManager->GetExitGame())
         {
-            M_GameManager->GameUpdate();
+            ShardManager->GameUpdate();
         }
 
         Close();

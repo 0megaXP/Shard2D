@@ -90,7 +90,7 @@ namespace Shard2D
 	Vector2 EventsManager::GetMousePosition(bool fixedWithResolution)
 	{
 		if (fixedWithResolution)
-			return Vector2(mousePosition.x / M_GraphicManager->GetHorizontalResolutionAdapter(), mousePosition.y / M_GraphicManager->GetVerticalResolutionAdapter());
+			return Vector2(mousePosition.x / ShardGraphic->GetHorizontalResolutionAdapter(), mousePosition.y / ShardGraphic->GetVerticalResolutionAdapter());
 		else
 			return mousePosition;
 	}
@@ -100,9 +100,9 @@ namespace Shard2D
 		// If true means that every other overlap with entities will be denied
 		bool deadlineReached = false;
 		// Checks all the entities from the end
-		for (int i = M_EntitiesManager->_stagedEntities.size() - 1; i >= 0; i--)
+		for (int i = ShardEntities->_stagedEntities.size() - 1; i >= 0; i--)
 		{
-			Entity* object = M_EntitiesManager->_stagedEntities[i];
+			Entity* object = ShardEntities->_stagedEntities[i];
 			// Checks all the entitiy's children from the end
 			if (object->_children.size() > 0)
 				for (int childI = object->_children.size() - 1; childI >= 0; childI--)
@@ -116,9 +116,9 @@ namespace Shard2D
 	{
 		if (keyboardEventsToDispatch.size() > 0)
 		{
-			for (int i = M_EntitiesManager->_stagedEntities.size() - 1; i >= 0; i--)
+			for (int i = ShardEntities->_stagedEntities.size() - 1; i >= 0; i--)
 			{
-				Entity* object = M_EntitiesManager->_stagedEntities[i];
+				Entity* object = ShardEntities->_stagedEntities[i];
 				// Checks all the entitiy's children from the end
 				if (object->_children.size() > 0)
 					for (int childI = object->_children.size() - 1; childI >= 0; childI--)
