@@ -69,11 +69,67 @@ namespace Shard2D
 
 	void TweensManager::AddTweenToDeletionList(ITween* tween)
 	{
-		_destroyableTweens.push_back(tween);
+		_deletionTweens.push_back(tween);
+	}
+
+	void TweensManager::AddTweenToRemotionList(ITween* tween, bool runCompleteEvent)
+	{
+		if (FindTween(tween))
+		{
+			if (runCompleteEvent)
+				tween->DispatchEvent<TweenEvent>(TweenEvent::OnComplete);
+
+			if (tween->GetSelfDelete())
+				DeleteTween(tween);
+			else
+				_remotionTweens.push_back(tween);
+		}
+	}
+
+	void TweensManager::UpdateTweens()
+	{
+		for (ITween* actualTween : _activeTweens)
+			if(actualTween != nullptr)
+				actualTween->UpdateValue(M_ClockManager->GetDeltaTime());
+
+		for (ITween* tween : _remotionTweens)
+		{
+			if (tween != nullptr)
+				RemoveTweenAnimation(tween);
+		}
+		_remotionTweens.clear();
+
+		for (ITween* tween : _deletionTweens)
+		{
+			if (tween != nullptr)
+				DeleteTweenAnimation(tween);
+		}
+		_deletionTweens.clear();
+	}
+
+	void TweensManager::TweenCompleted(TweenEvent* _event)
+	{
+		ITween* tweenCompleted = static_cast<ITween*>(_event->GetTarget());
+		AddTweenToRemotionList(tweenCompleted);
+	}
+
+	void TweensManager::RemoveTweenAnimation(ITween* tween)
+	{
+		int count = 0;
+		for (ITween* actualTween : _activeTweens)
+		{
+			if (actualTween == tween)
+			{
+				_activeTweens.erase(_activeTweens.begin() + count);
+				return;
+			}
+			count++;
+		}
 	}
 
 	void TweensManager::DeleteTweenAnimation(ITween* tween)
 	{
+		RemoveTweenAnimation(tween);
 		int count = 0;
 		for (ITween* _tween : _createdTweens)
 		{
@@ -85,36 +141,6 @@ namespace Shard2D
 			}
 			count++;
 		}
-	}
-
-	void TweensManager::StopTweenAnimation(ITween* tween, bool runCompleteEvent)
-	{
-		if (FindTween(tween))
-		{
-			if (runCompleteEvent)
-				tween->DispatchEvent<TweenEvent>(TweenEvent::OnComplete);
-			RemoveTween(tween);
-		}
-	}
-
-	void TweensManager::UpdateTweens()
-	{
-		for (ITween* actualTween : _activeTweens)
-			if(actualTween != nullptr)
-				actualTween->UpdateValue(M_ClockManager->GetDeltaTime());
-
-		for (ITween* tween : _destroyableTweens)
-		{
-			if (tween != nullptr)
-				DeleteTweenAnimation(tween);
-		}
-		_destroyableTweens.clear();
-	}
-
-	void TweensManager::TweenCompleted(TweenEvent* _event)
-	{
-		ITween* tweenCompleted = static_cast<ITween*>(_event->GetTarget());
-		RemoveTween(tweenCompleted);
 	}
 
 	double TweensManager::GetEaseCalculation(EaseType::Type easeType, double k)
@@ -156,22 +182,6 @@ namespace Shard2D
 		}
 	}
 
-	void TweensManager::RemoveTween(ITween* tween)
-	{
-		int count = 0;
-		for (ITween* actualTween : _activeTweens)
-		{
-			if (actualTween == tween)
-			{
-				_activeTweens.erase(_activeTweens.begin() + count);
-				if (tween->GetSelfDelete())
-					DeleteTween(tween);
-				return;
-			}
-			count++;
-		}
-	}
-
 	bool TweensManager::FindTween(ITween* tween)
 	{
 		for (ITween* actualTween : _activeTweens)
@@ -190,7 +200,7 @@ namespace Shard2D
 		{
 			if (actualTween->IsOverridable(tween))
 			{
-				RemoveTween(actualTween);
+				AddTweenToRemotionList(actualTween);
 			}
 		}
 	}

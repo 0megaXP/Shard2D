@@ -54,7 +54,7 @@ namespace Shard2D
 		@param tween:			The tween to stop.
 		@param runCompleteEvent:	If the complete event must stil be called (the default value is false).
 	*/
-#define StopTween Managers::tweensManager->StopTweenAnimation
+#define StopTween Managers::tweensManager->AddTweenToRemotionList
 	/*
 		Delete the reference of an ITween ptr. If you are sure to never use a tween anymore, call this function to deallocate its memory.
 
@@ -79,7 +79,8 @@ namespace Shard2D
 	private:
 		std::vector<ITween*> _activeTweens;
 		std::vector<ITween*> _createdTweens;	// Contains all the created tweens and deallocate all of them in the destructor
-		std::vector<ITween*> _destroyableTweens;
+		std::vector<ITween*> _remotionTweens;
+		std::vector<ITween*> _deletionTweens;
 		
 	public:
 		/*
@@ -112,7 +113,7 @@ namespace Shard2D
 			@param tween:			The tween to stop.
 			@param runCompleteEvent:	If the complete event must stil be called (the default value is false).
 		*/
-		void StopTweenAnimation(ITween* tween, bool runCompleteEvent = false);
+		void AddTweenToRemotionList(ITween* tween, bool runCompleteEvent = false);
 		/*
 			Returns the value from the ease calculation based on the easeType and the k value passed.
 		*/
@@ -122,8 +123,7 @@ namespace Shard2D
 		void UpdateTweens();
 
 		void TweenCompleted(TweenEvent* _event);
-
-		void RemoveTween(ITween* tween);
+		void RemoveTweenAnimation(ITween* tween);
 		void DeleteTweenAnimation(ITween* tween);
 		bool FindTween(ITween* tween);
 		void CheckOverridableTweens(ITween* tween);
