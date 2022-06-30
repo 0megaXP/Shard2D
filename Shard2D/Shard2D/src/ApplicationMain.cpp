@@ -121,5 +121,4 @@ void ApplicationMain::Update()
 
     if (parent->scaleX != parent->scaleY)
         Log("Fail!");
-    //spriteScaleDebug->SetText("Rendering X: " + std::to_string(grandChild->_finalFixedX) + " - Rendering Y: " + std::to_string(grandChild->_finalFixedY));
 }

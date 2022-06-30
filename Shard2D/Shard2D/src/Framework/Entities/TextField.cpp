@@ -34,10 +34,10 @@ namespace Shard2D
     {
         width = 1280;
         font = ShardAssets->GetFont(fontPath);
+        if (font == nullptr)
+            Log("Failed loading font from: " + fontPath);
 
         LoadTexture();
-
-        height = _image.get()->GetHeight();
     }
 
     TextField::~TextField()
@@ -86,7 +86,7 @@ namespace Shard2D
         textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
         if (!textSurface)
         {
-            Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);
+            Log("Failed to render text", TextColor::Red);
             _image = std::shared_ptr<Image>(new Image(nullptr));
             SDL_FreeSurface(textSurface);
         }
@@ -97,6 +97,8 @@ namespace Shard2D
             SDL_FreeSurface(textSurface);
             _image = std::shared_ptr<Image>(new Image(textTexture));
         }
+
+        height = _image.get()->GetHeight() * NormalizedSize();
     }
 
     Image* TextField::GetRenderingImage()

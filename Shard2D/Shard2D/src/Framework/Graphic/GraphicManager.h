@@ -89,7 +89,6 @@ namespace Shard2D
 		*/
 		float GetVerticalResolutionAdapter();
 
-		void DrawDebugRect(Entity* entity);
 
 	private:
 		void Init();
@@ -103,5 +102,7 @@ namespace Shard2D
 		void ApplyResize();
 
 		void UpdateResolutionAdapters();
+
+		void DrawDebugRect(Entity* entity);
 	};
 }
