@@ -53,7 +53,7 @@ namespace Shard2D
 
 	public:
 		void SetText(const std::string &newText);
-		void SetColor(SDL_Color newColor);
+		void SetColor(SDL_Color newColor) override;
 
 	private:
 		float NormalizedSize() const;

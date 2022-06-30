@@ -68,7 +68,7 @@ namespace Shard2D
 
     void TextField::SetColor(SDL_Color newColor)
     {
-        color = newColor;
+        _color = newColor;
         LoadTexture();
     }
 
@@ -83,7 +83,7 @@ namespace Shard2D
             _text = " ";
 
         SDL_Surface* textSurface;
-        textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
+        textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
         if (!textSurface)
         {
             Log("Failed to render text: " + *TTF_GetError(), TextColor::Red);

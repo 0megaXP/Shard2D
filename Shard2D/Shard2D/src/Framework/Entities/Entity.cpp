@@ -218,6 +218,16 @@ namespace Shard2D
 		_visible = isVisible;
 	}
 
+	SDL_Color Entity::GetColor()
+	{
+		return _color;
+	}
+
+	void Entity::SetColor(SDL_Color newColor)
+	{
+		_color = newColor;
+	}
+
 	bool Entity::IsActive() const
 	{
 		if (_parent != nullptr)

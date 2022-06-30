@@ -191,7 +191,7 @@ namespace Shard2D
 			Uint8 alpha = EntityDataParser::GetRenderingAlpha(_entity);
 
 			SDL_SetTextureAlphaMod(_image->_texture, alpha);
-			SDL_SetTextureColorMod(_image->_texture, _entity->color.r, _entity->color.g, _entity->color.b);
+			SDL_SetTextureColorMod(_image->_texture, _entity->GetColor().r, _entity->GetColor().g, _entity->GetColor().b);
 			SDL_RenderCopyEx(_winRenderer, _image->_texture, NULL, &_tempRect, _entity->GlobalRotation(), &rotPoint, SDL_FLIP_NONE);
 		}
 	}

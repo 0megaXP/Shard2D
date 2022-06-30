@@ -52,6 +52,8 @@ namespace Shard2D
 		Entity* _parent = nullptr;
 		std::vector<Entity*> _children;
 
+		SDL_Color _color = SDL_Color(255, 255, 255);
+
 		bool _visible = true;
 		bool _active = true;
 
@@ -92,8 +94,6 @@ namespace Shard2D
 
 		bool mouseEnabled = true;
 		bool blockMouseEvents = true;
-
-		SDL_Color color = SDL_Color(255, 255, 255);
 
 		bool showDebugRect = false;
 
@@ -179,6 +179,14 @@ namespace Shard2D
 		Set if the Entity has to be rendered (also takes count of scale and alpha)
 		*/
 		void SetVisibility(bool isVisible);
+		/*
+		Get the color of the entitiy (the alpha of the color is ignored)
+		*/
+		virtual SDL_Color GetColor();
+		/*
+		Set the color of the entitiy (the alpha of the color is ignored)
+		*/
+		virtual void SetColor(SDL_Color newColor);
 
 		/*
 		Return true if the Entity has run events and updates
