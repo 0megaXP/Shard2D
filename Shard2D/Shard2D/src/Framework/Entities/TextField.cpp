@@ -29,10 +29,10 @@ SOFTWARE.
 
 namespace Shard2D
 {
-    TextField::TextField(const std::string &newText, const std::string &fontPath, int newSize)
-        : _text(newText), size(newSize)
+    TextField::TextField(const std::string &newText, const std::string &fontPath, int newSize, int maxTextWidth)
+        : _text(newText), size(newSize),
+        _maxTextWidth(maxTextWidth)
     {
-        width = 1280;
         font = ShardAssets->GetFont(fontPath);
         if (font == nullptr)
             Log("Failed loading font from: " + fontPath);
@@ -46,18 +46,26 @@ namespace Shard2D
 
     float TextField::AdaptedGlobalScaleX() const
     {
+        float widthScale = 1;
+        if (_image != nullptr)
+            widthScale = width / (_image.get()->GetWidth() * NormalizedSize());
+
         if (Parent() != nullptr)
-            return scaleX * NormalizedSize() * Parent()->AdaptedGlobalScaleX();
+            return scaleX * NormalizedSize() * Parent()->AdaptedGlobalScaleX() * widthScale;
         else
-            return scaleX * NormalizedSize();
+            return scaleX * NormalizedSize() * widthScale;
     }
 
     float TextField::AdaptedGlobalScaleY() const
     {
+        float heightScale = 1;
+        if (_image != nullptr)
+            heightScale = height / (_image.get()->GetHeight() * NormalizedSize());
+
         if (Parent() != nullptr)
-            return scaleY * NormalizedSize() * Parent()->AdaptedGlobalScaleY();
+            return scaleY * NormalizedSize() * Parent()->AdaptedGlobalScaleY() * heightScale;
         else
-            return scaleY * NormalizedSize();
+            return scaleY * NormalizedSize() * heightScale;
     }
 
     void TextField::SetText(const std::string &newText)
@@ -72,6 +80,17 @@ namespace Shard2D
         LoadTexture();
     }
 
+    void TextField::SetMaxTextWidth(int newMaxTextWidth)
+    {
+        _maxTextWidth = newMaxTextWidth;
+        LoadTexture();
+    }
+
+    int TextField::GetMaxTextWidth()
+    {
+        return _maxTextWidth;
+    }
+
     float TextField::NormalizedSize() const
     {
         return ((float)size / 72);
@@ -83,7 +102,7 @@ namespace Shard2D
             _text = " ";
 
         SDL_Surface* textSurface;
-        textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(width / ((scaleX + scaleY) / 2) / NormalizedSize()));
+        textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), _color, Uint32(_maxTextWidth / ((scaleX + scaleY) / 2) / NormalizedSize()));
         if (!textSurface)
         {
             Log("Failed to render text", TextColor::Red);
@@ -99,6 +118,7 @@ namespace Shard2D
         }
 
         height = _image.get()->GetHeight() * NormalizedSize();
+        width = _image.get()->GetWidth() * NormalizedSize();
     }
 
     Image* TextField::GetRenderingImage()

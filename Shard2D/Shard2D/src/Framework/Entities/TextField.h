@@ -35,7 +35,7 @@ namespace Shard2D
 	class TextField : public Entity
 	{
 	public:
-		TextField(const std::string &newText, const std::string &fontPath, int size);
+		TextField(const std::string &newText, const std::string &fontPath, int size, int maxTextWidth = 1280);
 
 	protected:
 		~TextField();
@@ -46,6 +46,7 @@ namespace Shard2D
 
 	private:
 		std::string _text = "";
+		int _maxTextWidth;
 
 	protected:
 		float AdaptedGlobalScaleX() const override;
@@ -54,6 +55,8 @@ namespace Shard2D
 	public:
 		void SetText(const std::string &newText);
 		void SetColor(SDL_Color newColor) override;
+		void SetMaxTextWidth(int newMaxTextWidth);
+		int GetMaxTextWidth();
 
 	private:
 		float NormalizedSize() const;
